@@ -15,6 +15,7 @@ import {SuccessComponent} from './components/success/success.component';
 import { MailComponent } from './components/mail/mail.component';
 import {AccountCreationComponent} from './components/account-creation/account-creation.component';
 import { CreateForeignCurrencyAccountComponent } from './components/create-foreign-currency-account/create-foreign-currency-account.component';
+import { AccountDetailComponent } from './components/account-detail/account-detail.component';
 
 export const routes: Routes = [
   // login
@@ -42,5 +43,6 @@ export const routes: Routes = [
 
   // bank accounts
   { path: 'create-foreign-currency-account', component: CreateForeignCurrencyAccountComponent, canActivate: [employeeGuard] },
-  { path: 'create-current-account', component: AccountCreationComponent, canActivate: [employeeGuard] }
+  { path: 'create-current-account', component: AccountCreationComponent, canActivate: [employeeGuard] },
+  { path: 'accounts/:accountNumber', component: AccountDetailComponent, canActivate: [authGuard] },
 ];
