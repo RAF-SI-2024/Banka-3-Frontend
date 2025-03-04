@@ -1,0 +1,83 @@
+<div class="container" *ngIf="!errorMessage; else errorBlock">
+    <div class="details-card" *ngIf="account">
+      <h2>Account Details</h2>
+  
+      <table>
+        <tr>
+          <td>Account Number:</td>
+          <td>{{ account.accountNumber }}</td>
+        </tr>
+        <tr>
+          <td>Ownership Type:</td>
+          <td>{{ account.ownershipType }}</td>
+        </tr>
+  
+        <tr>
+          <td>Account Owner:</td>
+          <td>
+            {{ account.owner?.firstName }} {{ account.owner?.lastName }}
+            (ID: {{ account.owner?.id }})
+          </td>
+        </tr>
+  
+        <tr *ngIf="account.ownershipType === 'COMPANY'">
+          <td>Company ID:</td>
+          <td>{{ account.companyId }}</td>
+        </tr>
+  
+        <tr>
+          <td>Balance:</td>
+          <td>{{ account.balance }}</td>
+        </tr>
+        <tr>
+          <td>Available Balance:</td>
+          <td>{{ account.availableBalance }}</td>
+        </tr>
+        <tr>
+          <td>Daily Limit:</td>
+          <td>{{ account.dailyLimit }}</td>
+        </tr>
+        <tr>
+          <td>Monthly Limit:</td>
+          <td>{{ account.monthlyLimit }}</td>
+        </tr>
+        <tr>
+          <td>Status:</td>
+          <td>{{ account.status }}</td>
+        </tr>
+        <!-- etc. -->
+      </table>
+  
+      <div class="options">
+        <button class="btn" (click)="openRenamePopup()">Change Account Name</button>
+        <button class="btn" (click)="newPayment()">New Payment</button>
+        <button class="btn" (click)="changeLimit()">Change Limit</button>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #errorBlock>
+    <div class="container">
+      <div class="details-card">
+        <h2>Error</h2>
+        <p>{{ errorMessage }}</p>
+      </div>
+    </div>
+  </ng-template>
+  
+  <div class="popup" [ngStyle]="{ display: showRenamePopup ? 'flex' : 'none' }">
+    <div class="popup-content">
+      <h3>Change Account Name</h3>
+      <label>New Name:</label>
+      <input [(ngModel)]="newAccountName" />
+      <div class="popup-buttons">
+        <button class="btn confirm" (click)="confirmRename()">Confirm</button>
+        <button class="btn cancel" (click)="closeRenamePopup()">Cancel</button>
+      </div>
+  
+      <div *ngIf="errorMessage" style="color:red; margin-top:10px;">
+        {{ errorMessage }}
+      </div>
+    </div>
+  </div>
+  
