@@ -1,0 +1,74 @@
+<div class="container">
+    <h2>Account Management</h2>
+  
+    <div class="filter-section">
+      <input
+        type="text"
+        placeholder="Search by owner name..."
+        class="filter-input"
+        [(ngModel)]="searchOwner"
+      />
+      <input
+        type="text"
+        placeholder="Search by account number..."
+        class="filter-input"
+        [(ngModel)]="searchAccountNumber"
+      />
+      <button class="filter-btn" (click)="onFilterClick()">Filter</button>
+    </div>
+  
+    <section class="account-list">
+      <h3>Accounts</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Account Number</th>
+            <th>Owner</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let acc of accounts">
+            <td>{{ acc.accountNumber }}</td>
+            <td>
+              {{ acc.owner?.firstName }} {{ acc.owner?.lastName }}
+            </td>
+            <td>{{ acc.type }}</td>
+            <td>{{ acc.accountCategory }}</td>
+            <td>
+              <button class="details-btn" (click)="viewCards(acc.accountNumber)">View Cards</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  
+    <section class="card-list" [style.display]="showCardSection ? 'block' : 'none'">
+      <h3>Cards Linked to Account</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Card Number</th>
+            <th>Owner</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of cards">
+            <td>{{ c.cardNumber }}</td>
+            <td>{{ c.owner?.firstName }} {{ c.owner?.lastName }}</td>
+            <td [ngClass]="c.status">{{ c.status }}</td>
+            <td>
+              <button class="action-btn block" (click)="changeCardStatus(c.cardNumber, 'block')">Block</button>
+              <button class="action-btn unblock" (click)="changeCardStatus(c.cardNumber, 'unblock')">Unblock</button>
+              <button class="action-btn deactivate" (click)="changeCardStatus(c.cardNumber, 'deactivate')">Deactivate</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+  

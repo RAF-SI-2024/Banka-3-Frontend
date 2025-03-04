@@ -1,0 +1,43 @@
+<div class="accounts-container">
+    <h2>Moji Računi</h2>
+  
+    <div class="accounts-list">
+      <div class="account-item"
+           *ngFor="let account of accounts"
+           [class.selected]="account === selectedAccount"
+           (click)="onSelectAccount(account)">
+        <div class="account-info">
+          <h3>{{ account.name }}</h3>
+          <p>{{ account.number }}</p>
+          <p class="balance">{{ account.availableBalance | currency:'RSD':'symbol-narrow':'1.2-2' }}</p>
+        </div>
+        <button class="details-btn"
+                (click)="onDetailsClick(account); $event.stopPropagation()">
+          Detalji
+        </button>
+      </div>
+    </div>
+  
+    <div class="transactions-section" *ngIf="selectedAccount">
+      <h3>Transakcije: {{ selectedAccount.name }}</h3>
+      <div class="sort-controls">
+        <label>Sort by:</label>
+        <select [(ngModel)]="transactionSortBy" (change)="onChangeSort(transactionSortBy)">
+          <option value="date">Date</option>
+          <option value="type">Type</option>
+        </select>
+      </div>
+  
+      <div class="transaction-list">
+        <div class="transaction-item" *ngFor="let t of transactions">
+          <div>
+            <strong>{{ t.date | date:'shortDate' }}</strong> - {{ t.description }}
+          </div>
+          <div [ngClass]="{'inflow': t.type === 'inflow', 'outflow': t.type === 'outflow'}">
+            {{ t.amount | number:'1.2-2' }} RSD
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
