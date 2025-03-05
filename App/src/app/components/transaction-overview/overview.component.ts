@@ -9,7 +9,7 @@ import {Transactions} from '../../models/transactions';
 })
 export class OverviewComponent implements OnInit {
   transaction: Transactions | null = null;
-  accountNo: string = '123456789'; // Primer, može se menjati dinamički
+  accountNo: string = '123456789';
 
   constructor(private transactionService: AccountService) {}
 
@@ -18,10 +18,10 @@ export class OverviewComponent implements OnInit {
   }
 
   loadTransaction(): void {
-    this.transactionService.getTransactions(this.accountNo).subscribe({
-      next: (data) => (this.transaction = data),
-      error: (err) => console.error('Error loading transaction:', err)
-    });
+    // this.transactionService.getTransactions(this.accountNo).subscribe({
+    //   next: (data) => (this.transaction = data),
+    //   error: (err) => console.error('Error loading transaction:', err)
+    // });
   }
 
   openDetails(): void {

@@ -11,7 +11,7 @@
           {{ account.clientId }} - {{ account.accountNumber }}
         </option>
       </select>
-      <p class="balance" *ngIf="selectedFromAccount">Available: {{ selectedFromAccount?.availableBalance }} RSD</p>
+      <p class="balance" *ngIf="selectedFromAccount">Available: {{ selectedFromAccount.availableBalance }} RSD</p>
     </div>
 
     <div class="input-group">
@@ -21,7 +21,7 @@
           {{ account.clientId }} - {{ account.accountNumber }}
         </option>
       </select>
-      <p class="balance" *ngIf="selectedToAccount">Available: {{ selectedToAccount?.availableBalance }} RSD</p>
+      <p class="balance" *ngIf="selectedToAccount">Available: {{ selectedToAccount.availableBalance }} RSD</p>
     </div>
   </div>
 

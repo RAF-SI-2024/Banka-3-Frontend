@@ -27,6 +27,10 @@ export class AccountService {
     });
   }
 
+  getMyAccounts(){
+    return this.http.get<{ content: AccountTransfer[]}>(this.apiUrl, { headers: this.getAuthHeaders()});
+  }
+
   getAccount(accountNumber: string): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${accountNumber}`, {
       headers: this.getAuthHeaders(),
@@ -39,10 +43,6 @@ export class AccountService {
 
   getTransactions(accountNo: string): Observable<Transactions> {
     return this.http.get<Transactions>(`${this.apiUrl}/transactions/${accountNo}`, { headers: this.getAuthHeaders() });
-  }
-
-  getMyAccounts(){
-    return this.http.get<{ content: AccountTransfer[]}>(this.apiUrl, { headers: this.getAuthHeaders()});
   }
 
   createForeignAccount(accountData: Account): Observable<any> {
