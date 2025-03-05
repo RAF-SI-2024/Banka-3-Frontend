@@ -1,0 +1,178 @@
+/* Globalni stil */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #B399DD, #D0C9EA);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding-top: 30px;
+}
+
+/* Kontejner */
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  width: 500px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Dugme za dodavanje */
+.add-btn {
+  width: 100%;
+  padding: 12px;
+  background: #996FD6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.add-btn:hover {
+  background: #9E7CD7;
+  transform: scale(1.05);
+}
+
+/* Forma za dodavanje primaoca */
+.add-recipient-form {
+  background: #F5F3FB;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Polja u formi */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #C2B4E2;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1rem;
+}
+
+/* Dugmad */
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.confirm-btn, .cancel-btn {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.confirm-btn {
+  background: #996FD6;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #9E7CD7;
+}
+
+.cancel-btn {
+  background: #D9534F;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #C9302C;
+}
+
+/* Kartice primaoca */
+.recipient-card {
+  background: #F5F3FB;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sadržaj primaoca - ime i dugmad u ravni */
+.recipient-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Informacije o primaocu */
+.recipient-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.recipient-name {
+  font-weight: bold;
+}
+
+.recipient-account {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Dugmad za edit i delete */
+.button-group {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+.edit-btn {
+  background: #996FD6;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #9E7CD7;
+}
+
+.delete-btn {
+  background: #D9534F;
+  color: white;
+}
+
+.delete-btn:hover {
+  background: #C9302C;
+}
+
+/* Forma za izmenu */
+.edit-recipient-form {
+  background: #F5F3FB;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 5px;
+}
+
+.hidden {
+  display: none;
+}

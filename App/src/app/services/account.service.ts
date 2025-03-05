@@ -1,4 +1,5 @@
 import { Injectable, inject } from '@angular/core';
+
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -6,6 +7,9 @@ import { Account } from '../models/account.model';
 import { NewBankAccount } from '../models/new-bank-account.model';
 import { Employee } from '../models/employee.model';
 import { AccountResponse } from '../models/account-response.model';
+import {AccountDetails} from '../models/account-details';
+import {Transactions } from '../models/transactions';
+import {AccountTransfer} from '../models/account-transfer';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +31,18 @@ export class AccountService {
     return this.http.get<any>(`${this.apiUrl}/${accountNumber}`, {
       headers: this.getAuthHeaders(),
     });
+  }
+
+  // getAllAccounts(): Observable<AccountDetails[]> {
+  //   return this.http.get<AccountDetails[]>(this.apiUrl, { headers: this.getAuthHeaders() });
+  // }
+
+  getTransactions(accountNo: string): Observable<Transactions> {
+    return this.http.get<Transactions>(`${this.apiUrl}/transactions/${accountNo}`, { headers: this.getAuthHeaders() });
+  }
+
+  getMyAccounts(){
+    return this.http.get<{ content: AccountTransfer[]}>(this.apiUrl, { headers: this.getAuthHeaders()});
   }
 
   createForeignAccount(accountData: Account): Observable<any> {
@@ -55,5 +71,9 @@ export class AccountService {
         params,
       }
     );
+  }
+  getAccountDetails(accountNo: string): Observable<AccountDetails> {
+    return this.http.get<AccountDetails>(`${this.apiUrl}/${accountNo}`, {headers: this.getAuthHeaders()});
+
   }
 }

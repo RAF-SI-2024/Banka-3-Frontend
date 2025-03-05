@@ -1,0 +1,140 @@
+/* Global styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #B399DD, #D0C9EA);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding-top: 30px;
+}
+
+/* Main container */
+.overview-container {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  width: 750px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Filters */
+.filters {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.filters label {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.filters input,
+.filters select {
+  padding: 8px;
+  border: 1px solid #C2B4E2;
+  border-radius: 6px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+/* Transaction List */
+.transaction-list {
+  margin-top: 20px;
+}
+
+.transaction-item {
+  display: flex;
+  justify-content: space-between;
+  background: #F8F7FC;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.transaction-item:nth-child(even) {
+  background: #EDEAF8;
+}
+
+.transaction-item:hover {
+  background: #E2DAF7;
+  transform: scale(1.02);
+}
+
+/* Status Colors */
+.transaction-status.processed {
+  color: #28A745;
+}
+
+.transaction-status.pending {
+  color: #E6B800;
+}
+
+.transaction-status.rejected {
+  color: #D9534F;
+}
+
+/* Modal Popup */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  text-align: left;
+  width: 600px;
+}
+
+/* New Transaction Grid */
+.transaction-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+/* Close button (X) */
+.close {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: 0.3s;
+}
+
+.close:hover {
+  color: #996FD6;
+}
+
+/* Print Button */
+.print-btn {
+  width: 100%;
+  padding: 10px;
+  background: #996FD6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.print-btn:hover {
+  background: #9E7CD7;
+  transform: scale(1.05);
+}

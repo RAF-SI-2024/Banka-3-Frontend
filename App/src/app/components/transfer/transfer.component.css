@@ -1,0 +1,105 @@
+/* Globalni stil */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #B399DD, #D0C9EA);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding-top: 30px; /* Ljubičasta margina */
+}
+
+/* Kontejner */
+.edit-container {
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  width: 600px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animacija učitavanja */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Redovi */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 15px;
+}
+
+/* Input grupe */
+.input-group {
+  text-align: left;
+  flex: 1;
+}
+
+.input-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #C2B4E2;
+  border-radius: 6px;
+  outline: none;
+  transition: 0.3s;
+  font-size: 1rem;
+}
+
+/* Fokus efekat */
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #996FD6;
+  box-shadow: 0 0 8px rgba(153, 111, 214, 0.3);
+}
+
+/* Tekst sa raspoloživim stanjem računa */
+.balance {
+  font-size: 0.9rem;
+  color: #6A5B95;
+  margin-top: 5px;
+}
+
+/* Dugme */
+button {
+  width: 100%;
+  padding: 12px;
+  background: #996FD6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+/* Hover efekat na dugme */
+button:hover {
+  background: #9E7CD7;
+  transform: scale(1.05);
+}
+
+/* Cela širina za amount */
+.full-width {
+  flex: 100%;
+}

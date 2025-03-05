@@ -1,0 +1,62 @@
+<!--<div class="container">-->
+<!--  <h2>Payment Recipients</h2>-->
+
+<!--  <button class="add-btn" onclick="toggleAddRecipient()">+ Add Recipient</button>-->
+
+<!--  &lt;!&ndash; Forma za dodavanje novog primaoca &ndash;&gt;-->
+<!--  <div class="add-recipient-form hidden" id="addRecipientForm">-->
+<!--    <h3>Add New Recipient</h3>-->
+<!--    <div class="input-group">-->
+<!--      <input type="text" placeholder="Recipient Name" id="newRecipientName">-->
+<!--      <input type="text" placeholder="Account Number" id="newRecipientAccount">-->
+<!--    </div>-->
+<!--    <div class="btn-group">-->
+<!--      <button class="confirm-btn" onclick="confirmAddRecipient()">Confirm</button>-->
+<!--      <button class="cancel-btn" onclick="toggleAddRecipient()">Cancel</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--  &lt;!&ndash; Lista primaoca &ndash;&gt;-->
+<!--  <div id="recipientsList">-->
+<!--    <div class="recipient-card">-->
+<!--      <div class="recipient-content">-->
+<!--        <div class="recipient-info">-->
+<!--          <p class="recipient-name"><strong>{{ recipient.name }}</strong></p>-->
+<!--          <p class="recipient-account">{{ recipient.accountNumber }}</p>-->
+<!--        </div>-->
+<!--        <div class="button-group">-->
+<!--          <button class="edit-btn" onclick="toggleEditRecipient(this)">Edit</button>-->
+<!--          <button class="delete-btn">Delete</button>-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      &lt;!&ndash; Forma za izmenu primaoca &ndash;&gt;-->
+<!--      <div class="edit-recipient-form hidden">-->
+<!--        <div class="input-group">-->
+<!--          <input type="text" placeholder="Recipient Name" value="{{ recipient.name }}">-->
+<!--          <input type="text" placeholder="Account Number" value="{{ recipient.accountNumber }}">-->
+<!--        </div>-->
+<!--        <div class="btn-group">-->
+<!--          <button class="confirm-btn" onclick="toggleEditRecipient(this)">Save</button>-->
+<!--          <button class="cancel-btn" onclick="toggleEditRecipient(this)">Cancel</button>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--  function toggleAddRecipient() {-->
+<!--    document.getElementById("addRecipientForm").classList.toggle("hidden");-->
+<!--  }-->
+
+<!--  function confirmAddRecipient() {-->
+<!--    toggleAddRecipient();-->
+<!--  }-->
+
+<!--  function toggleEditRecipient(button) {-->
+<!--    let recipientCard = button.closest(".recipient-card");-->
+<!--    let editForm = recipientCard.querySelector(".edit-recipient-form");-->
+<!--    editForm.classList.toggle("hidden");-->
+<!--  }-->
+<!--</script>-->

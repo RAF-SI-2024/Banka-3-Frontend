@@ -1,0 +1,78 @@
+
+
+
+<div class="overview-container">
+  <h2>Transaction Overview</h2>
+
+  <!-- Filters -->
+  <div class="filters">
+    <div class="filter-group">
+      <label for="dateFilter">Date:</label>
+      <input type="date" id="dateFilter">
+    </div>
+
+    <div class="filter-group">
+      <label for="amountFilter">Amount:</label>
+      <input type="number" id="amountFilter" placeholder="Enter amount">
+    </div>
+
+    <div class="filter-group">
+      <label for="statusFilter">Status:</label>
+      <select id="statusFilter">
+        <option value="all">All</option>
+        <option value="processed">Processed</option>
+        <option value="pending">Pending</option>
+        <option value="rejected">Rejected</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Transaction List -->
+  <div class="transaction-list">
+    <div class="transaction-item" onclick="openDetails()">
+      <span class="transaction-name">{{ transaction?.name }}</span>
+      <span class="transaction-date">{{ transaction?.date }}</span>
+      <span class="transaction-amount">{{ transaction?.amount }} RSD</span>
+      <span class="transaction-status {{ transaction?.statusClass }}">{{ transaction?.status }}</span>
+    </div>
+  </div>
+
+  <!-- Transaction Details Popup -->
+  <div id="transactionDetails" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeDetails()">&times;</span>
+      <h3>Transaction Details</h3>
+      <div class="transaction-grid">
+        <div>
+          <p><strong>Inflow Account Owner:</strong> {{ transaction?.inflowOwner }}</p>
+          <p><strong>Inflow Account Number:</strong> {{ transaction?.inflowNumber }}</p>
+          <p><strong>Outflow Account Owner:</strong> {{ transaction?.outflowOwner }}</p>
+          <p><strong>Outflow Account Number:</strong> {{ transaction?.outflowNumber }}</p>
+          <p><strong>Payment Code:</strong> {{ transaction?.paymentCode }}</p>
+        </div>
+        <div>
+          <p><strong>Reference Number:</strong> {{ transaction?.reference }}</p>
+          <p><strong>Model:</strong> {{ transaction?.model }}</p>
+          <p><strong>Status:</strong> {{ transaction?.status }}</p>
+          <p><strong>Commission Fee:</strong> {{ transaction?.fee }}</p>
+          <p><strong>Channel:</strong> {{ transaction?.channel }}</p>
+          <p><strong>Date of Payment:</strong> {{ transaction?.date }}</p>
+        </div>
+      </div>
+      <button class="print-btn">Print Confirmation</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function openDetails() {
+    document.getElementById("transactionDetails").style.display = "block";
+  }
+
+  function closeDetails() {
+    document.getElementById("transactionDetails").style.display = "none";
+  }
+</script>
+
+!---->

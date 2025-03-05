@@ -1,0 +1,38 @@
+<body>
+<div class="edit-container">
+  <h2>Transfer</h2>
+
+  <!-- Prvi red: Sa računa + Na račun -->
+  <div class="form-row">
+    <div class="input-group">
+      <label for="from-account">From Account</label>
+      <select id="from-account" [(ngModel)]="selectedFromAccountNumber" class="dropdown">
+        <option *ngFor="let account of accounts" [value]="account.accountNumber">
+          {{ account.clientId }} - {{ account.accountNumber }}
+        </option>
+      </select>
+      <p class="balance" *ngIf="selectedFromAccount">Available: {{ selectedFromAccount?.availableBalance }} RSD</p>
+    </div>
+
+    <div class="input-group">
+      <label for="to-account">To Account</label>
+      <select id="to-account" [(ngModel)]="selectedToAccountNumber" class="dropdown">
+        <option *ngFor="let account of accounts" [value]="account.accountNumber">
+          {{ account.clientId }} - {{ account.accountNumber }}
+        </option>
+      </select>
+      <p class="balance" *ngIf="selectedToAccount">Available: {{ selectedToAccount?.availableBalance }} RSD</p>
+    </div>
+  </div>
+
+  <!-- Drugi red: Iznos -->
+  <div class="form-row">
+    <div class="input-group full-width">
+      <label for="amount">Amount</label>
+      <input id="amount" type="number" placeholder="Enter amount" [(ngModel)]="transferAmount" />
+    </div>
+  </div>
+
+  <button (click)="onContinue()">Continue</button>
+</div>
+</body>
