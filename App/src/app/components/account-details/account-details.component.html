@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="details-card" *ngIf="account">
+      <h2>Account Details</h2>
+      <table>
+        <tr>
+          <td>Account Name:</td>
+          <td>{{ account.name }}</td>
+        </tr>
+        <tr>
+          <td>Account Number:</td>
+          <td>{{ account.accountNumber }}</td>
+        </tr>
+        <tr>
+          <td>Owner:</td>
+          <td>{{ account.owner }}</td>
+        </tr>
+        <tr>
+          <td>Type:</td>
+          <td>{{ account.type }}</td>
+        </tr>
+        <tr>
+          <td>Available Balance:</td>
+          <td>{{ account.availableBalance }}</td>
+        </tr>
+        <tr>
+          <td>Reserved Funds:</td>
+          <td>0</td>
+        </tr>
+        <tr>
+          <td>Status:</td>
+          <td>{{ account.status }}</td>
+        </tr>
+      </table>
+    </div>
+    <div *ngIf="!account">
+      <p>Loading account details...</p>
+    </div>
+  </div>
+  
