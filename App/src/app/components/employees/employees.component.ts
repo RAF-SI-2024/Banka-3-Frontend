@@ -6,12 +6,13 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../services/alert.service';
-import {AlertComponent} from '../alert/alert.component';
+import { AlertComponent } from '../alert/alert.component';
+import { PaginationComponent } from '../pagination/pagination.component';
 
 @Component({
   selector: 'app-employees',
   standalone: true,
-  imports: [CommonModule, FormsModule, AlertComponent],
+  imports: [CommonModule, FormsModule, AlertComponent, PaginationComponent],
   templateUrl: './employees.component.html',
   styleUrls: ['./employees.component.css']
 })
@@ -22,17 +23,14 @@ export class EmployeesComponent implements OnInit {
   private alertService = inject(AlertService);
 
   employees: Employee[] = [];
+  pagedEmployees: Employee[] = [];
+  filteredEmployees: Employee[] = [];
+
   showDeleteModal = false;
   selectedEmployee: Employee | null = null;
 
-  currentPage: number = 0;
+  currentPage: number = 1;
   pageSize: number = 10;
-  totalEmployees: number = 0;
-
-  firstName: string = '';
-  lastName: string = '';
-  email: string = '';
-  position: string = '';
 
   get isAdmin(): boolean {
     return <boolean>this.authService.getUserPermissions()?.includes('admin');
@@ -47,10 +45,11 @@ export class EmployeesComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    this.employeeService.getEmployees(this.currentPage, this.pageSize, this.firstName, this.lastName, this.email, this.position).subscribe({
+    this.employeeService.getEmployees(0, 100).subscribe({
       next: (response) => {
         this.employees = response.content;
-        this.totalEmployees = response.totalElements;
+        this.filteredEmployees = [...this.employees]; // Kopija liste za paginaciju
+        this.updatePagedEmployees();
       },
       error: () => {
         this.alertService.showAlert('error', 'Failed to load employees. Please try again later.');
@@ -59,23 +58,14 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
-  applyFilters(): void {
-    this.currentPage = 0;
-    this.loadEmployees();
+  updatePagedEmployees(): void {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    this.pagedEmployees = this.filteredEmployees.slice(startIndex, startIndex + this.pageSize);
   }
 
-  nextPage(): void {
-    if ((this.currentPage + 1) * this.pageSize < this.totalEmployees) {
-      this.currentPage++;
-      this.loadEmployees();
-    }
-  }
-
-  prevPage(): void {
-    if (this.currentPage > 0) {
-      this.currentPage--;
-      this.loadEmployees();
-    }
+  onPageChanged(page: number): void {
+    this.currentPage = page;
+    this.updatePagedEmployees();
   }
 
   openDeleteModal(employee: Employee): void {

@@ -31,7 +31,7 @@ export class ClientPortalComponent implements OnInit {
     email: ''
   };
   currentPage = 1;
-  pageSize = 5;
+  pageSize = 10;
 
   get isAdmin(): boolean {
     return <boolean>this.authService.getUserPermissions()?.includes("admin");

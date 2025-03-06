@@ -7,24 +7,8 @@
   <div *ngIf="isAdmin; else unauthorized">
     <button class="register-btn" (click)="register()">Register new employee</button>
 
-    <div class="filter-container">
-      <label for="firstName">First Name:</label>
-      <input type="text" id="firstName" [(ngModel)]="firstName" placeholder="Enter first name">
-
-      <label for="lastName">Last Name:</label>
-      <input type="text" id="lastName" [(ngModel)]="lastName" placeholder="Enter last name">
-
-      <label for="email">Email:</label>
-      <input type="text" id="email" [(ngModel)]="email" placeholder="Enter email">
-
-      <label for="position">Position:</label>
-      <input type="text" id="position" [(ngModel)]="position" placeholder="Enter position">
-
-      <button (click)="applyFilters()">Apply Filters</button>
-    </div>
-
     <div id="employees-list" class="employee-list">
-      <div *ngFor="let employee of employees;" class="employee-card">
+      <div *ngFor="let employee of pagedEmployees;" class="employee-card">
         <span>
           <strong>{{ employee.firstName }} {{ employee.lastName }}</strong> ({{ employee.email }})
         </span>
@@ -42,11 +26,12 @@
       </div>
     </div>
 
-    <div class="pagination">
-      <button (click)="prevPage()" [disabled]="currentPage === 0">Previous</button>
-      <span>Page {{ currentPage + 1 }}</span>
-      <button (click)="nextPage()" [disabled]="(currentPage + 1) * pageSize >= totalEmployees">Next</button>
-    </div>
+    <!-- Paginacija -->
+    <app-pagination
+      [totalItems]="filteredEmployees.length"
+      [pageSize]="pageSize"
+      (pageChanged)="onPageChanged($event)">
+    </app-pagination>
   </div>
 
   <ng-template #unauthorized>
