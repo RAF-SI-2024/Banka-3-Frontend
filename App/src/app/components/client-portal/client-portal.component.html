@@ -12,15 +12,19 @@
     <input type="email" placeholder="Email" [(ngModel)]="filter.email" (input)="filterClients()">
   </div>
 
+  <button *ngIf="isAdmin" class="view-btn" (click)="registerUser()">Register New User</button>
   <!-- Client List -->
   <div class="client-list">
-    <div class="client-card" *ngFor="let client of pagedClients">
+    <div class="client-card justify-between" *ngFor="let client of pagedClients">
       <div class="client-info">
         <span class="client-name"><strong>{{ client.firstName }} {{ client.lastName }}</strong></span>
         <span class="client-email">{{ client.email }}</span>
       </div>
-      <button class="view-btn" [routerLink]="['/users', client.id]">View</button>
-      <button class="view-btn" [routerLink]="['/users', client.id]">View</button>
+      <div class="flex" style="gap: 0.4rem">
+        <button class="view-btn" [routerLink]="['/account', client.id]">List Accounts</button>
+        <button class="view-btn" *ngIf="isEmployee" [routerLink]="['/users', client.id]">Edit User</button>
+        <button class="view-btn" *ngIf="isAdmin" (click)="deleteUser(client.id)">Delete</button>
+      </div>
     </div>
   </div>
 

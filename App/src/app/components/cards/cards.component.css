@@ -35,6 +35,7 @@
   cursor: pointer;
   transition: 0.3s;
   background: #6A4BBC;
+  height: fit-content;
 }
 
 .payment-btn:hover {

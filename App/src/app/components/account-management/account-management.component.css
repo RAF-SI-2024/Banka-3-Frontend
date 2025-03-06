@@ -114,3 +114,47 @@ th {
 .deactivate:hover {
     background: darkgray;
 }
+
+/* New Account */
+.new-account-container {
+  text-align: center;
+}
+
+.new-account-btn {
+  background: #996FD6;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  height: fit-content;
+}
+
+.new-account-btn:hover {
+  background: #9E7CD7;
+  transform: scale(1.05);
+}
+
+.new-account-options {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
+.account-option {
+  background: #D0C9EA;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.account-option:hover {
+  background: #B399DD;
+}

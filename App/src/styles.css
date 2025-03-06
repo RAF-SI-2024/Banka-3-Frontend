@@ -1,1 +1,42 @@
-/* You can add global styles to this file, and also import other style files */
+
+.flex{
+  display: flex;
+}
+
+.justify-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Global White Card */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 100%;
+  text-align: left;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .card {
+    padding: 15px;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  }
+}

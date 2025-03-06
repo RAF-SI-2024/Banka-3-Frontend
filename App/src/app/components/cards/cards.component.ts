@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, RouterLink} from '@angular/router';
 import { CardService } from '../../services/card.service';
 import { AccountService } from '../../services/account.service';
 import { NgClass, NgForOf } from '@angular/common';
+import {ModalComponent} from '../modal/modal.component';
 
 interface Card {
   cardNumber: string;
@@ -28,7 +29,9 @@ interface Account {
   standalone: true,
   imports: [
     NgClass,
-    NgForOf
+    NgForOf,
+    ModalComponent,
+    RouterLink
   ],
   styleUrls: ['./cards.component.css']
 })
@@ -73,4 +76,17 @@ export class CardsComponent implements OnInit {
     console.log(`Initiating payment for card: ${cardNumber}`);
     // Implement your payment logic here
   }
+
+  isModalOpen: boolean = false;
+
+  // Function to open the modal
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  // Function to close the modal
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
 }

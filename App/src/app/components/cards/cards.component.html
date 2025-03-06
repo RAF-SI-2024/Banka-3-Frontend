@@ -1,8 +1,13 @@
 <section class="account-details">
-  <h3>Account Details</h3>
-  <p><strong>Owner:</strong> {{ account?.accountOwner }}</p>
-  <p><strong>Account Number:</strong> {{ account?.accountNumber }}</p>
-  <p><strong>Balance:</strong> {{ account?.availableBalance }} RSD</p>
+  <div style="justify-content: space-between; display: flex">
+    <div>
+      <h3>Account Details</h3>
+      <p><strong>Owner:</strong> {{ account?.accountOwner }}</p>
+      <p><strong>Account Number:</strong> {{ account?.accountNumber }}</p>
+      <p><strong>Balance:</strong> {{ account?.availableBalance }} RSD</p>
+    </div>
+    <button class="payment-btn" (click)="openModal()">Payment</button>
+  </div>
 
   <h3>Associated Cards</h3>
   <table>
@@ -21,4 +26,14 @@
       </td>
     </tr>
   </table>
+  <app-modal [title]="'Payment'" [isOpen]="isModalOpen" (closeModalEvent)="closeModal()">
+    <div class="modal-content">
+      <div style="display: grid; gap: 0.5rem; margin-top: 1rem; grid-template-columns: repeat(2, 1fr)">
+        <button class="payment-btn" [routerLink]="['/new-payment']">New Payment</button>
+        <button class="payment-btn" [routerLink]="['/transfer']">Transfer Payment</button>
+        <button class="payment-btn" [routerLink]="['/payment-recipients']">Payment Recipients</button>
+        <button class="payment-btn" [routerLink]="['/payment-lookup']">Payment Lookup</button>
+      </div>
+    </div>
+  </app-modal>
 </section>

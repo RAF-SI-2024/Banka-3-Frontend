@@ -1,64 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Account Management</title>
-<!--    <link rel="stylesheet" href="./account-management.component.css" />-->
-  </head>
-  <body>
-    <div class="container">
-      <h2>Account Management</h2>
+<div class="card">
 
-      <!-- Filter sekcija -->
-      <div class="filter-section">
-        <input
-          type="text"
-          placeholder="Search by owner name..."
-          class="filter-input"
-          [(ngModel)]="ownerNameFilter"
-        />
-        <input
-          type="text"
-          placeholder="Search by account number..."
-          class="filter-input"
-          [(ngModel)]="accountNumberFilter"
-        />
-        <button class="filter-btn" (click)="applyFilters()">Filter</button>
-      </div>
+  <div class="flex justify-between">
+    <h2>Account Management</h2>
+    <button class="new-account-btn" *ngIf="isEmployee()" (click)="openModal()">New Account</button>
+  </div>
 
-      <!-- Tabela računa -->
-      <section class="account-list">
-        <h3>Accounts</h3>
-        <table>
-          <tr>
-            <th>Account Number</th>
-            <th>Owner</th>
-            <th>Type</th>
-            <th>Category</th>
-            <th>Actions</th>
-          </tr>
-          <tr *ngFor="let account of accounts">
-            <td>{{ account.accountNumber }}</td>
-            <td>
-              {{ account.owner.firstName }} {{ account.owner.lastName }}
-            </td>
-            <td>{{ account.ownershipType }}</td>
-            <td>{{ account.accountCategory }}</td>
-            <td>
-              <button
-                class="details-btn"
-                (click)="viewCards(account.accountNumber)"
-              >
-                View Cards
-              </button>
-            </td>
-          </tr>
-          <tr *ngIf="accounts.length === 0">
-            <td colspan="5" class="no-data">No accounts found</td>
-          </tr>
-        </table>
-      </section>
+  <!-- Filter sekcija -->
+  <div class="filter-section">
+    <input
+      type="text"
+      placeholder="Search by owner name..."
+      class="filter-input"
+      [(ngModel)]="ownerNameFilter"
+    />
+    <input
+      type="text"
+      placeholder="Search by account number..."
+      class="filter-input"
+      [(ngModel)]="accountNumberFilter"
+    />
+    <button class="filter-btn" (click)="applyFilters()">Filter</button>
+  </div>
+
+  <!-- Tabela računa -->
+  <section class="account-list">
+    <h3>Accounts</h3>
+    <table>
+      <tr>
+        <th>Account Number</th>
+        <th>Owner</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Actions</th>
+      </tr>
+      <tr *ngFor="let account of accounts">
+        <td>{{ account.accountNumber }}</td>
+        <td>
+          {{ account.owner.firstName }} {{ account.owner.lastName }}
+        </td>
+        <td>{{ account.ownershipType }}</td>
+        <td>{{ account.accountCategory }}</td>
+        <td>
+          <button
+            class="details-btn"
+            (click)="viewCards(account.accountNumber)"
+          >
+            View Cards
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="accounts.length === 0">
+        <td colspan="5" class="no-data">No accounts found</td>
+      </tr>
+    </table>
+  </section>
+</div>
+<app-modal [title]="'New Account'" [isOpen]="isModalOpen" (closeModalEvent)="closeModal()">
+  <div class="modal-content">
+    <div class="new-account-options">
+      <button class="account-option" [routerLink]="['/create-current-account']">Checking Account</button>
+      <button class="account-option" [routerLink]="['/create-foreign-currency-account']">Foreign Currency Account
+      </button>
     </div>
-  </body>
-</html>
+  </div>
+</app-modal>

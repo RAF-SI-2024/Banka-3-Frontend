@@ -1,12 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model'; // Ispravan User model
-import { RouterModule } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../services/alert.service';
 import { AlertComponent } from '../alert/alert.component';
 import {PaginationComponent} from '../pagination/pagination.component';
+import {AuthService} from '../../services/auth.service';
 
 @Component({
   selector: 'app-client-portal',
@@ -17,7 +18,9 @@ import {PaginationComponent} from '../pagination/pagination.component';
 })
 export class ClientPortalComponent implements OnInit {
   private userService = inject(UserService);
+  private authService = inject(AuthService);
   private alertService = inject(AlertService);
+  private router = inject(Router);
 
   clients: User[] = [];
   filteredClients: User[] = [];
@@ -29,6 +32,14 @@ export class ClientPortalComponent implements OnInit {
   };
   currentPage = 1;
   pageSize = 5;
+
+  get isAdmin(): boolean {
+    return <boolean>this.authService.getUserPermissions()?.includes("admin");
+  }
+
+  get isEmployee(): boolean {
+    return <boolean>this.authService.isEmployee();
+  }
 
   ngOnInit(): void {
     this.loadClients();
@@ -68,4 +79,29 @@ export class ClientPortalComponent implements OnInit {
     this.currentPage = page;
     this.updatePagedClients();
   }
+
+  deleteUser(userId: number): void {
+    if (!this.isAdmin) {
+      this.alertService.showAlert('error', 'Only admins can delete users.');
+      return;
+    }
+
+    if (confirm('Are you sure you want to delete this user?')) {
+      this.userService.deleteUser(userId).subscribe({
+        next: () => {
+          this.clients = this.clients.filter((u) => u.id !== userId);
+          this.alertService.showAlert('success', 'User deleted successfully.');
+        },
+        error: () => {
+          this.alertService.showAlert('error', 'Failed to delete user. Please try again.');
+        },
+      });
+    }
+  }
+
+  registerUser() {
+    this.router.navigate(['/register-user']);
+  }
+
+
 }

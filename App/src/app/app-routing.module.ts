@@ -5,7 +5,6 @@ import { PasswordResetComponent } from './components/password-reset/password-res
 import { EmployeesComponent } from './components/employees/employees.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
 import { RegisterEmployeeComponent } from './components/register-employee/register-employee.component';
-import { UsersComponent } from './components/users/users.component';
 import { EditUserComponent } from './components/edit-user/edit-user.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { UserDetailComponent } from './components/user-detail/user-detail.component';
@@ -31,7 +30,6 @@ export const routes: Routes = [
   { path: 'forgot-password', component: MailComponent },
 
   // users
-  { path: 'users', component: UsersComponent, canActivate: [adminGuard, authGuard]},
   { path: 'register-user', component: RegisterUserComponent, canActivate: [adminGuard, authGuard]},
   { path: 'users/:id', component: EditUserComponent, canActivate: [adminGuard, authGuard]},
   { path: 'user/:id', component: UserDetailComponent, canActivate: [authGuard]},
@@ -48,4 +46,5 @@ export const routes: Routes = [
   { path: 'create-foreign-currency-account', component: CreateForeignCurrencyAccountComponent, canActivate: [employeeGuard],},
   { path: 'create-current-account', component: AccountCreationComponent, canActivate: [employeeGuard]},
   { path: 'account-management', component: AccountManagementComponent, canActivate: [authGuard]},
+  { path: 'card', component: AccountManagementComponent, canActivate: [authGuard]},
 ];

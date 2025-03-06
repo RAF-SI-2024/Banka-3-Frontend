@@ -4,10 +4,13 @@ import { AlertService } from '../../services/alert.service';
 import { AccountService } from '../../services/account.service';
 import { AccountResponse } from '../../models/account-response.model';
 import { FormsModule } from '@angular/forms';
+import {RouterLink} from '@angular/router';
+import {AuthService} from '../../services/auth.service';
+import {ModalComponent} from '../modal/modal.component';
 
 @Component({
   selector: 'app-account-management',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink, ModalComponent],
   standalone: true,
   templateUrl: './account-management.component.html',
   styleUrl: './account-management.component.css',
@@ -20,6 +23,7 @@ export class AccountManagementComponent implements OnInit {
   }
 
   private accountService = inject(AccountService);
+  private authService = inject(AuthService);
   private alertService = inject(AlertService);
   allAccounts: AccountResponse[] = [];
   accounts: AccountResponse[] = [];
@@ -83,9 +87,23 @@ export class AccountManagementComponent implements OnInit {
         },
       });
   }
-
+  isEmployee(){
+    return this.authService.isEmployee()
+  }
   viewCards(accountNumber: string): void {
     this.selectedAccountNumber = accountNumber;
     window.location.href = `/account/${accountNumber}`;
   }
+  isModalOpen: boolean = false;
+
+  // Function to open the modal
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  // Function to close the modal
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
 }

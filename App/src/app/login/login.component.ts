@@ -41,9 +41,9 @@ export class LoginComponent implements OnInit {
 
         if (this.loginType === 'employee') {
           if (permissions?.includes('admin')) {
-            this.router.navigate(['/employees']);
+            this.router.navigate(['/client-portal']);
           } else {
-            this.router.navigate([`/employee/${userId}`]);
+            this.router.navigate([`/client-portal`]);
           }
         } else {
           this.router.navigate([`/user/${userId}`]);

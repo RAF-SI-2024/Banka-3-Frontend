@@ -19,6 +19,7 @@ body {
   text-align: center;
   width: 650px;
   animation: fadeIn 0.5s ease-in-out;
+  margin: auto;
 }
 
 /* 🔹 Header */
@@ -159,7 +160,6 @@ h2 {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 0.9rem;
-  width: 100%;
 }
 
 .filter-container button {
@@ -180,6 +180,7 @@ h2 {
 .pagination {
   display: flex;
   justify-content: center;
+  align-items: center;
   margin-top: 20px;
   gap: 10px;
 }
