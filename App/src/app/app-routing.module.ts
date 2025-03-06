@@ -48,12 +48,13 @@ export const routes: Routes = [
   // accounts
   { path: 'account/:accountNumber', component: CardsComponent, canActivate: [authGuard]},
   { path: 'account-management', component: AccountManagementComponent, canActivate: [authGuard]},
-  { path: 'card', component: AccountManagementComponent, canActivate: [authGuard]},
   {path: 'transfer', component: TransferComponent, canActivate: [authGuard]},
   {path: 'transaction_detail', component: OverviewComponent, canActivate: [authGuard]},
 
   // bank accounts
   { path: 'create-foreign-currency-account', component: CreateForeignCurrencyAccountComponent, canActivate: [employeeGuard] },
   { path: 'create-current-account', component: AccountCreationComponent, canActivate: [employeeGuard] },
-  { path: 'recipients', component: RecipientsComponent}
+  { path: 'transfer', component: TransferComponent, canActivate: [employeeGuard]},
+  { path: 'recipients', component: RecipientsComponent},
+  { path: 'card', component: AccountManagementComponent, canActivate: [authGuard]},
 ];
