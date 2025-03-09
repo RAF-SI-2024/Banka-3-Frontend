@@ -1,13 +1,14 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model'; // Ispravan User model
-import { RouterModule } from '@angular/router';
+import {RouterModule, Router, ActivatedRoute} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../services/alert.service';
 import { AlertComponent } from '../alert/alert.component';
 import {PaginationComponent} from '../pagination/pagination.component';
 import {AuthService} from '../../services/auth.service';
+import {AccountService} from '../../services/account.service';
 
 @Component({
   selector: 'app-client-portal',
@@ -17,9 +18,9 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./client-portal.component.css'],
 })
 export class ClientPortalComponent implements OnInit {
-  private userService = inject(UserService);
-  private alertService = inject(AlertService);
-  private authService = inject(AuthService);
+  // private userService = inject(UserService);
+  // private alertService = inject(AlertService);
+  // private authService = inject(AuthService);
 
   clients: User[] = [];
   filteredClients: User[] = [];
@@ -31,6 +32,13 @@ export class ClientPortalComponent implements OnInit {
   };
   currentPage = 1;
   pageSize = 10;
+
+  constructor(
+    private authService: AuthService,
+    private alertService: AlertService,
+    private userService: UserService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.loadClients();
@@ -50,6 +58,7 @@ export class ClientPortalComponent implements OnInit {
         // console.log(response);
         this.filteredClients = [...this.clients];
         this.updatePagedClients();
+        // alert(this.clients[1].id);
       },
       error: () => {
         this.alertService.showAlert("error", "Failed to load users.");
@@ -88,12 +97,19 @@ export class ClientPortalComponent implements OnInit {
       this.userService.deleteUser(userId).subscribe({
         next: () => {
           this.clients = this.clients.filter((u) => u.id !== userId);
+          this.filterClients();
           this.alertService.showAlert('success', 'User deleted successfully.');
         },
         error: () => {
           this.alertService.showAlert('error', 'Failed to delete user. Please try again.');
         },
       });
+    }
+  }
+
+  listAccounts(clientId: number): void {
+    if (this.isAdmin || this.isEmployee) {
+      this.router.navigate(['/account-management'], { queryParams: { id: clientId } });
     }
   }
 
