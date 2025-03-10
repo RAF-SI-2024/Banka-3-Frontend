@@ -36,7 +36,7 @@ export class ClientPortalComponent implements OnInit {
     this.loadClients();
   }
   get isAdmin(): boolean {
-    return <boolean>this.authService.getUserPermissions()?.includes("admin");
+    return <boolean>this.authService.isAdmin();
   }
 
   get isEmployee(): boolean {
@@ -59,9 +59,9 @@ export class ClientPortalComponent implements OnInit {
 
   filterClients(): void {
     this.filteredClients = this.clients.filter(client =>
-      (this.filter.name ? client.firstName.toLowerCase().includes(this.filter.name.toLowerCase()) : true) &&
-      (this.filter.surname ? client.lastName.toLowerCase().includes(this.filter.surname.toLowerCase()) : true) &&
-      (this.filter.email ? client.email.toLowerCase().includes(this.filter.email.toLowerCase()) : true)
+      (this.filter.name ? client.firstName.toLowerCase().includes(this.filter.name) : true) &&
+      (this.filter.surname ? client.lastName.toLowerCase().includes(this.filter.surname) : true) &&
+      (this.filter.email ? client.email.toLowerCase().includes(this.filter.email) : true)
     );
     this.currentPage = 1;
     this.updatePagedClients();
