@@ -53,7 +53,11 @@ export class AccountManagementComponent implements OnInit {
     } else if (this.isClient()) {
       this.fetchAccountsForClient();
     } else {
-      alert('Invalid access. Redirecting...');
+      // alert('Invalid access. Redirecting...');
+      this.alertService.showAlert(
+        'error',
+        'Invalid access. Redirecting...'
+      );
       this.router.navigate(['/client-portal']);
     }
   }
@@ -65,7 +69,11 @@ export class AccountManagementComponent implements OnInit {
         this.filteredAccounts = accounts; //.content
       },
       error: () => {
-        alert('Failed to load your accounts.');
+        // alert('Failed to load your accounts.');
+        this.alertService.showAlert(
+          'error',
+          'Failed to load your accounts.'
+        );
       },
     });
   }
@@ -77,7 +85,11 @@ export class AccountManagementComponent implements OnInit {
         this.filteredAccounts = response.content;
       },
       error: () => {
-        alert('Invalid client ID. Redirecting   :(...');
+        // alert('Invalid client ID. Redirecting   :(...');
+        this.alertService.showAlert(
+          'error',
+          'Invalid client ID. Redirecting.'
+        );
         this.router.navigate(['/client-portal']);
       },
     });
