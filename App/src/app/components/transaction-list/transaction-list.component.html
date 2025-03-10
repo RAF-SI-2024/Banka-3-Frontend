@@ -1,0 +1,39 @@
+<div class="transaction-list-container">
+    <h2>Transactions for Card: {{ cardNumber }}</h2>
+  
+    <button class="new-transaction-btn" (click)="createNewTransaction()">
+      New Transaction
+    </button>
+  
+    <div *ngIf="isLoading" class="loading-msg">Loading transactions...</div>
+  
+    <table *ngIf="!isLoading && transactions.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Sender</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let t of transactions">
+          <td>{{ t.id }}</td>
+          <td>{{ t.senderName }}</td>
+          <td>{{ t.amount }}</td>
+          <td>{{ t.date | date: 'short' }}</td>
+          <td>{{ t.status }}</td>
+          <td>
+            <button class="details-btn" (click)="viewDetails(t.id)">Details</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div *ngIf="!isLoading && transactions.length === 0" class="no-transactions">
+      No transactions found.
+    </div>
+  </div>
+  
