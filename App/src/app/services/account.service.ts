@@ -24,10 +24,6 @@ export class AccountService {
     });
   }
 
-  getMyAccounts(){
-    return this.http.get<{ content: AccountTransfer[]}>(this.apiUrl, { headers: this.getAuthHeaders()});
-  }
-
   getAccountsForClient(clientId: string, page: number = 0, size: number = 10): Observable<{ content: AccountResponse[] }> {
     const headers = this.getAuthHeaders();
     return this.http.get<{ content: AccountResponse[] }>(
