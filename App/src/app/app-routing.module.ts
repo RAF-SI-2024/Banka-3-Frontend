@@ -20,6 +20,7 @@ import { AccountManagementComponent } from './components/account-management/acco
 import {TransferComponent} from './components/transfer/transfer.component';
 import {OverviewComponent} from './components/transaction-overview/overview.component';
 import {RecipientsComponent} from './components/recipients/recipients.component';
+import {LoanRequestComponent} from './components/loan-request/loan-request.component';
 
 export const routes: Routes = [
   // login
@@ -53,6 +54,10 @@ export const routes: Routes = [
   { path: 'create-current-account', component: AccountCreationComponent, canActivate: [employeeGuard]},
   { path: 'account-management', component: AccountManagementComponent, canActivate: [authGuard]},
   { path: 'transfer', component: TransferComponent, canActivate: [employeeGuard]},
-  { path: 'recipients', component: RecipientsComponent}
+  { path: 'recipients', component: RecipientsComponent},
+
+  //loans
+  { path: 'loan-request', component: LoanRequestComponent},
+
 
 ];

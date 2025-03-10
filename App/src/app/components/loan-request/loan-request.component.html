@@ -1,0 +1,71 @@
+<div class="loan-request-container">
+  <h2>Podnošenje zahteva za kredit</h2>
+
+  <app-alert></app-alert>
+
+  <form *ngIf="!success" [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="loan-form">
+
+    <label for="type">Vrsta kredita:</label>
+    <select formControlName="type" id="type">
+      <option *ngFor="let type of loanTypes" [value]="type">{{ type }}</option>
+    </select>
+    <small class="error" *ngIf="isInvalid('type')">Morate odabrati vrstu kredita.</small>
+
+    <label for="amount">Iznos kredita:</label>
+    <input type="number" formControlName="amount" id="amount" placeholder="Unesite iznos" />
+    <small class="error" *ngIf="isInvalid('amount')">Minimalni iznos kredita je 1000.</small>
+
+    <label for="currencyCode">Valuta:</label>
+    <select formControlName="currencyCode" id="currencyCode">
+      <option *ngFor="let currency of availableCurrencies" [value]="currency.code">
+        {{ currency.name }} ({{ currency.code }})
+      </option>
+    </select>
+    <small class="error" *ngIf="isInvalid('currencyCode')">Morate odabrati valutu.</small>
+
+    <label for="purpose">Svrha kredita:</label>
+    <textarea formControlName="purpose" id="purpose" placeholder="Unesite svrhu kredita"></textarea>
+    <small class="error" *ngIf="isInvalid('purpose')">Svrha kredita mora imati između 5 i 255 karaktera.</small>
+
+    <label for="monthlyIncome">Iznos mesečne plate:</label>
+    <input type="number" formControlName="monthlyIncome" id="monthlyIncome" placeholder="Unesite mesečnu platu" />
+    <small class="error" *ngIf="isInvalid('monthlyIncome')">Mesečna plata mora biti veća od 0.</small>
+
+    <label for="employmentStatus">Status zaposlenja:</label>
+    <select formControlName="employmentStatus" id="employmentStatus">
+      <option *ngFor="let status of employmentStatuses" [value]="status">{{ status }}</option>
+    </select>
+    <small class="error" *ngIf="isInvalid('employmentStatus')">Morate odabrati status zaposlenja.</small>
+
+    <label for="employmentDuration">Period zaposlenja (meseci):</label>
+    <input type="number" formControlName="employmentDuration" id="employmentDuration" placeholder="Unesite broj meseci" />
+    <small class="error" *ngIf="isInvalid('employmentDuration')">Nevalidan period zaposlenja.</small>
+
+    <label for="repaymentPeriod">Rok otplate:</label>
+    <select formControlName="repaymentPeriod" id="repaymentPeriod">
+      <option *ngFor="let period of (repaymentOptions[selectedLoanType!] || [])" [value]="period">
+        {{ period }} meseci
+      </option>
+    </select>
+    <small class="error" *ngIf="isInvalid('repaymentPeriod')">Rok otplate je obavezan.</small>
+
+    <label for="contactPhone">Kontakt telefon:</label>
+    <input type="text" formControlName="contactPhone" id="contactPhone" placeholder="Unesite broj telefona" />
+    <small class="error" *ngIf="isInvalid('contactPhone')">Neispravan format broja telefona (+381641234567).</small>
+
+    <label for="accountNumber">Broj računa:</label>
+    <select formControlName="accountNumber" id="accountNumber">
+      <option *ngFor="let account of userAccounts" [value]="account.accountNumber">
+        {{ account.accountNumber }} ({{ account.currencyCode }})
+      </option>
+    </select>
+
+    <small class="error" *ngIf="isInvalid('accountNumber')">Morate odabrati broj računa.</small>
+
+    <button type="submit" [disabled]="loanForm.invalid">Podnesi zahtev</button>
+  </form>
+
+  <div *ngIf="success">
+    <app-success message="Vaš zahtev za kredit je uspešno podnet!" title="Zahtev podnet" continuePath="/user/:id"></app-success>
+  </div>
+</div>
