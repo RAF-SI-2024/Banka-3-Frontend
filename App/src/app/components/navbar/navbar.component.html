@@ -10,8 +10,8 @@
       My Profile
     </button>
 
-    <button class="nav-btn" (click)="router.navigate(['/account-management'])">
-      Accounts
+    <button class="nav-btn" *ngIf="!(isEmployee && isAdmin)" (click)="router.navigate(['/account-management'])">
+      My Accounts
     </button>
 
     <button class="nav-btn" *ngIf="isClient" (click)="router.navigate(['/user', userId])">

@@ -20,7 +20,9 @@
         <span class="client-email">{{ client.email }}</span>
       </div>
       <div class="flex" style="gap: 0.4rem">
-        <button class="view-btn" [routerLink]="['/account', client.id]">List Accounts</button>
+        <button class="view-btn" *ngIf="isAdmin || isEmployee" (click)="listAccounts(client.id)">
+          List Accounts
+        </button>
         <button class="view-btn" *ngIf="isEmployee" [routerLink]="['/users', client.id]">Edit User</button>
         <button class="view-btn" *ngIf="isAdmin" (click)="deleteUser(client.id)">Delete</button>
       </div>

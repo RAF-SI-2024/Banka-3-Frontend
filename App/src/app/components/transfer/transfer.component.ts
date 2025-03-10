@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import {AccountTransfer} from '../../models/account-transfer';
 import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
+import {AccountResponse} from '../../models/account-response.model';
 
 @Component({
   selector: 'app-transfer',
@@ -14,6 +15,7 @@ import {AlertService} from '../../services/alert.service';
     NgIf,
     NgForOf
   ],
+  standalone: true,
   styleUrls: ['./transfer.component.css']
 })
 export class TransferComponent implements OnInit {
@@ -22,7 +24,7 @@ export class TransferComponent implements OnInit {
   private router = inject(Router);
   private alertService = inject(AlertService);
 
-  accounts: AccountTransfer[] = [];
+  accounts: AccountResponse[] = [];
   selectedFromAccountNumber: string | undefined;
   selectedToAccountNumber: string | undefined;
   transferAmount: number | undefined;
@@ -30,7 +32,7 @@ export class TransferComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.accountService.getMyAccounts().subscribe({
+    this.accountService.getAccountsForClient("2").subscribe({
       next: (response) => {
         this.accounts = response.content;
       },
@@ -41,11 +43,11 @@ export class TransferComponent implements OnInit {
     });
   }
 
-  get selectedFromAccount(): AccountTransfer | undefined {
+  get selectedFromAccount(): AccountResponse | undefined {
     return this.accounts.find(acc => acc.accountNumber === this.selectedFromAccountNumber);
   }
 
-  get selectedToAccount(): AccountTransfer | undefined {
+  get selectedToAccount(): AccountResponse | undefined {
     return this.accounts.find(acc => acc.accountNumber === this.selectedToAccountNumber);
   }
 

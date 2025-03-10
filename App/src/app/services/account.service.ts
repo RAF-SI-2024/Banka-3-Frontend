@@ -24,8 +24,24 @@ export class AccountService {
     });
   }
 
-  getMyAccounts(){
-    return this.http.get<{ content: AccountTransfer[]}>(this.apiUrl, { headers: this.getAuthHeaders()});
+  getAccountsForClient(clientId: string, page: number = 0, size: number = 10): Observable<{ content: AccountResponse[] }> {
+    const headers = this.getAuthHeaders();
+    return this.http.get<{ content: AccountResponse[] }>(
+      `${this.apiUrl}/${clientId}?page=${page}&size=${size}`,
+      { headers }
+    );
+  }
+
+  // jer postoji getmyacc samo sa acctransf
+  // getMyAccountsRegular(){
+  //   const headers = this.getAuthHeaders().set('Accept', '*/*');
+  //   return this.http.get<{ content: AccountResponse[]}>(`${this.apiUrl}`, {headers});
+  // }
+
+  // jer postoji getmyacc samo sa acctransf
+  getMyAccountsRegular(): Observable<AccountResponse[]> {
+    const headers = this.getAuthHeaders().set('Accept', '*/*');
+    return this.http.get<AccountResponse[]>(`${this.apiUrl}`, { headers });
   }
 
   getAccount(accountNumber: string): Observable<any> {
