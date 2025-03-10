@@ -1,0 +1,26 @@
+<div class="transaction-details-container">
+    <h2>Transaction Details</h2>
+  
+    <div *ngIf="isLoading">Loading transaction details...</div>
+    <div *ngIf="!isLoading && transaction">
+      <p><strong>ID:</strong> {{ transaction.id }}</p>
+      <p><strong>Sender:</strong> {{ transaction.senderName }}</p>
+      <p><strong>Receiver Account:</strong> {{ transaction.accountNumberReceiver }}</p>
+      <p><strong>Amount:</strong> {{ transaction.amount }}</p>
+      <p><strong>Date:</strong> {{ transaction.date | date:'short' }}</p>
+      <p><strong>Status:</strong> {{ transaction.status }}</p>
+      <p><strong>Payment Code:</strong> {{ transaction.paymentCode }}</p>
+      <p><strong>Purpose:</strong> {{ transaction.purposeOfPayment }}</p>
+      <p><strong>Reference #:</strong> {{ transaction.referenceNumber }}</p>
+  
+      <div *ngIf="isConfirmMode; else readOnlyButtons">
+        <button class="confirm-btn" (click)="onConfirm()">Confirm</button>
+        <button class="cancel-btn" (click)="onCancel()">Cancel</button>
+      </div>
+  
+      <ng-template #readOnlyButtons>
+        <button class="ok-btn" (click)="onOk()">OK</button>
+      </ng-template>
+    </div>
+  </div>
+  

@@ -20,6 +20,9 @@ import { AccountManagementComponent } from './components/account-management/acco
 import {TransferComponent} from './components/transfer/transfer.component';
 import {OverviewComponent} from './components/transaction-overview/overview.component';
 import {RecipientsComponent} from './components/recipients/recipients.component';
+import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
+import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
+import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
 
 export const routes: Routes = [
   // login
@@ -53,6 +56,10 @@ export const routes: Routes = [
   { path: 'create-current-account', component: AccountCreationComponent, canActivate: [employeeGuard]},
   { path: 'account-management', component: AccountManagementComponent, canActivate: [authGuard]},
   { path: 'transfer', component: TransferComponent, canActivate: [employeeGuard]},
-  { path: 'recipients', component: RecipientsComponent}
+  { path: 'recipients', component: RecipientsComponent},
+
+  { path: 'card/:cardNumber/transactions',component: TransactionListComponent, canActivate: [authGuard]},
+  { path: 'card/:cardNumber/transactions/new', component: NewTransactionComponent, canActivate: [authGuard]},
+  { path: 'transactions/:transactionId',component: TransactionDetailsComponent, canActivate: [authGuard]}
 
 ];
