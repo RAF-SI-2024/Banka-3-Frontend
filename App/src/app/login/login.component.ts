@@ -15,13 +15,13 @@ export class LoginComponent implements OnInit {
   email = '';
   password = '';
   errorMessage = '';
-  loginType: 'employee' | 'client' = 'employee';
+  loginType: 'EMPLOYEE' | 'CLIENT' = 'EMPLOYEE';
 
   constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     const loginTypeParam = this.route.snapshot.paramMap.get('type');
-    if (loginTypeParam === 'client' || loginTypeParam === 'employee') {
+    if (loginTypeParam === 'CLIENT' || loginTypeParam === 'EMPLOYEE') {
       this.loginType = loginTypeParam;
     }
   }
@@ -39,8 +39,8 @@ export class LoginComponent implements OnInit {
         const userId = this.authService.getUserId();
         const permissions = this.authService.getUserPermissions();
 
-        if (this.loginType === 'employee') {
-          if (permissions?.includes('admin')) {
+        if (this.loginType === 'EMPLOYEE') {
+          if (permissions?.includes('ADMIN')) {
             this.router.navigate(['/client-portal']);
           } else {
             this.router.navigate([`/employee/${userId}`]);
