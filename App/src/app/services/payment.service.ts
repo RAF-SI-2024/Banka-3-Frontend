@@ -1,18 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { PaymentOverviewDto } from '../models/payment-overview-dto';
 import { PaymentDetailsDto } from '../models/payment-details-dto';
 import { CreatePaymentDto } from '../models/create-payment-dto';
-import { environment } from '../../environments/environment';
-
-
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaymentService {
-  private baseUrl = `${environment.apiUrl}/api/payment`;
+  private baseUrl = 'http://localhost:8080/api/payment';
 
   constructor(private http: HttpClient) {}
 
@@ -21,18 +19,32 @@ export class PaymentService {
     if (cardNumber) {
       url += `?cardNumber=${cardNumber}`;
     }
-    return this.http.get<PaymentOverviewDto[]>(url);
+    return this.http.get<PaymentOverviewDto[]>(url).pipe(
+      catchError(this.handleError)
+    );
   }
 
   getTransactionDetails(id: number): Observable<PaymentDetailsDto> {
-    return this.http.get<PaymentDetailsDto>(`${this.baseUrl}/${id}`);
+    return this.http.get<PaymentDetailsDto>(`${this.baseUrl}/${id}`).pipe(
+      catchError(this.handleError)
+    );
   }
 
   createPayment(dto: CreatePaymentDto): Observable<{ id: number }> {
-    return this.http.post<{ id: number }>(`${this.baseUrl}`, dto);
+    return this.http.post<{ id: number }>(this.baseUrl, dto).pipe(
+      catchError(this.handleError)
+    );
   }
 
   confirmPayment(paymentId: number): Observable<any> {
-    return this.http.post<any>(`${this.baseUrl}/confirm-payment/${paymentId}`, {});
+    return this.http.post<any>(`${this.baseUrl}/confirm-payment/${paymentId}`, {})
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  private handleError(error: any): Observable<never> {
+    console.error('An error occurred:', error);
+    return throwError(() => new Error('Something bad happened; please try again later.'));
   }
 }
