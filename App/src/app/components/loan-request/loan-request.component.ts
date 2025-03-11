@@ -88,7 +88,7 @@ export class LoanRequestComponent implements OnInit {
 
   isInvalid(controlName: string): boolean {
     const control = this.loanForm.get(controlName);
-    return control?.invalid && control?.touched ? true : false;
+    return !!(control?.invalid && control?.touched);
   }
 
   resetInvalidField(controlName: string): void {
@@ -117,6 +117,7 @@ export class LoanRequestComponent implements OnInit {
   onSubmit(): void {
     if (this.loanForm.valid) {
       const request: LoanRequest = this.loanForm.value;
+      request.status = "PENDING"
 
       this.loanRequestService.submitLoanRequest(request).subscribe({
         next: () => {
