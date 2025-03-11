@@ -21,6 +21,7 @@ import {TransferComponent} from './components/transfer/transfer.component';
 import {OverviewComponent} from './components/transaction-overview/overview.component';
 import {RecipientsComponent} from './components/recipients/recipients.component';
 import {LoanRequestComponent} from './components/loan-request/loan-request.component';
+import { NewPaymentComponent } from './components/new-payment/new-payment.component';
 
 export const routes: Routes = [
   // login
@@ -58,6 +59,7 @@ export const routes: Routes = [
 
   //loans
   { path: 'loan-request', component: LoanRequestComponent},
+  { path: 'new-payment', component: NewPaymentComponent },
 
 
 ];
