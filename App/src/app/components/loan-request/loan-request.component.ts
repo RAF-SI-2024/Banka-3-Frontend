@@ -8,7 +8,7 @@ import { AlertComponent } from '../alert/alert.component';
 import { SuccessComponent } from '../success/success.component';
 import { LoanRequest, LoanType, EmploymentStatus } from '../../models/loan-request.model';
 import { Currency } from '../../models/currency.model';
-import {AccountService} from '../../services/account.service';
+import { AccountService } from '../../services/account.service';
 
 @Component({
   selector: 'app-loan-request',
@@ -29,15 +29,19 @@ export class LoanRequestComponent implements OnInit {
   userAccounts: { accountNumber: string; currencyCode: string }[] = [];
   success: boolean = false;
 
-  loanTypes: LoanType[] = ['GOTOVINSKI', 'STAMBENI', 'AUTO', 'REFINANSIRAJUCI', 'STUDENTSKI'];
-  employmentStatuses: EmploymentStatus[] = ['STALNO', 'PRIVREMENO', 'NEZAPOSLEN'];
+  constructor() {
+    this.loanForm = new FormGroup({});
+  }
+
+  loanTypes: LoanType[] = ['CASH', 'MORTGAGE', 'CAR', 'REFINANCING', 'STUDENT'];
+  employmentStatuses: EmploymentStatus[] = ['PERMANENT', 'TEMPORARY', 'UNEMPLOYED'];
 
   repaymentOptions: { [key in LoanType]: number[] } = {
-    GOTOVINSKI: [12, 24, 36, 48, 60, 72, 84],
-    STAMBENI: [60, 120, 180, 240, 300, 360],
-    AUTO: [12, 24, 36, 48, 60, 72, 84],
-    REFINANSIRAJUCI: [12, 24, 36, 48, 60, 72, 84],
-    STUDENTSKI: [12, 24, 36, 48, 60, 72, 84]
+    CASH: [12, 24, 36, 48, 60, 72, 84],
+    MORTGAGE: [60, 120, 180, 240, 300, 360],
+    CAR: [12, 24, 36, 48, 60, 72, 84],
+    REFINANCING: [12, 24, 36, 48, 60, 72, 84],
+    STUDENT: [12, 24, 36, 48, 60, 72, 84]
   };
 
   get selectedLoanType(): LoanType | null {
@@ -55,7 +59,7 @@ export class LoanRequestComponent implements OnInit {
       employmentDuration: ['', [Validators.required, Validators.min(0)]],
       repaymentPeriod: [{ value: '', disabled: true }, Validators.required],
       contactPhone: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{9,15}$/)]],
-      accountNumber: ['', Validators.required]
+      accountNumber: ['', [Validators.required, this.validateAccountCurrency.bind(this)]]
     });
 
     this.availableCurrencies = this.loanRequestService.getAvailableCurrencies();
@@ -68,7 +72,7 @@ export class LoanRequestComponent implements OnInit {
         }));
       },
       error: () => {
-        this.alertService.showAlert('error', 'Greška pri učitavanju računa korisnika.');
+        this.alertService.showAlert('error', 'Error fetching user accounts.');
       }
     });
 
@@ -84,14 +88,31 @@ export class LoanRequestComponent implements OnInit {
 
   isInvalid(controlName: string): boolean {
     const control = this.loanForm.get(controlName);
+    return control?.invalid && control?.touched ? true : false;
+  }
+
+  resetInvalidField(controlName: string): void {
+    const control = this.loanForm.get(controlName);
     if (control?.invalid && control?.touched) {
-      control.reset();
-      return true;
+      control.setValue('');
+      control.setErrors(control.errors);
     }
-    return false;
   }
 
 
+  validateAccountCurrency(control: AbstractControl): ValidationErrors | null {
+    const selectedAccount = this.userAccounts.find(acc => acc.accountNumber === control.value);
+    const selectedCurrency = this.loanForm.get('currencyCode')?.value;
+
+    if (selectedAccount && selectedAccount.currencyCode !== selectedCurrency) {
+      return { invalidCurrency: true };
+    }
+    return null;
+  }
+
+  navigateToPage(route: string): void {
+    this.router.navigate([route]);
+  }
 
   onSubmit(): void {
     if (this.loanForm.valid) {
@@ -100,10 +121,10 @@ export class LoanRequestComponent implements OnInit {
       this.loanRequestService.submitLoanRequest(request).subscribe({
         next: () => {
           this.success = true;
-          this.alertService.showAlert('success', 'Zahtev uspešno podnet!');
+          this.alertService.showAlert('success', 'Loan request submitted successfully!');
         },
         error: () => {
-          this.alertService.showAlert('error', 'Došlo je do greške pri podnošenju zahteva.');
+          this.alertService.showAlert('error', 'An error occurred while submitting the request.');
         }
       });
     } else {

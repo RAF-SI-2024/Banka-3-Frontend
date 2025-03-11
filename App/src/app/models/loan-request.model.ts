@@ -1,5 +1,5 @@
-export type LoanType = 'GOTOVINSKI' | 'STAMBENI' | 'AUTO' | 'REFINANSIRAJUCI' | 'STUDENTSKI';
-export type EmploymentStatus = 'STALNO' | 'PRIVREMENO' | 'NEZAPOSLEN';
+export type LoanType = 'CASH' | 'MORTGAGE' | 'CAR' | 'REFINANCING' | 'STUDENT';
+export type EmploymentStatus = 'PERMANENT' | 'TEMPORARY' | 'UNEMPLOYED';
 export type LoanRequestStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
 
 export interface LoanRequest {

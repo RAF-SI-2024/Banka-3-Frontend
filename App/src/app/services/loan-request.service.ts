@@ -10,7 +10,6 @@ import { Currency } from '../models/currency.model';
 })
 export class LoanRequestService {
   private apiUrl = 'http://localhost:8080/loan-requests';
-  private accountsUrl = 'http://localhost:8080/api/account';
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -34,18 +33,17 @@ export class LoanRequestService {
     });
   }
 
-  getUserAccounts(): Observable<{ accountNumber: string; currencyCode: string }[]> {
-    return this.http.get<{ accountNumber: string; currencyCode: string }[]>(this.accountsUrl, {
-      headers: this.getAuthHeaders(),
-    });
-  }
-
   getAvailableCurrencies(): Currency[] {
     return [
       { code: 'RSD', name: 'Serbian Dinar', symbol: 'RSD', country: ['Serbia'], description: 'Serbian Dinar', isActive: true },
       { code: 'EUR', name: 'Euro', symbol: '€', country: ['Germany', 'Slovenia', 'Other EU'], description: 'Euro', isActive: true },
       { code: 'USD', name: 'US Dollar', symbol: '$', country: ['USA'], description: 'US Dollar', isActive: true },
       { code: 'CHF', name: 'Swiss Franc', symbol: 'CHF', country: ['Switzerland'], description: 'Swiss Franc', isActive: true },
+      { code: 'JPY', name: 'Japanese Yen', symbol: '¥', country: ['Japan'], description: 'Japanese Yen', isActive: true },
+      { code: 'GBP', name: 'British Pound', symbol: '£', country: ['United Kingdom'], description: 'British Pound', isActive: true },
+      { code: 'CAD', name: 'Canadian Dollar', symbol: 'C$', country: ['Canada'], description: 'Canadian Dollar', isActive: true },
+      { code: 'AUD', name: 'Australian Dollar', symbol: 'A$', country: ['Australia'], description: 'Australian Dollar', isActive: true }
     ];
   }
+
 }
