@@ -14,7 +14,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string, loginType: 'EMPLOYEE' | 'CLIENT'): Observable<{ token: string }> {
+  login(email: string, password: string, loginType: 'employee' | 'client'): Observable<{ token: string }> {
     const apiUrl = `${this.baseUrl}/login/${loginType}`;
     return new Observable(observer => {
       this.http.post<{ token: string }>(apiUrl, { email, password }).subscribe({

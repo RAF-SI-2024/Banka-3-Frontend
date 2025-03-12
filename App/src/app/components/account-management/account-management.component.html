@@ -4,21 +4,22 @@
     <button class="new-account-btn" *ngIf="isEmployee()" (click)="openModal()">New Account</button>
   </div>
   <!-- Filter sekcija -->
-  <div class="filter-section">
-    <input
-      type="text"
-      placeholder="Search by owner name..."
-      class="filter-input"
-      [(ngModel)]="ownerNameFilter"
-    />
-    <input
-      type="text"
-      placeholder="Search by account number..."
-      class="filter-input"
-      [(ngModel)]="accountNumberFilter"
-    />
-    <button class="filter-btn" (click)="applyFilters()">Filter</button>
-  </div>
+<!--  <div class="filter-section">-->
+<!--&lt;!&ndash;    <input&ndash;&gt;-->
+<!--&lt;!&ndash;      type="text"&ndash;&gt;-->
+<!--&lt;!&ndash;      placeholder="Search by owner name..."&ndash;&gt;-->
+<!--&lt;!&ndash;      class="filter-input"&ndash;&gt;-->
+<!--&lt;!&ndash;      [(ngModel)]="ownerNameFilter"&ndash;&gt;-->
+<!--&lt;!&ndash;    />&ndash;&gt;-->
+<!--    <input-->
+<!--      type="text"-->
+<!--      placeholder="Search by account number..."-->
+<!--      class="filter-input"-->
+<!--      (input)="applyFilters()"-->
+<!--      [(ngModel)]="accountNumberFilter"-->
+<!--    />-->
+<!--&lt;!&ndash;    <button class="filter-btn" (click)="applyFilters()">Filter</button>&ndash;&gt;-->
+<!--  </div>-->
 
   <!-- Tabela računa -->
   <section class="account-list">
@@ -31,7 +32,7 @@
         <th>Category</th>
         <th>Actions</th>
       </tr>
-      <tr *ngFor="let account of accounts">
+      <tr *ngFor="let account of filteredAccounts">
         <td>{{ account.accountNumber }}</td>
         <td>
           {{ account.owner.firstName }} {{ account.owner.lastName }}
