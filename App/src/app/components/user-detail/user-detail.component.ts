@@ -23,7 +23,7 @@ export class UserDetailComponent implements OnInit {
   user: User | null = null;
 
   get isAdmin(): boolean {
-    return <boolean>this.authService.getUserPermissions()?.includes("admin");
+    return <boolean>this.authService.isAdmin();
   }
 
   ngOnInit(): void {

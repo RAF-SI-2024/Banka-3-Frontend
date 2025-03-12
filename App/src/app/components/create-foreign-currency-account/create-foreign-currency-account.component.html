@@ -4,8 +4,8 @@
   <h2>Create Foreign Currency Account</h2>
 
   <div class="toggle-buttons">
-    <button id="clientBtn" class="toggle-btn" [class.active]="accountForm.get('accountType')?.value === 'client'"
-            (click)="accountForm.patchValue({ accountType: 'client' })">
+    <button id="clientBtn" class="toggle-btn" [class.active]="accountForm.get('accountType')?.value === 'CLIENT'"
+            (click)="accountForm.patchValue({ accountType: 'CLIENT' })">
       Client Checking Account
     </button>
     <button id="businessBtn" class="toggle-btn" [class.active]="accountForm.get('accountType')?.value === 'business'"

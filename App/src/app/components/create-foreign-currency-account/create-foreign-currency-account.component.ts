@@ -46,7 +46,7 @@ export class CreateForeignCurrencyAccountComponent implements OnInit {
 
   constructor(private fb: FormBuilder) {
     this.accountForm = this.fb.group({
-      accountType: ['client'],
+      accountType: ['CLIENT'],
       currency: ['', Validators.required],
       companyName: ['', Validators.required],
       companyRegistrationNumber: [

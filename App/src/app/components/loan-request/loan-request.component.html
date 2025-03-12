@@ -1,0 +1,96 @@
+<div class="loan-request-container">
+    <h2>Loan Request</h2>
+
+    <app-alert></app-alert>
+
+    <form *ngIf="!success" [formGroup]="loanForm" (ngSubmit)="onSubmit()" class="form-grid">
+
+        <div class="input-group">
+            <label for="type">Loan Type</label>
+            <select formControlName="type" id="type" (blur)="resetInvalidField('type')">
+                <option *ngFor="let type of loanTypes" [value]="type">{{ type }}</option>
+            </select>
+            <small class="error" *ngIf="isInvalid('type')">You must select a loan type.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="amount">Loan Amount</label>
+            <input type="number" formControlName="amount" id="amount" placeholder="Enter loan amount" (blur)="resetInvalidField('amount')" />
+            <small class="error" *ngIf="isInvalid('amount')">Minimum loan amount is 1000.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="currencyCode">Currency</label>
+            <select formControlName="currencyCode" id="currencyCode" (blur)="resetInvalidField('currencyCode')">
+                <option *ngFor="let currency of availableCurrencies" [value]="currency.code">
+                    {{ currency.name }} ({{ currency.code }})
+                </option>
+            </select>
+            <small class="error" *ngIf="isInvalid('currencyCode')">You must select a currency.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="purpose">Purpose</label>
+            <textarea formControlName="purpose" id="purpose" placeholder="Enter loan purpose" (blur)="resetInvalidField('purpose')"></textarea>
+            <small class="error" *ngIf="isInvalid('purpose')">Purpose must be between 5 and 255 characters.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="monthlyIncome">Monthly Income</label>
+            <input type="number" formControlName="monthlyIncome" id="monthlyIncome" placeholder="Enter monthly income" (blur)="resetInvalidField('monthlyIncome')" />
+            <small class="error" *ngIf="isInvalid('monthlyIncome')">Monthly income must be greater than 0.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="employmentStatus">Employment Status</label>
+            <select formControlName="employmentStatus" id="employmentStatus" (blur)="resetInvalidField('employmentStatus')">
+                <option *ngFor="let status of employmentStatuses" [value]="status">{{ status }}</option>
+            </select>
+            <small class="error" *ngIf="isInvalid('employmentStatus')">You must select employment status.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="employmentDuration">Employment Duration (months)</label>
+            <input type="number" formControlName="employmentDuration" id="employmentDuration" placeholder="Enter employment duration" (blur)="resetInvalidField('employmentDuration')" />
+            <small class="error" *ngIf="isInvalid('employmentDuration')">Invalid employment duration.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="repaymentPeriod">Repayment Period</label>
+            <select formControlName="repaymentPeriod" id="repaymentPeriod" (blur)="resetInvalidField('repaymentPeriod')">
+                <option *ngFor="let period of (repaymentOptions[selectedLoanType!] || [])" [value]="period">
+                    {{ period }} months
+                </option>
+            </select>
+            <small class="error" *ngIf="isInvalid('repaymentPeriod')">Repayment period is required.</small>
+        </div>
+
+        <div class="input-group">
+            <label for="contactPhone">Contact Phone</label>
+            <input type="text" formControlName="contactPhone" id="contactPhone" placeholder="Enter your phone number" (blur)="resetInvalidField('contactPhone')" />
+            <small class="error" *ngIf="isInvalid('contactPhone')">Invalid phone number format (+381641234567).</small>
+        </div>
+
+        <div class="input-group">
+            <label for="accountNumber">Bank Account Number</label>
+            <select formControlName="accountNumber" id="accountNumber" (blur)="resetInvalidField('accountNumber')">
+                <option *ngFor="let account of userAccounts" [value]="account.accountNumber">
+                    {{ account.accountNumber }} ({{ account.currencyCode }})
+                </option>
+            </select>
+            <small class="error" *ngIf="loanForm.get('accountNumber')?.errors?.['invalidCurrency']">
+                The selected account currency must match the loan currency.
+            </small>
+            <small class="error" *ngIf="isInvalid('accountNumber')">You must select a bank account.</small>
+        </div>
+
+        <div class="form-buttons">
+            <button class="btn confirm" type="submit" [disabled]="loanForm.invalid">Submit Request</button>
+            <button class="btn cancel" type="button" (click)="navigateToPage('/')">Cancel</button>
+        </div>
+    </form>
+
+    <div *ngIf="success">
+        <app-success message="Your loan request has been successfully submitted!" title="Loan Request Submitted" continuePath="/user/:id"></app-success>
+    </div>
+</div>

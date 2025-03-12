@@ -1,0 +1,58 @@
+
+<div class="exchange-container">
+  <h2>Exchange Rates</h2>
+
+  <table class="exchange-table">
+    <thead>
+    <tr>
+      <th>Currency</th>
+      <th>Buy Rate</th>
+      <th>Sell Rate</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let rate of exchageRateList">
+      <tr *ngIf="rate.toCurrency.code === 'RSD'">
+        <td>{{ rate.fromCurrency.code }}</td>
+        <td>{{ rate.exchangeRate }} RSD</td>
+        <td>{{ rate.sellRate }} RSD</td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <label for="popupToggle" class="open-popup">Currency Conversion</label>
+</div>
+
+<!-- Popup for Exchange Calculation -->
+<input type="checkbox" id="popupToggle" class="popup-toggle">
+
+<div class="popup" id="exchangePopup">
+  <div class="popup-content">
+    <h3>Currency Conversion</h3>
+
+    <div class="form-group">
+      <label>Amount</label>
+      <input type="number" [(ngModel)]="exchangeAmount" (input)="exchangeRateCalculation()" placeholder="Enter amount" min="0">
+    </div>
+
+    <div class="form-group">
+      <label>From Currency</label>
+      <select [(ngModel)]="fromCurrency" (change)="onFromCurrencyChange()">
+        <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>To Currency</label>
+      <select [(ngModel)]="toCurrency" (change)="onToCurrencyChange()">
+        <option *ngFor="let currency of availableToCurrencies" [value]="currency">{{ currency }}</option>
+      </select>
+    </div>
+
+    <p class="result">Equivalent: {{ convertedAmount }} {{ toCurrency }}</p>
+
+    <label for="popupToggle" class="btn close" >Close</label>
+  </div>
+</div>
+

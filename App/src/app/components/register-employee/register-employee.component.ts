@@ -24,7 +24,7 @@ export class RegisterEmployeeComponent implements OnInit {
   registerEmployeeForm!: FormGroup;
 
   get isAdmin(): boolean {
-    return <boolean>this.authService.getUserPermissions()?.includes("admin");
+    return <boolean>this.authService.isAdmin();
   }
 
   ngOnInit(): void {

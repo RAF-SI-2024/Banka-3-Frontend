@@ -1,0 +1,81 @@
+.loan-request-container {
+  width: 650px;
+  background: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  font-family: 'Poppins', sans-serif;
+}
+
+
+h2 {
+  text-align: center;
+  color: #6A4BBC;
+  margin-bottom: 20px;
+}
+
+.form-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
+}
+
+.input-group {
+  width: 48%;
+}
+
+.input-group input, .input-group select, .input-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #C2B4E2;
+  border-radius: 6px;
+  font-size: 14px;
+  background: #F8F8F8;
+}
+
+.input-group textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: 0.3s ease-in-out;
+}
+
+.btn.confirm {
+  background: #6A4BBC;
+  color: white;
+}
+
+.btn.confirm:hover {
+  background: #8E79D2;
+}
+
+.btn.cancel {
+  background: #888;
+  color: white;
+}
+
+.btn.cancel:hover {
+  background: #666;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 5px;
+}
+

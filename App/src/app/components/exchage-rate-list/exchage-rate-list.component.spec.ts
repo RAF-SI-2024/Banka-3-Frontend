@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SuccessComponent } from './success.component';
+import { ExchageRateListComponent } from './exchage-rate-list.component';
 
-describe('SuccessComponent', () => {
-  let component: SuccessComponent;
-  let fixture: ComponentFixture<SuccessComponent>;
+describe('ExchageRateListComponent', () => {
+  let component: ExchageRateListComponent;
+  let fixture: ComponentFixture<ExchageRateListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SuccessComponent]
+      imports: [ExchageRateListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SuccessComponent);
+    fixture = TestBed.createComponent(ExchageRateListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
