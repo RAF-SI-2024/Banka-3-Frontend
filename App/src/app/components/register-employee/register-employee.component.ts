@@ -5,12 +5,15 @@ import { CommonModule } from '@angular/common';
 import { EmployeeService } from '../../services/employee.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from '../../services/alert.service';
-import { AlertComponent } from '../alert/alert.component';
+import {validations} from '../../models/validation.model';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
+import {SelectComponent} from '../shared/select/select.component';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-register-employee',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, AlertComponent],
+  imports: [CommonModule, ReactiveFormsModule, InputTextComponent, SelectComponent, ButtonComponent],
   templateUrl: './register-employee.component.html',
   styleUrls: ['./register-employee.component.css']
 })
@@ -34,17 +37,17 @@ export class RegisterEmployeeComponent implements OnInit {
     }
 
     this.registerEmployeeForm = this.fb.group({
-      firstName: ['', [Validators.required, this.onlyLettersValidator, this.minLengthWithoutSpaces(2)]],
-      lastName: ['', [Validators.required, this.onlyLettersValidator, this.minLengthWithoutSpaces(2)]],
-      birthDate: ['', [Validators.required, this.pastDateValidator]],
+      firstName: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2)]],
+      birthDate: ['', [Validators.required, Validators.max(new Date().getDate())]],
       gender: ['', [Validators.required]],
       jmbg: ['', [Validators.required, Validators.pattern(/^\d{13}$/)]],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^0?[1-9][0-9]{6,14}$/)]],
-      address: ['', [Validators.required, this.minLengthWithoutSpaces(5)]],
-      username: ['', [Validators.required, this.minLengthWithoutSpaces(3)]],
-      position: ['', [Validators.required, this.onlyLettersValidator, this.minLengthWithoutSpaces(2)]],
-      department: ['', [Validators.required, this.minLengthWithoutSpaces(2)]],
+      address: ['', [Validators.required, Validators.minLength(5)]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
+      position: ['', [Validators.required, Validators.pattern(/^[A-Za-z\s]+$/), Validators.minLength(2)]],
+      department: ['', [Validators.required, Validators.minLength(2)]],
       active: [false, Validators.required]
     });
   }
@@ -68,27 +71,10 @@ export class RegisterEmployeeComponent implements OnInit {
         }
       });
     } else {
+      console.log(this.registerEmployeeForm.value);
       this.registerEmployeeForm.markAllAsTouched();
     }
   }
 
-  minLengthWithoutSpaces(minLength: number) {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (!control.value) return null;
-      const trimmedLength = control.value.trim().length;
-      return trimmedLength < minLength ? { minLengthWithoutSpaces: { requiredLength: minLength, actualLength: trimmedLength } } : null;
-    };
-  }
-
-  onlyLettersValidator(control: AbstractControl): ValidationErrors | null {
-    if (!control.value) return null;
-    const trimmedValue = control.value.trim();
-    return /^[A-Za-z\s]+$/.test(trimmedValue) ? null : { onlyLetters: true };
-  }
-
-  pastDateValidator(control: AbstractControl): ValidationErrors | null {
-    const today = new Date();
-    const inputDate = new Date(control.value);
-    return inputDate < today ? null : { invalidDate: 'Birthdate must be in the past' };
-  }
+  protected readonly validations = validations;
 }

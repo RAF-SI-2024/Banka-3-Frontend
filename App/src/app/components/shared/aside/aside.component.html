@@ -1,0 +1,70 @@
+<aside id="logo-sidebar" [ngClass]="{ 'open': isSidebarOpen }" aria-label="Sidebar">
+  <div class="sidebar-content">
+    <ul class="sidebar-list">
+      <!-- Client Portal Button -->
+      <li *ngIf="isEmployee || isAdmin">
+        <a class="sidebar-link" (click)="router.navigate(['/client-portal'])">
+          <i class="ri-user-line sidebar-icon"></i>
+          <span class="sidebar-text">Client Portal</span>
+        </a>
+      </li>
+
+      <!-- All Employees Button -->
+      <li *ngIf="isAdmin">
+        <a class="sidebar-link" (click)="router.navigate(['/employees'])">
+          <i class="ri-team-line sidebar-icon"></i>
+          <span class="sidebar-text">All Employees</span>
+        </a>
+      </li>
+
+
+      <!-- Računi -->
+      <li>
+        <a class="sidebar-link" (click)="router.navigate(['/racuni'])">
+          <i class="ri-bank-line sidebar-icon"></i>
+          <span class="sidebar-text">Računi</span>
+        </a>
+      </li>
+
+      <!-- Plaćanja -->
+      <li>
+        <a class="sidebar-link" (click)="router.navigate(['/placanja'])">
+          <i class="ri-money-dollar-circle-line sidebar-icon"></i>
+          <span class="sidebar-text">Plaćanja</span>
+        </a>
+      </li>
+
+      <!-- Transferi -->
+      <li>
+        <a class="sidebar-link" (click)="router.navigate(['/transferi'])">
+          <i class="ri-exchange-funds-line sidebar-icon"></i>
+          <span class="sidebar-text">Transferi</span>
+        </a>
+      </li>
+
+      <!-- Menjačnica -->
+      <li>
+        <a class="sidebar-link" (click)="router.navigate(['/menjacnica'])">
+          <i class="ri-exchange-line sidebar-icon"></i>
+          <span class="sidebar-text">Menjačnica</span>
+        </a>
+      </li>
+
+      <!-- Kartice -->
+      <li>
+        <a class="sidebar-link" (click)="router.navigate(['/kartice'])">
+          <i class="ri-bank-card-line sidebar-icon"></i>
+          <span class="sidebar-text">Kartice</span>
+        </a>
+      </li>
+
+      <!-- Krediti -->
+      <li>
+        <a class="sidebar-link" (click)="router.navigate(['/krediti'])">
+          <i class="ri-hand-coin-line sidebar-icon"></i>
+          <span class="sidebar-text">Krediti</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</aside>

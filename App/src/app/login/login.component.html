@@ -1,38 +1,16 @@
 <div class="login-container">
-  <h2>Banka 3</h2>
-  <form #loginForm="ngForm" (ngSubmit)="login()" novalidate>
-    <label for="email">Email</label>
-    <input
-      type="email"
-      id="email"
-      placeholder="Enter your email"
-      [(ngModel)]="email"
-      name="email"
-      required
-      #emailField="ngModel"
-    />
-    <div class="error" *ngIf="emailField.invalid && emailField.touched">
-      Email is required
-    </div>
+  <div class="card login-card">
+    <h2>Banka 3</h2>
+    <form #loginForm="ngForm" (ngSubmit)="login()">
+      <input-text name="email" type="email" placeholder="Email" [(ngModel)]="email" [validationRules]="[validations.required, validations.minLength(3), validations.isEmail]"></input-text>
 
-    <label for="password">Password</label>
-    <input
-      type="password"
-      id="password"
-      placeholder="Enter your password"
-      [(ngModel)]="password"
-      name="password"
-      required
-      #passwordField="ngModel"
-    />
-    <div class="error" *ngIf="passwordField.invalid && passwordField.touched">
-      Password is required
-    </div>
+      <input-text name="password" type="password" placeholder="********" [(ngModel)]="password" [validationRules]="[validations.required, validations.minLength(3)]"></input-text>
 
-    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+      <app-button label="Login" type="submit" [disabled]="loginForm.invalid"></app-button>
 
-    <div class="login-links">
-      <a routerLink="/forgot-password">Forgot Password?</a>
-    </div>
-  </form>
+      <div class="login-links">
+        <a routerLink="/forgot-password">Forgot Password?</a>
+      </div>
+    </form>
+  </div>
 </div>

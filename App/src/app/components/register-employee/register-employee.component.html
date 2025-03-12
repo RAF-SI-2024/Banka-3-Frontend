@@ -1,76 +1,61 @@
 <div class="register-container">
   <h2>Register New Employee</h2>
 
-  <app-alert></app-alert>
-
   <form *ngIf="isAdmin" [formGroup]="registerEmployeeForm" (ngSubmit)="onSubmit()">
-    <div class="form-row">
-      <label for="firstName">First Name</label>
-      <input id="firstName" formControlName="firstName">
+    <div class="flex" style="width: 100%;text-align: left;gap: 1rem;">
+      <input-text formControlName="firstName" placeholder="First Name" label="First Name"
+[validationRules]="[validations.required, validations.onlyLetters(), validations.minLengthWithoutSpaces(2)]"/>
+      <input-text formControlName="lastName" placeholder="Last Name" label="Last Name"
+                  [validationRules]="[validations.required, validations.onlyLetters(), validations.minLengthWithoutSpaces(2)]"/>
     </div>
 
     <div class="form-row">
-      <label for="lastName">Last Name</label>
-      <input id="lastName" formControlName="lastName">
+      <input-text formControlName="birthDate" type="date" placeholder="Date of Birth" label="Date of Birth" [validationRules]="[validations.required, validations.pastDate()]"/>
     </div>
 
     <div class="form-row">
-      <label for="birthDate">Date of Birth</label>
-      <input type="date" id="birthDate" formControlName="birthDate" required>
-    </div>
-
-    <div class="form-row">
-      <label for="gender">Gender</label>
-      <select id="gender" formControlName="gender" required>
+      <app-select  label="Gender" formControlName="gender" >
         <option value="" disabled selected>Select gender</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
-      </select>
+      </app-select>
     </div>
 
     <div class="form-row">
-      <label for="jmbg">JMBG</label>
-      <input id="jmbg" formControlName="jmbg">
+      <input-text formControlName="jmbg" placeholder="JMBG" label="JMBG" [validationRules]="[validations.required, validations.isValidJMBG()]"/>
     </div>
 
     <div class="form-row">
-      <label for="email">Email</label>
-      <input id="email" type="email" formControlName="email">
+      <input-text formControlName="email" placeholder="Email" label="Email" type="email" [validationRules]="[validations.required, validations.isEmail]"/>
     </div>
 
     <div class="form-row">
-      <label for="phone">Phone Number</label>
-      <input id="phone" formControlName="phone">
+      <input-text formControlName="phone" placeholder="Phone Number" label="Phone Number" [validationRules]="[validations.required, validations.isValidPhone()]"/>
     </div>
 
     <div class="form-row">
-      <label for="address">Address</label>
-      <input id="address" formControlName="address">
+      <input-text formControlName="address" placeholder="Address" label="Address" [validationRules]="[validations.required, validations.minLengthWithoutSpaces(5)]"/>
     </div>
 
     <div class="form-row">
-      <label for="username">Username</label>
-      <input id="username" formControlName="username">
+      <input-text formControlName="username" placeholder="Username" label="Username" [validationRules]="[validations.required, validations.minLengthWithoutSpaces(3)]"/>
     </div>
 
     <div class="form-row">
-      <label for="position">Position</label>
-      <input id="position" formControlName="position">
+      <input-text formControlName="position" placeholder="Position" label="Position" [validationRules]="[validations.required, validations.onlyLetters(), validations.minLengthWithoutSpaces(3)]"/>
     </div>
 
     <div class="form-row">
-      <label for="department">Department</label>
-      <input id="department" formControlName="department">
+      <input-text formControlName="department" placeholder="Department" label="Department" [validationRules]="[validations.required, validations.minLengthWithoutSpaces(3)]"/>
     </div>
 
     <div class="form-row">
-      <label for="active">Active Status</label>
-      <select id="active" formControlName="active">
+      <app-select  label="Active Status" formControlName="active" >
         <option [value]="true">Active</option>
         <option [value]="false">Inactive</option>
-      </select>
+      </app-select>
     </div>
 
-    <button type="submit" [disabled]="!isAdmin">Register Employee</button>
+    <app-button type="submit" label="Register Employee"/>
   </form>
 </div>

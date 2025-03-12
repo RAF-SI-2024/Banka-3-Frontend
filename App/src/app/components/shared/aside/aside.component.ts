@@ -1,17 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
+import {Component, inject, Input, OnInit} from '@angular/core';
+import {NgClass, NgIf} from '@angular/common';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-aside',
+  imports: [
+    NgClass,
+    NgIf
+  ],
+  templateUrl: './aside.component.html',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrl: './aside.component.css'
 })
-export class NavbarComponent implements OnInit {
+export class AsideComponent implements OnInit{
+  @Input() isSidebarOpen: boolean = false; // Input property to control sidebar visibility
   protected router = inject(Router);
   protected authService = inject(AuthService);
 
@@ -39,14 +43,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/']);
-  }
-
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
   }
+
 }

@@ -1,5 +1,11 @@
-.main {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+/* Main Container */
+.main-container {
+  padding: 0.5rem 1rem; /* p-4 */
+  margin-left: 16rem; /* sm:ml-64 */
+}
+
+/* Inner Container */
+.inner-container {
+  padding: 0; /* p-4 */
+  margin-top: 4rem; /* mt-14 */
 }

@@ -1,0 +1,16 @@
+<div class="input-container" [class.error]="showErrors">
+  <label *ngIf="label">{{ label }}</label>
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [value]="value"
+    (input)="onInput($event)"
+    (blur)="onBlur()"
+    (focus)="onFocus()"
+    [name]="name"
+    [disabled]="disabled"
+  />
+  <div *ngIf="showErrors" class="error-messages">
+    <div *ngFor="let error of errors" class="error-message">{{ error }}</div>
+  </div>
+</div>

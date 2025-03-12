@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from '../../services/alert.service';
-import {AlertComponent} from '../alert/alert.component';
+import {AlertComponent} from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-edit-user',

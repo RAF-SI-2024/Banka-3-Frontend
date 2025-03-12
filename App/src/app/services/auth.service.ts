@@ -61,6 +61,17 @@ export class AuthService {
     }
   }
 
+  getUserName(): string {
+    const token = this.getToken();
+    if (!token) return "Not Authenticated"
+    try {
+      const decoded: any = jwtDecode(token);
+      return decoded.username;
+    } catch {
+      return "Not Authenticated"
+    }
+  }
+
   getUserId(): number | null {
     const token = this.getToken();
     if (!token) return null;

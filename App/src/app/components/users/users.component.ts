@@ -5,8 +5,8 @@ import { User } from '../../models/user.model';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AlertService } from '../../services/alert.service';
-import { AlertComponent } from '../alert/alert.component';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-users',
