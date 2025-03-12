@@ -1,0 +1,47 @@
+<div class="container">
+    <h2>Novo plaćanje</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="brojNaloga">Broj naloga</label>
+        <input id="brojNaloga" type="text" [(ngModel)]="payment.brojNaloga" name="brojNaloga" readonly />
+      </div>
+      <div class="form-group">
+        <label for="saRacuna">Sa računa</label>
+        <input id="saRacuna" type="text" [(ngModel)]="payment.saRacuna" name="saRacuna" required />
+      </div>
+      <div class="form-group">
+        <label for="iznos">Iznos</label>
+        <input id="iznos" type="number" [(ngModel)]="payment.iznos" name="iznos" required />
+      </div>
+      <div class="form-group">
+        <label for="naRacun">Na račun</label>
+        <input id="naRacun" type="text" [(ngModel)]="payment.naRacun" name="naRacun" required />
+      </div>
+      <div class="form-group">
+        <label for="primalac">Primalac</label>
+        <input id="primalac" type="text" [(ngModel)]="payment.primalac" name="primalac" />
+      </div>
+      <div class="form-group">
+        <label for="adresaPrimaoca">Adresa primaoca</label>
+        <input id="adresaPrimaoca" type="text" [(ngModel)]="payment.adresaPrimaoca" name="adresaPrimaoca" />
+      </div>
+      <div class="form-group">
+        <label for="sifraPlacanja">Šifra plaćanja</label>
+        <input id="sifraPlacanja" type="text" [(ngModel)]="payment.sifraPlacanja" name="sifraPlacanja" />
+      </div>
+      <div class="form-group">
+        <label for="pozivNaBroj">Poziv na broj</label>
+        <input id="pozivNaBroj" type="text" [(ngModel)]="payment.pozivNaBroj" name="pozivNaBroj" />
+      </div>
+      <div class="form-group">
+        <label for="svrhaPlacanja">Svrha plaćanja</label>
+        <input id="svrhaPlacanja" type="text" [(ngModel)]="payment.svrhaPlacanja" name="svrhaPlacanja" />
+      </div>
+      <div class="form-group">
+        <label for="datumVremePlacanja">Datum i vreme</label>
+        <input id="datumVremePlacanja" type="datetime-local" [(ngModel)]="payment.datumVremePlacanja" name="datumVremePlacanja" />
+      </div>
+      <button type="submit">Pošalji nalog</button>
+    </form>
+  </div>
+  
