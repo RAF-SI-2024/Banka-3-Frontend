@@ -27,7 +27,6 @@ import { NewPaymentComponent } from './components/new-payment/new-payment.compon
 export const routes: Routes = [
   // login
   { path: '', component: WelcomeComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'login/:type', component: LoginComponent },
 
   // password

@@ -123,8 +123,7 @@ export class AccountManagementComponent implements OnInit {
     return this.authService.isEmployee();
   }
   isClient(){
-    return true;
-    // return this.authService.isClient();
+    return this.authService.isClient();
   }
 
   loadAccounts() {

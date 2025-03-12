@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         const permissions = this.authService.getUserPermissions();
 
         if (this.loginType === 'employee') {
-          if (permissions?.includes('ADMIN')) {
+          if (this.authService.isAdmin()) {
             this.router.navigate(['/client-portal']);
           } else {
             this.router.navigate([`/employee/${userId}`]);

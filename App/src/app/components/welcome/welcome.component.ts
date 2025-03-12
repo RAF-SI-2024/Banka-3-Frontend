@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class WelcomeComponent {
   constructor(private router: Router) {}
 
-  selectLogin(userType: 'EMPLOYEE' | 'CLIENT'): void {
+  selectLogin(userType: 'employee' | 'client'): void {
     this.router.navigate([`/login/${userType}`]); // ✅ Redirect to login with userType
   }
 }
