@@ -26,6 +26,7 @@ import { NewPaymentComponent } from './components/new-payment/new-payment.compon
 import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
+import { CreateCardComponent } from './components/create-card/create-card.component';
 
 export const routes: Routes = [
   // login
@@ -63,12 +64,12 @@ export const routes: Routes = [
   { path: 'card/:cardNumber/transactions',component: TransactionListComponent, canActivate: [authGuard]},
   { path: 'card/:cardNumber/transactions/new', component: NewTransactionComponent, canActivate: [authGuard]},
   
-  { path: 'transactions/:transactionId',component: TransactionDetailsComponent, canActivate: [authGuard]}
+  { path: 'transactions/:transactionId',component: TransactionDetailsComponent, canActivate: [authGuard]},
   { path: 'exchange-rate', component: ExchageRateListComponent,canActivate: [authGuard]},
 
   //loans
   { path: 'loan-request', component: LoanRequestComponent},
   { path: 'new-payment', component: NewPaymentComponent },
-
+  { path: 'account/:accountNumber/create-card', component: CreateCardComponent, canActivate: [authGuard] }
 
 ];

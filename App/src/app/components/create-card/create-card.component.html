@@ -1,0 +1,22 @@
+<div class="create-card-container">
+    <h2>Create New Card</h2>
+    <form #createCardForm="ngForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Card Type</label>
+        <select [(ngModel)]="newCard.type" name="type" required>
+          <option value="DEBIT">DEBIT</option>
+          <option value="CREDIT">CREDIT</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Card Name</label>
+        <input type="text" [(ngModel)]="newCard.name" name="name" required />
+      </div>
+      <div class="form-group">
+        <label>Card Limit</label>
+        <input type="number" [(ngModel)]="newCard.cardLimit" name="cardLimit" required />
+      </div>
+      <button class="submit-btn" type="submit" [disabled]="createCardForm.invalid">Create</button>
+    </form>
+  </div>
+  

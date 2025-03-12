@@ -1,93 +1,88 @@
-import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, RouterLink} from '@angular/router';
-import { CardService } from '../../services/card.service';
-import { AccountService } from '../../services/account.service';
-import { NgClass, NgForOf } from '@angular/common';
-import {ModalComponent} from '../modal/modal.component';
-
-interface Card {
-  cardNumber: string;
-  status: string;
-  owner: {
-    firstName: string;
-    lastName: string;
-    email: string;
-  };
-}
+import { Component, OnInit } from '@angular/core'
+import { ActivatedRoute, RouterLink } from '@angular/router'
+import { CardService, Card } from '../../services/card.service'
+import { AccountService } from '../../services/account.service'
+import { NgClass, NgForOf } from '@angular/common'
+import { ModalComponent } from '../modal/modal.component'
 
 interface Account {
-  accountNumber: string;
-  accountOwner: string;
-  availableBalance: number;
-  reservedFunds: number;
-  balance: number;
+  accountNumber: string
+  accountOwner: string
+  availableBalance: number
+  reservedFunds: number
+  balance: number
 }
 
 @Component({
   selector: 'app-cards',
   templateUrl: './cards.component.html',
   standalone: true,
-  imports: [
-    NgClass,
-    NgForOf,
-    RouterLink,
-    ModalComponent
-  ],
+  imports: [NgClass, NgForOf, RouterLink, ModalComponent],
   styleUrls: ['./cards.component.css']
 })
 export class CardsComponent implements OnInit {
-  account: Account | null = null;
-  cards: Card[] = [];
+  account: Account | null = null
+  cards: Card[] = []
+  accountNumber: string = ''
+  isModalOpen: boolean = false
 
   constructor(private route: ActivatedRoute, private cardService: CardService, private accountService: AccountService) {}
 
   ngOnInit(): void {
-    const accountNumber = this.route.snapshot.paramMap.get('accountNumber');
-
-    if (accountNumber) {
-      // Fetch account details
-      this.accountService.getAccount(accountNumber).subscribe(data => {
-        this.account = data;
-      });
-
-      // Fetch associated cards
-      this.cardService.getCardsByAccount(accountNumber).subscribe(data => {
-        this.cards = data;
-      });
+    const paramAcc = this.route.snapshot.paramMap.get('accountNumber')
+    if (paramAcc) {
+      this.accountNumber = paramAcc
+      this.accountService.getAccount(this.accountNumber).subscribe(data => {
+        this.account = data
+      })
+      this.loadCards()
     }
   }
 
-  // Apply dynamic class for card status
+  loadCards(): void {
+    this.cardService.getCardsByAccount(this.accountNumber).subscribe(data => {
+      this.cards = data
+    })
+  }
+
+  blockCard(cardNumber: string): void {
+    this.cardService.blockCard(this.accountNumber, cardNumber).subscribe({
+      next: () => {
+        this.loadCards()
+      },
+      error: err => {
+      }
+    })
+  }
+
   getCardStatusClass(status: string): string {
     switch (status) {
       case 'ACTIVE':
-        return 'status-active';
+        return 'status-active'
       case 'BLOCKED':
-        return 'status-blocked';
+        return 'status-blocked'
       case 'DEACTIVATED':
-        return 'status-deactivated';
+        return 'status-deactivated'
       default:
-        return '';
+        return ''
     }
   }
 
-  // Placeholder for payment function
+  maskCardNumber(fullCardNumber: string): string {
+    if (!fullCardNumber || fullCardNumber.length < 8) return fullCardNumber
+    const first4 = fullCardNumber.slice(0, 4)
+    const last4 = fullCardNumber.slice(-4)
+    return `${first4}********${last4}`
+  }
+
   makePayment(cardNumber: string): void {
-    console.log(`Initiating payment for card: ${cardNumber}`);
-    // Implement your payment logic here
   }
 
-  isModalOpen: boolean = false;
-
-  // Function to open the modal
   openModal() {
-    this.isModalOpen = true;
+    this.isModalOpen = true
   }
 
-  // Function to close the modal
   closeModal() {
-    this.isModalOpen = false;
+    this.isModalOpen = false
   }
-
-
 }
