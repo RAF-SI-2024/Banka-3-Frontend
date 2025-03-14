@@ -1,0 +1,19 @@
+<div class="dropdown" [ngClass]="{ 'active': isOpen }">
+  <!-- Dropdown Trigger -->
+  <a (click)="toggleDropdown()" class="dropdown-trigger">
+    <ng-content select="[dropdown-trigger]"></ng-content>
+  </a>
+
+  <!-- Dropdown Menu -->
+  <div class="dropdown-menu" *ngIf="isOpen">
+    <!-- Dropdown Header Slot -->
+    <div class="dropdown-header" *ngIf="hasHeader">
+      <ng-content select="[dropdown-header]"></ng-content>
+    </div>
+
+    <!-- Dropdown List Slot -->
+    <div class="dropdown-list">
+      <ng-content select="[dropdown-list]"></ng-content>
+    </div>
+  </div>
+</div>

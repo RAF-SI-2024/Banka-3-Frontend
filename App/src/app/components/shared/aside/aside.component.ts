@@ -1,18 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
-import {ModalComponent} from '../modal/modal.component';
+import {Component, inject, Input, OnInit} from '@angular/core';
+import {NgClass, NgIf} from '@angular/common';
+import {Router} from '@angular/router';
+import {AuthService} from '../../../services/auth.service';
+import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-aside',
+  imports: [
+    NgClass,
+    NgIf
+  ],
+  templateUrl: './aside.component.html',
   standalone: true,
-  imports: [CommonModule, ModalComponent, RouterLink],
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrl: './aside.component.css'
 })
-export class NavbarComponent implements OnInit {
+export class AsideComponent implements OnInit{
+  @Input() isSidebarOpen: boolean = false; // Input property to control sidebar visibility
   protected router = inject(Router);
   protected authService = inject(AuthService);
 
@@ -23,7 +26,6 @@ export class NavbarComponent implements OnInit {
   userId: number | null = null;
   private authSubscription!: Subscription; // Subscription to track auth changes
 
-  isModalOpen: boolean = false;
   ngOnInit(): void {
     this.authSubscription = this.authService.authStatus$.subscribe((isAuth) => {
       this.isAuthenticated = isAuth;
@@ -41,25 +43,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  openModal() {
-    this.isModalOpen = true;
-  }
-  closeModal() {
-    this.isModalOpen = false;
-  }
-  logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/']);
-  }
-
   ngOnDestroy(): void {
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
-  }
-  navigateTo(route: string) {
-    this.closeModal();
-    this.router.navigate([route]);
   }
 
 }

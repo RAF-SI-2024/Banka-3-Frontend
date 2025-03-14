@@ -2,13 +2,14 @@
   background: white;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 100%;
-  text-align: left;
+  margin-bottom: 20px;
 }
 
 .account-details h3 {
   color: #6A4BBC;
+  margin-bottom: 10px;
 }
 
 .account-details table {
@@ -17,43 +18,71 @@
   margin-top: 15px;
 }
 
-.account-details th, .account-details td {
-  padding: 8px;
+.account-details th,
+.account-details td {
+  text-align: left;
+  padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
-.account-details th {
-  background: #D0C9EA;
-  font-weight: bold;
-}
-
 .payment-btn {
-  padding: 6px 12px;
+  padding: 8px 12px;
   color: white;
+  background: #6A4BBC;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.3s;
-  background: #6A4BBC;
-  height: fit-content;
+  font-weight: 600;
+  margin-right: 5px;
 }
 
 .payment-btn:hover {
   background: #8E79D2;
 }
 
-/* Card Status Colors */
+.block-card-btn {
+  padding: 8px 12px;
+  color: white;
+  background: #DC143C;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.block-card-btn:hover {
+  background: #B22222;
+}
+
 .status-active {
-  color: green;
-  font-weight: bold;
+  color: #228B22;
+  font-weight: 600;
 }
 
 .status-blocked {
-  color: red;
-  font-weight: bold;
+  color: #DC143C;
+  font-weight: 600;
 }
 
 .status-deactivated {
   color: gray;
-  font-weight: bold;
+  font-weight: 600;
+}
+
+.request-card-btn {
+  padding: 8px 12px;
+  background: #996FD6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 600;
+  margin: 10px 0;
+}
+
+.request-card-btn:hover {
+  background: #9E7CD7;
 }

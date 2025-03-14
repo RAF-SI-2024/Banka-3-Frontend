@@ -1,0 +1,60 @@
+/* Default styles */
+.input-container {
+  flex: 1 1 auto;
+}
+
+label {
+  display: inline-block; /* block */
+  margin-bottom: 0.5rem; /* mb-2 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  color: #374151; /* Default text color (gray-700) */
+}
+
+input {
+  background-color: #f9fafb; /* bg-gray-50 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  color: #111827; /* text-gray-900 */
+  font-size: 0.875rem; /* text-sm */
+  border-radius: 0.5rem; /* rounded-lg */
+  width: 100%; /* w-full */
+  padding: 0.625rem; /* p-2.5 */
+  box-sizing: border-box; /* Ensure padding is included in width */
+  transition: border-color 0.2s, box-shadow 0.2s; /* Smooth transition for focus */
+}
+
+input:focus {
+  outline: none; /* Remove default outline */
+  border-color: #510076; /* focus:border-blue-500 */
+  box-shadow: 0 0 0 3px #8A54A3; /* focus:ring-blue-500 */
+}
+
+.error-message {
+  margin-top: 0.5rem; /* mt-2 */
+  font-size: 0.875rem; /* text-sm */
+  color: #dc2626; /* text-red-600 */
+}
+
+/* Error state styles */
+.input-container.error label {
+  color: #dc2626; /* text-red-700 */
+}
+
+.input-container.error input {
+  background-color: #fef2f2; /* bg-red-50 */
+  border-color: #ef4444; /* border-red-500 */
+  color: #991b1b; /* text-red-900 */
+}
+
+.input-container.error input::placeholder {
+  color: #b91c1c; /* placeholder-red-700 */
+}
+
+.input-container.error input:focus {
+  border-color: #ef4444; /* focus:border-red-500 */
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5); /* focus:ring-red-500 */
+}
+
+.input-container.error .error-message {
+  display: block; /* Show error message */
+}

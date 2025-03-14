@@ -1,6 +1,23 @@
 .welcome-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   padding: 50px;
+}
+
+.welcome-container .card {
+  width: 350px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 button {

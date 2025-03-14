@@ -1,0 +1,24 @@
+/* Base button styles */
+button {
+  background-color: #641C85; /* bg-purple-700 */
+  color: #ffffff; /* text-white */
+  font-weight: 500; /* font-medium */
+  font-size: 0.875rem; /* text-sm */
+  padding: 0.625rem 1.25rem; /* px-5 py-2.5 */
+  border-radius: 0.5rem; /* rounded-lg */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Add pointer cursor */
+  margin-bottom: 0.5rem; /* mb-2 */
+  transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transitions */
+}
+
+/* Hover state */
+button:hover {
+  background-color: #6b21a8; /* hover:bg-purple-800 */
+}
+
+/* Focus state */
+button:focus {
+  outline: none; /* focus:outline-none */
+  box-shadow: 0 0 0 4px rgba(167, 139, 250, 0.5); /* focus:ring-4 focus:ring-purple-300 */
+}

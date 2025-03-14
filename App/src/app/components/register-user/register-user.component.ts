@@ -6,7 +6,7 @@ import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from '../../services/alert.service';
 import { User } from '../../models/user.model';
-import { AlertComponent } from '../alert/alert.component';
+import { AlertComponent } from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-register-user',

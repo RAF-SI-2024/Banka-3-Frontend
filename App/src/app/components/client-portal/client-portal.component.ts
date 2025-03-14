@@ -5,8 +5,8 @@ import { RouterModule, Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AlertService } from '../../services/alert.service';
-import { AlertComponent } from '../alert/alert.component';
-import { PaginationComponent } from '../pagination/pagination.component';
+import { AlertComponent } from '../shared/alert/alert.component';
+import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { AuthService } from '../../services/auth.service';
 import { AccountService } from '../../services/account.service';
 

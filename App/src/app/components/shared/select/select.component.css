@@ -1,0 +1,42 @@
+/* Default styles for select */
+.select-container {
+  flex: 1 1 auto;
+  position: relative; /* Container for absolute positioning of the icon */
+}
+
+label {
+  display: inline-block; /* block */
+  margin-bottom: 0.5rem; /* mb-2 */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  color: #374151; /* Default text color (gray-700) */
+}
+
+select {
+  background-color: #f9fafb; /* bg-gray-50 */
+  border: 1px solid #d1d5db; /* border-gray-300 */
+  color: #111827; /* text-gray-900 */
+  font-size: 0.875rem; /* text-sm */
+  border-radius: 0.5rem; /* rounded-lg */
+  width: 100%; /* w-full */
+  padding: 0.625rem 2rem 0.625rem 0.75rem; /* p-2.5 with extra padding on the right for the icon */
+  box-sizing: border-box; /* Ensure padding is included in width */
+  transition: border-color 0.2s, box-shadow 0.2s; /* Smooth transition for focus */
+  appearance: none; /* Removes the default select appearance */
+}
+
+select:focus {
+  outline: none; /* Remove default outline */
+  border-color: #510076; /* focus:border-blue-500 */
+  box-shadow: 0 0 0 3px #8A54A3; /* focus:ring-blue-500 */
+}
+
+/* Position the icon inside the select container */
+.select-container .icon {
+  position: absolute;
+  right: 0.75rem; /* Adjust based on your padding */
+  top: 55%;
+  pointer-events: none; /* Prevents the icon from interfering with select options */
+  color: #6b7280; /* Set the icon color */
+  font-size: 1rem; /* Adjust size of the icon */
+}

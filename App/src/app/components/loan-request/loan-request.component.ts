@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { LoanRequestService } from '../../services/loan-request.service';
 import { AlertService } from '../../services/alert.service';
-import { AlertComponent } from '../alert/alert.component';
 import { SuccessComponent } from '../success/success.component';
 import { LoanRequest, LoanType, EmploymentStatus } from '../../models/loan-request.model';
 import { Currency } from '../../models/currency.model';
 import { AccountService } from '../../services/account.service';
+import {AlertComponent} from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-loan-request',

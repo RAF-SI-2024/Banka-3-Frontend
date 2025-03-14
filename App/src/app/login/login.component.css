@@ -1,25 +1,25 @@
-/* Globalni stilovi */
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #B399DD, #D0C9EA);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
-
 /* Login forma */
 .login-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 350px;
+    display: flex;
+    justify-content: center;
     animation: fadeIn 0.5s ease-in-out;
 }
 
+.login-card {
+  width: 350px;
+  margin: auto;
+}
+.login-card form {
+  display: flex;
+  flex-direction: column;
+  gap:0.75rem;
+}
 /* Animacija učitavanja */
 @keyframes fadeIn {
     from {
@@ -30,44 +30,6 @@ body {
         opacity: 1;
         transform: translateY(0);
     }
-}
-
-/* Stilizacija polja */
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #C2B4E2;
-    border-radius: 6px;
-    outline: none;
-    transition: 0.3s;
-}
-
-/* Fokus na input polja */
-input:focus {
-    border-color: #996FD6;
-    box-shadow: 0 0 8px rgba(153, 111, 214, 0.3);
-}
-
-/* Dugme */
-button {
-    width: 100%;
-    padding: 12px;
-    background: #996FD6;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-top: 15px;
-}
-
-/* Hover efekat na dugme */
-button:hover {
-    background: #9E7CD7;
-    transform: scale(1.05);
 }
 
 /* Linkovi ispod login dugmeta */

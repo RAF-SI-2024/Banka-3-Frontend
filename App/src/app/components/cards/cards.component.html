@@ -8,7 +8,9 @@
     </div>
     <button class="payment-btn" (click)="openModal()">Payment</button>
   </div>
-
+  <button class="payment-btn" [routerLink]="['/account', accountNumber, 'create-card']">
+    Create New Card
+  </button>
   <h3>Associated Cards</h3>
   <table>
     <tr>
@@ -18,11 +20,12 @@
       <th>Actions</th>
     </tr>
     <tr *ngFor="let card of cards">
-      <td>{{ card.cardNumber }}</td>
+      <td>{{ maskCardNumber(card.cardNumber) }}</td>
       <td [ngClass]="getCardStatusClass(card.status)">{{ card.status }}</td>
       <td>{{ card.owner.firstName }} {{ card.owner.lastName }}</td>
       <td>
         <button class="payment-btn" (click)="makePayment(card.cardNumber)">New Payment</button>
+        <button class="block-card-btn" (click)="blockCard(card.cardNumber)">Block Card</button>
       </td>
     </tr>
   </table>
@@ -36,5 +39,4 @@
       </div>
     </div>
   </app-modal>
-
 </section>

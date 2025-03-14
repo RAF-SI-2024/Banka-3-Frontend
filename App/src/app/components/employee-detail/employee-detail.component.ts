@@ -5,7 +5,7 @@ import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee.model';
 import { AuthService } from '../../services/auth.service';
 import { AlertService } from '../../services/alert.service';
-import {AlertComponent} from '../alert/alert.component';
+import {AlertComponent} from '../shared/alert/alert.component';
 
 @Component({
   selector: 'app-employee-detail',

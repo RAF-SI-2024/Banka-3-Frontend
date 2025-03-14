@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Credits</title>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Client Credits</h2>
+
+      <!-- Filter -->
+      <input
+        type="text"
+        class="filter"
+        placeholder="Filter credits..."
+        [(ngModel)]="filterText"
+      />
+
+      <!-- List of credits -->
+      <div class="credits-list">
+        <div class="credit-card" *ngFor="let loan of filteredLoans">
+          <span
+            ><strong>{{ loan.loanNumber }}</strong> - {{ loan.amount }}
+            {{ loan.currencyCode }}</span
+          >
+          <button class="details-btn" (click)="showLoanDetails(loan)">
+            Details
+          </button>
+        </div>
+
+        <div *ngIf="loans.length === 0" class="no-loans-message">
+          No loans found for this client.
+        </div>
+      </div>
+
+      <!-- New Credit Button -->
+      <button class="new-credit-btn" (click)="openNewCreditPopup()">
+        New Credit
+      </button>
+    </div>
+
+    <!-- Credit Details Popup -->
+    <div
+      id="detailsPopup"
+      class="popup"
+      [style.display]="selectedLoan ? 'flex' : 'none'"
+    >
+      <div class="popup-content">
+        <span class="close" (click)="closeDetailsPopup()">&times;</span>
+        <h3>Credit Details</h3>
+        <p><strong>Loan Number:</strong> {{ selectedLoan?.loanNumber }}</p>
+        <p><strong>Loan Type:</strong> {{ selectedLoan?.type }}</p>
+        <p>
+          <strong>Loan Amount:</strong> {{ selectedLoan?.amount }}
+          {{ selectedLoan?.currencyCode }}
+        </p>
+        <p><strong>Term:</strong> {{ selectedLoan?.repaymentPeriod }} months</p>
+        <p>
+          <strong>Nominal Interest Rate:</strong>
+          {{ selectedLoan?.nominalInterestRate }}%
+        </p>
+        <p>
+          <strong>Effective Interest Rate:</strong>
+          {{ selectedLoan?.effectiveInterestRate }}%
+        </p>
+        <p>
+          <strong>Start Date:</strong> {{ formatDate(selectedLoan?.startDate) }}
+        </p>
+        <p>
+          <strong>Due Date:</strong> {{ formatDate(selectedLoan?.dueDate) }}
+        </p>
+        <p>
+          <strong>Next Installment:</strong>
+          {{ selectedLoan?.nextInstallmentAmount }}
+          {{ selectedLoan?.currencyCode }}
+        </p>
+        <p>
+          <strong>Next Payment Date:</strong>
+          {{ formatDate(selectedLoan?.nextInstallmentDate) }}
+        </p>
+        <p>
+          <strong>Remaining Debt:</strong> {{ selectedLoan?.remainingDebt }}
+          {{ selectedLoan?.currencyCode }}
+        </p>
+        <p>
+          <strong>Status:</strong>
+          <span [ngClass]="getLoanStatusClass(selectedLoan?.status)">{{
+            selectedLoan?.status
+          }}</span>
+        </p>
+        <div class="popup-buttons">
+          <button class="cancel-btn" (click)="closeDetailsPopup()">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Credit Popup -->
+    <div
+      id="newCreditPopup"
+      class="popup"
+      [style.display]="newCreditPopupVisible ? 'flex' : 'none'"
+    >
+      <div class="popup-content">
+        <span class="close" (click)="closeNewCreditPopup()">&times;</span>
+        <h3>Apply for New Credit</h3>
+        <form
+          [formGroup]="newLoanForm"
+        >
+          <select class="input-field" formControlName="type" required>
+            <option value="" disabled selected>Select Loan Type</option>
+            <option value="CASH">Cash Loan</option>
+            <option value="MORTGAGE">Mortgage</option>
+            <option value="AUTO">Auto Loan</option>
+            <option value="PERSONAL">Personal Loan</option>
+            <option value="BUSINESS">Business Loan</option>
+          </select>
+          <input
+            type="number"
+            class="input-field"
+            placeholder="Loan Amount"
+            formControlName="amount"
+            required
+          />
+          <input
+            type="number"
+            class="input-field"
+            placeholder="Term (months)"
+            formControlName="repaymentPeriod"
+            required
+          />
+          <select class="input-field" formControlName="currencyCode" required>
+            <option value="" disabled selected>Select Currency</option>
+            <option value="EUR">EUR</option>
+            <option value="USD">USD</option>
+            <option value="RSD">RSD</option>
+          </select>
+          <input
+            type="text"
+            class="input-field"
+            placeholder="Purpose (optional)"
+            formControlName="purpose"
+          />
+          <div class="popup-buttons">
+            <button type="submit" class="confirm-btn">Submit</button>
+            <button
+              type="button"
+              class="cancel-btn"
+              (click)="closeNewCreditPopup()"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

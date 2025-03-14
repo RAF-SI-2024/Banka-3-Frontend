@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import {authGuard, adminGuard, employeeGuard, employeeOrAdminGuard} from './guards/auth-guard.guard';
+import { authGuard, adminGuard, employeeGuard, employeeOrAdminGuard } from './guards/auth-guard.guard';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { EditEmployeeComponent } from './components/edit-employee/edit-employee.component';
@@ -26,6 +26,8 @@ import { NewPaymentComponent } from './components/new-payment/new-payment.compon
 import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 import { TransactionListComponent } from './components/transaction-list/transaction-list.component';
+import { CreateCardComponent } from './components/create-card/create-card.component';
+import { LoansComponent } from './components/loans/loans.component';
 
 export const routes: Routes = [
   // login
@@ -69,6 +71,7 @@ export const routes: Routes = [
   //loans
   { path: 'loan-request', component: LoanRequestComponent},
   { path: 'new-payment', component: NewPaymentComponent },
-
+  { path: 'account/:accountNumber/create-card', component: CreateCardComponent, canActivate: [authGuard] },
+  { path: 'loan-management/:clientId', component: LoansComponent, canActivate: [authGuard] }
 
 ];
