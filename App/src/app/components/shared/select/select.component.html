@@ -1,9 +1,6 @@
 <div class="select-container">
   <label *ngIf="label">{{ label }}</label>
-  <div>
-    <i class="ri-arrow-down-s-line icon"></i>
-    <select (change)="onSelectChange($event)" [value]="value">
-      <ng-content></ng-content> <!-- Projected options -->
-    </select>
-  </div>
+  <select (change)="onSelectChange($event)" [value]="value">
+    <ng-content></ng-content> <!-- Projected options -->
+  </select>
 </div>

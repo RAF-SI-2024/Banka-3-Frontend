@@ -8,8 +8,11 @@ button {
   border-radius: 0.5rem; /* rounded-lg */
   border: none; /* Remove default border */
   cursor: pointer; /* Add pointer cursor */
-  margin-bottom: 0.5rem; /* mb-2 */
   transition: background-color 0.2s, box-shadow 0.2s; /* Smooth transitions */
+}
+
+button.disabled {
+  background-color: #290038;
 }
 
 /* Hover state */

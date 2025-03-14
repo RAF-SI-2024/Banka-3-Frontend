@@ -59,7 +59,7 @@ export const routes: Routes = [
   { path: 'create-foreign-currency-account', component: CreateForeignCurrencyAccountComponent, canActivate: [employeeOrAdminGuard]},
   { path: 'create-current-account', component: AccountCreationComponent, canActivate: [employeeOrAdminGuard]},
   { path: 'account-management', component: AccountManagementComponent, canActivate: [authGuard]},
-  { path: 'transfer', component: TransferComponent, canActivate: [employeeGuard]},
+  { path: 'transfer', component: TransferComponent, canActivate: [employeeOrAdminGuard]},
   { path: 'recipients', component: RecipientsComponent},
 
   { path: 'card/:cardNumber/transactions',component: TransactionListComponent, canActivate: [authGuard]},

@@ -23,6 +23,10 @@ input {
   transition: border-color 0.2s, box-shadow 0.2s; /* Smooth transition for focus */
 }
 
+input.disabled {
+  background-color: #E8E0EC;
+}
+
 input:focus {
   outline: none; /* Remove default outline */
   border-color: #510076; /* focus:border-blue-500 */

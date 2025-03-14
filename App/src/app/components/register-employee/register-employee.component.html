@@ -4,53 +4,51 @@
   <form *ngIf="isAdmin" [formGroup]="registerEmployeeForm" (ngSubmit)="onSubmit()">
     <div class="flex" style="width: 100%;text-align: left;gap: 1rem;">
       <input-text formControlName="firstName" placeholder="First Name" label="First Name"
-[validationRules]="[validations.required, validations.onlyLetters(), validations.minLengthWithoutSpaces(2)]"/>
+                  [validationRules]="[validations.required, validations.onlyLetters(), validations.minLengthWithoutSpaces(2)]"/>
       <input-text formControlName="lastName" placeholder="Last Name" label="Last Name"
                   [validationRules]="[validations.required, validations.onlyLetters(), validations.minLengthWithoutSpaces(2)]"/>
     </div>
 
+
     <div class="form-row">
-      <input-text formControlName="birthDate" type="date" placeholder="Date of Birth" label="Date of Birth" [validationRules]="[validations.required, validations.pastDate()]"/>
+      <input-text formControlName="email" placeholder="Email" label="Email" type="email"
+                  [validationRules]="[validations.required, validations.isEmail]"/>
+    </div>
+    <div class="form-row">
+      <input-text formControlName="jmbg" placeholder="JMBG" label="JMBG"
+                  [validationRules]="[validations.required, validations.isValidJMBG()]"/>
+    </div>
+
+    <div class="flex" style="width: 100%;text-align: left;gap: 1rem;">
+      <input-text formControlName="username" placeholder="Username" label="Username"
+                  [validationRules]="[validations.required, validations.minLengthWithoutSpaces(3)]"/>
+      <input-text formControlName="phone" placeholder="Phone Number" label="Phone Number"
+                  [validationRules]="[validations.required, validations.isValidPhone()]"/>
     </div>
 
     <div class="form-row">
-      <app-select  label="Gender" formControlName="gender" >
+      <input-text formControlName="address" placeholder="Address" label="Address"
+                  [validationRules]="[validations.required, validations.minLengthWithoutSpaces(5)]"/>
+    </div>
+
+
+    <div class="flex" style="width: 100%;text-align: left;gap: 1rem;">
+      <input-text formControlName="position" placeholder="Position" label="Position"
+                  [validationRules]="[validations.required, validations.onlyLetters(), validations.minLengthWithoutSpaces(3)]"/>
+      <input-text formControlName="department" placeholder="Department" label="Department"
+                  [validationRules]="[validations.required, validations.minLengthWithoutSpaces(3)]"/>
+    </div>
+
+
+    <div class="flex" style="width: 100%;text-align: left;gap: 1rem;">
+      <app-select label="Gender" formControlName="gender">
         <option value="" disabled selected>Select gender</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
       </app-select>
-    </div>
-
-    <div class="form-row">
-      <input-text formControlName="jmbg" placeholder="JMBG" label="JMBG" [validationRules]="[validations.required, validations.isValidJMBG()]"/>
-    </div>
-
-    <div class="form-row">
-      <input-text formControlName="email" placeholder="Email" label="Email" type="email" [validationRules]="[validations.required, validations.isEmail]"/>
-    </div>
-
-    <div class="form-row">
-      <input-text formControlName="phone" placeholder="Phone Number" label="Phone Number" [validationRules]="[validations.required, validations.isValidPhone()]"/>
-    </div>
-
-    <div class="form-row">
-      <input-text formControlName="address" placeholder="Address" label="Address" [validationRules]="[validations.required, validations.minLengthWithoutSpaces(5)]"/>
-    </div>
-
-    <div class="form-row">
-      <input-text formControlName="username" placeholder="Username" label="Username" [validationRules]="[validations.required, validations.minLengthWithoutSpaces(3)]"/>
-    </div>
-
-    <div class="form-row">
-      <input-text formControlName="position" placeholder="Position" label="Position" [validationRules]="[validations.required, validations.onlyLetters(), validations.minLengthWithoutSpaces(3)]"/>
-    </div>
-
-    <div class="form-row">
-      <input-text formControlName="department" placeholder="Department" label="Department" [validationRules]="[validations.required, validations.minLengthWithoutSpaces(3)]"/>
-    </div>
-
-    <div class="form-row">
-      <app-select  label="Active Status" formControlName="active" >
+      <input-text formControlName="birthDate" type="date" placeholder="Date of Birth" label="Date of Birth"
+                  [validationRules]="[validations.required, validations.pastDate()]"/>
+      <app-select label="Active Status" formControlName="active">
         <option [value]="true">Active</option>
         <option [value]="false">Inactive</option>
       </app-select>

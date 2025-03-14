@@ -1,19 +1,12 @@
-/* 🔹 Page Styling */
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #B399DD, #D0C9EA);
+.edit-main{
+  width: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 30px;
 }
-
 /* 🔹 Main Container */
 .edit-container {
   background: white;
-  padding: 40px;
+  padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: center;
@@ -23,8 +16,9 @@ body {
 
 /* 🔹 Heading */
 .edit-container h2 {
-  color: #1976D2;
+  color: #510076;
   margin-bottom: 20px;
+  margin-top: 0;
 }
 
 /* 🔹 Form Styling */
