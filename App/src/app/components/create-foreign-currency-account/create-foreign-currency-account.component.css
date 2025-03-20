@@ -3,18 +3,10 @@ body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #B399DD, #D0C9EA);
   display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
-  padding-top: 10px;
-}
-
-.top-margin {
-  height: 10px;
-  background: #6A4BBC;
-  width: 100%;
 }
 
 .container {
@@ -23,11 +15,8 @@ body {
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: center;
-  width: 800px;
+  width: 600px;
   animation: fadeIn 0.5s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 h2 {
@@ -66,30 +55,85 @@ h3 {
 .toggle-btn.active {
   background: #6A4BBC;
   color: white;
+
+.form-group {
+  margin-bottom: 15px;
+  text-align: left;
 }
 
-.employee-info {
-  background: #f8f8f8;
-  padding: 15px;
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #C2B4E2;
   border-radius: 6px;
-  margin-top: 20px;
-  text-align: left;
-}
-
-.employee-info p {
-  margin: 5px 0;
   font-size: 1rem;
-  color: #333;
-  text-align: left;
+  outline: none;
+  transition: 0.3s;
 }
 
-.checkbox-group {
+input:focus, select:focus {
+  border-color: #6A4BBC;
+  box-shadow: 0 0 8px rgba(106, 75, 188, 0.3);
+}
+
+/* Owner row */
+.owner-row {
   display: flex;
   align-items: center;
-  gap: 8px;
+  justify-content: space-between;
 }
 
-/* Layout Adjustments */
+.create-user-link {
+  width: 65%;
+  padding: 12px;
+  background: #6A4BBC;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.create-user-link:hover {
+  background: #8E79D2;
+  transform: scale(1.05);
+}
+
+/* Submit button */
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #6A4BBC;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.submit-btn:hover {
+  background: #8E79D2;
+  transform: scale(1.05);
+}
+
+.submit-btn:disabled {
+  background: #C2B4E2;
+  cursor: not-allowed;
+  transform: none;
+}
+
 .row {
   display: flex;
   justify-content: space-between;
@@ -101,7 +145,110 @@ h3 {
   flex: 1;
 }
 
-/* 🔹 Fade-in Animation */
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #6A4BBC;
+}
+
+.monthly-fee-container {
+  width: 120px;
+}
+
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #444;
+  text-align: left;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #C2B4E2;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #6A4BBC;
+  box-shadow: 0 0 8px rgba(106, 75, 188, 0.3);
+}
+
+.employee-info {
+  background: #f8f8f8;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.employee-info h3 {
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.employee-info p {
+  margin: 5px 0;
+  font-size: 1rem;
+  color: #333;
+  text-align: left;
+}
+
+.info-message {
+  color: #666;
+  font-style: italic;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin: 10px 0;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  width: 100%;
+}
+
+.column {
+  flex: 1;
+}
+
+.loading-message {
+  color: #666;
+  padding: 5px 0;
+}
+
+.company-form {
+  margin-top: 20px;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+
+select[disabled] {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+#authorizedPersonnel {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

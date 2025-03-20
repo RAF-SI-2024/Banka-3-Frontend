@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import {InputTextComponent} from '../components/shared/input-text/input-text.component';
 import {ButtonComponent} from '../components/shared/button/button.component';
 import {validations} from '../models/validation.model';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,12 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   loginType: 'employee' | 'client' = 'employee';
 
-  constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private alertService: AlertService
+) {}
 
   ngOnInit(): void {
     const loginTypeParam = this.route.snapshot.paramMap.get('type');
@@ -32,13 +38,14 @@ export class LoginComponent implements OnInit {
   login(): void {
     if (!this.email || !this.password) {
       this.errorMessage = 'Email and password are required!';
+      this.alertService.showAlert('error', 'Email and password are required!');
       return;
     }
 
     this.authService.login(this.email, this.password, this.loginType).subscribe({
       next: (response) => {
         this.authService.saveToken(response.token);
-
+        this.alertService.showAlert('success', 'Login successful!');
         const userId = this.authService.getUserId();
         const permissions = this.authService.getUserPermissions();
 
@@ -54,6 +61,7 @@ export class LoginComponent implements OnInit {
       },
       error: () => {
         this.errorMessage = 'Invalid email or password';
+        this.alertService.showAlert('error', this.errorMessage);
       }
     });
   }

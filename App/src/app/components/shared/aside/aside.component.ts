@@ -66,6 +66,7 @@ export class AsideComponent implements OnInit, OnDestroy {
   }
 
   navigateTo(route: string) {
+    this.closeModal();
     this.router.navigate([route]);
   }
 
@@ -99,6 +100,9 @@ export class AsideComponent implements OnInit, OnDestroy {
     } else {
       this.navigateTo('/loan-management'); // todo
     }
+  }
 
+  goToSecures() {
+    this.navigateTo('/my-portfolio');
   }
 }

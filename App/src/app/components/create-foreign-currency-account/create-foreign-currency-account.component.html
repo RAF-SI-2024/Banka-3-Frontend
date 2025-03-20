@@ -1,20 +1,7 @@
-<div class="top-margin"></div>
-
 <div class="container">
-  <h2>Create Foreign Currency Account</h2>
+  <h2>Create New {{newAccount.accountType | titlecase}} Account</h2>
+  <form #accountForm="ngForm" (ngSubmit)="onSubmit()">
 
-  <div class="toggle-buttons">
-    <button id="clientBtn" class="toggle-btn" [class.active]="accountForm.get('accountType')?.value === 'CLIENT'"
-            (click)="accountForm.patchValue({ accountType: 'CLIENT' })">
-      Client Checking Account
-    </button>
-    <button id="businessBtn" class="toggle-btn" [class.active]="accountForm.get('accountType')?.value === 'business'"
-            (click)="accountForm.patchValue({ accountType: 'business' })">
-      Business Checking Account
-    </button>
-  </div>
-
-  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
     <div class="row">
       <div class="column">
         <h3>Account Owner</h3>
@@ -24,11 +11,26 @@
         </app-select>
 
         <app-button (click)="onCreateNewUserClick()" label="Create New User"/>
+<!-- bilo         <div class="form-group">
+          <!-- Clients -->
+          <label for="clientId">Client:</label>
 
-        <h3>Employee Information</h3>
-        <div class="employee-info">
-          <p>Logged in employee: <strong>{{ loggedInEmployeeFullName }}</strong> Position: <strong>{{ loggedInEmployeePosition }}</strong></p>
+          <select id="clientId" name="clientId" [(ngModel)]="newAccount.clientId" (change)="onClientChange()" required>
+            <option *ngFor="let user of users" [ngValue]="user.id">
+              {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
+            </option>
+          </select>
+          <button (click)="navigateToRegisterUser()" class="create-user-link">Create New User</button>
+
+        </div> -->
+
+
+        <!-- Monthly Fee -->
+        <div class="form-group monthly-fee-container" *ngIf="isCurrentAccount">
+          <label for="monthlyFee">Monthly Fee:</label>
+          <input id="monthlyFee" name="monthlyFee" [(ngModel)]="newAccount.monthlyFee" type="number" />
         </div>
+
       </div>
 
       <div class="column">
@@ -38,7 +40,69 @@
 
         <div class="form-group checkbox-group">
           <app-checkbox formControlName="createCard" label="Create initial card"/>
+
+        <!-- Employee info -->
+<!-- bilo         <div class="employee-info">
+          <h3>Account Created By</h3>
+
+          <div *ngIf="loggedInEmployee">
+            <p><strong>Name:</strong> {{ loggedInEmployee.firstName }} {{ loggedInEmployee.lastName }}</p>
+            <p><strong>Position:</strong> {{ loggedInEmployee.position }}</p>
+          </div>
+
+          <div *ngIf="!loggedInEmployee">
+            <div *ngIf="isCurrAdmin">
+              <p>Admin creating account...</p>
+            </div>
+            <div *ngIf="!isCurrAdmin">
+              <p>Loading employee details...</p>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="column">
+        <div class="form-group">
+          
+          <label for="accountOwnerType">Account Owner Type:</label>
+          <select id="accountOwnerType" name="accountOwnerType" [(ngModel)]="newAccount.accountOwnerType" (change)="onAccountOwnerTypeChange()">
+            <option value="PERSONAL">PERSONAL</option>
+            <option value="COMPANY">COMPANY</option>
+          </select> -->
+
+        </div>
+        <!-- Company Dropdown (Conditional) -->
+        <div class="form-group" *ngIf="isCompanyAccount">
+          <h3>Company Information</h3>
+
+          <div *ngIf="!newAccount.clientId">
+            <p class="info-message">Please select a client first to manage companies.</p>
+          </div>
+
+          <div *ngIf="newAccount.clientId">
+            <div class="form-group">
+              <label>Select Company:</label>
+              <select [(ngModel)]="selectedCompanyId"
+                      name="selectedCompany"
+                      (change)="onCompanySelect()"
+                      [disabled]="loadingCompanies">
+                <option [value]="null" disabled>Select a company</option>
+                <option [ngValue]="-1">Create New Company</option>
+                <option *ngFor="let company of companies" [ngValue]="company.id">
+                  {{ company.name }} ({{ company.registrationNumber }})
+                </option>
+              </select>
+              <div *ngIf="loadingCompanies" class="loading-message">Loading companies...</div>
+            </div>
+
+            <div class="company-form" *ngIf="isNewCompany || selectedCompanyId">
+              <div class="form-group">
+                <label for="companyName">Company Name:</label>
+                <input id="companyName" name="companyName"
+                       [(ngModel)]="companyInfo.name"
+                       type="text"
+                       [disabled]="!isNewCompany" />
+              </div>
 
         <h3>Account Details</h3>
         <app-select label="Currency" formControlName="currency">
@@ -63,5 +127,91 @@
       label="Create Account"
       [disabled]="(accountForm.invalid || !isBusinessFormValid() || !accountForm.get('clientId')?.value)"
     />
+
+<!--  bilo             <div class="form-group">
+                <label for="registrationNumber">Registration Number:</label>
+                <input id="registrationNumber" name="registrationNumber"
+                       [(ngModel)]="companyInfo.registrationNumber"
+                       type="text"
+                       [disabled]="!isNewCompany" />
+              </div>
+
+              <div class="form-group">
+                <label for="taxNumber">Tax Number:</label>
+                <input id="taxNumber" name="taxNumber"
+                       [(ngModel)]="companyInfo.taxNumber"
+                       type="text"
+                       [disabled]="!isNewCompany" />
+              </div>
+
+              <div class="form-group">
+                <label for="activityCode">Activity Code:</label>
+                <input id="activityCode" name="activityCode"
+                       [(ngModel)]="companyInfo.activityCode"
+                       type="text"
+                       [disabled]="!isNewCompany" />
+              </div>
+
+              <div class="form-group">
+                <label for="majorityOwner">Majority Owner (Client ID):</label>
+                <input id="majorityOwner" name="majorityOwner"
+                       [value]="getClientName(newAccount.clientId)"
+                       type="text"
+                       disabled />
+              </div>
+
+              <div class="form-group">
+                <label for="address">Address:</label>
+                <input id="address" name="address"
+                       [(ngModel)]="companyInfo.address"
+                       type="text"
+                       [disabled]="!isNewCompany" />
+              </div>
+              <div class="form-group">
+                <label for="authorizedPersonnel">Authorized Personnel (Optional):</label>
+                <select id="authorizedPersonnel" name="authorizedPersonnel" [(ngModel)]="selectedAuthorizedPersonnelId">
+                  <option [ngValue]="null">Select authorized personnel</option>
+                  <option *ngFor="let user of availablePersonnel" [ngValue]="user.id">
+                    {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="currency">Currency:</label>
+          <select id="currency" name="currency" [(ngModel)]="newAccount.currency" required>
+            <option *ngFor="let currency of currencies" [value]="currency.code">
+              {{ currency.name }} ({{ currency.code }})
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="dailyLimit">Daily Limit:</label>
+          <input id="dailyLimit" name="dailyLimit" [(ngModel)]="newAccount.dailyLimit" type="number" required />
+        </div>
+
+        <div class="form-group">
+          <label for="monthlyLimit">Monthly Limit:</label>
+          <input id="monthlyLimit" name="monthlyLimit" [(ngModel)]="newAccount.monthlyLimit" type="number" required />
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label for="isActive">Is Active:</label>
+          <input id="isActive" name="isActive" type="checkbox" (change)="toggleIsActive()" [checked]="newAccount.isActive === 'ACTIVE'" />
+        </div>
+
+        <div class="form-group checkbox-group">
+          <label for="createCard">Create Card:</label>
+          <input id="createCard" name="createCard" [(ngModel)]="newAccount.createCard" type="checkbox"/>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="submit-btn" [disabled]="accountForm.invalid || !newAccount.clientId || !employeeId
+                                            || !isCompanyFormValid()">Create Account</button>
+ -->
   </form>
 </div>

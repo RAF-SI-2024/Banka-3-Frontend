@@ -1,19 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import {Component, inject, OnInit} from '@angular/core';
 import { ClientService } from '../../services/client.service';
-import { User } from '../../models/user.model';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AccountService } from '../../services/account.service';
-import { AlertService } from '../../services/alert.service';
-import { Currency } from '../../models/currency.model';
 import { AuthService } from '../../services/auth.service';
+import { AccountService } from '../../services/account.service';
+import { User } from '../../models/user.model';
+import { NewBankAccount } from '../../models/new-bank-account.model';
+import {FormsModule} from '@angular/forms';
+import {CommonModule} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
 import { Account as Account } from '../../models/account.model';
 import { AccountType } from '../../enums/account-type.enum';
@@ -22,6 +15,23 @@ import { AccountStatus } from '../../enums/account-status.enum';
 import {SelectComponent} from '../shared/select/select.component';
 import {ButtonComponent} from '../shared/button/button.component';
 import {InputTextComponent} from '../shared/input-text/input-text.component';
+import { Employee } from '../../models/employee.model';
+import {AlertService} from '../../services/alert.service';
+import { CompanyService } from '../../services/company.service';
+import { Company, CreateCompany } from '../../models/company.model';
+import {CreateAuthorizedPersonnel} from '../../models/authorized-personnel.model';
+import {AuthorizedPersonnelService} from '../../services/authorized-personnel.service';
+import { CurrencyService } from '../../services/currency.service';
+import {CurrencyDto} from '../../models/currency-dto.model';
+
+// interface Currency {
+//   code: string;
+//   name: string;
+//   symbol: string;
+//   country: string[];
+//   description: string;
+//   isActive: boolean;
+// }
 
 @Component({
   selector: 'app-create-foreign-currency-account',
@@ -31,264 +41,340 @@ import {InputTextComponent} from '../shared/input-text/input-text.component';
   styleUrl: './create-foreign-currency-account.component.css',
 })
 export class CreateForeignCurrencyAccountComponent implements OnInit {
-  accountForm: FormGroup;
-  isBusinessAccount = false;
+  loggedInEmployee: Employee | null = null;
   users: User[] = [];
-  currencies: Currency[] = [];
-  generatedAccountNumber: string = '';
-  private userService = inject(ClientService);
-  private router = inject(Router);
-  private activatedRoute = inject(ActivatedRoute);
-  private accountService = inject(AccountService);
-  private alertService = inject(AlertService);
-  private authService = inject(AuthService);
-  private employeeService = inject(EmployeeService);
+  companyInfo = {
+    name: '',
+    registrationNumber: '',
+    taxNumber: '',
+    activityCode: '',
+    address: '',
+    majorityOwner: ''
+  };
 
-  loggedInEmployeeFullName: string = '';
-  loggedInEmployeePosition: string = '';
+  isCurrentAccount = true;
+  isCompanyAccount = false;
+  employeeId: number | null = null;
+  availableCurrencies: string[] = ['RSD'];
+  isCurrAdmin: boolean = false;
 
-  constructor(private fb: FormBuilder) {
-    this.accountForm = this.fb.group({
-      accountType: ['CLIENT'],
-      currency: ['', Validators.required],
-      companyName: ['', Validators.required],
-      companyRegistrationNumber: [
-        '',
-        [Validators.required, Validators.pattern(/^[0-9]+$/)],
-      ],
-      taxIdentificationNumber: [
-        '',
-        [Validators.required, Validators.pattern(/^[0-9]+$/)],
-      ],
-      companyActivityCode: [
-        '',
-        [Validators.required, Validators.pattern(/^\d{2}\.\d{2}$/)],
-      ],
-      companyAddress: ['', Validators.required],
-      majorityOwnerId: ['', Validators.required],
-      clientId: ['', Validators.required],
-      accountNumber: [''],
-      dailyLimit: ['', [Validators.required]],
-      monthlyLimit: ['', [Validators.required]],
-      createCard: [false],
-      employeeId: [''],
-    });
-  }
+  newAccount: NewBankAccount = {
+    currency: 'EUR',
+    clientId: 0,
+    employeeId: 0,
+    initialBalance: 0,
+    dailyLimit: 0,
+    monthlyLimit: 0,
+    dailySpending: 0,
+    monthlySpending: 0,
+    isActive: 'INACTIVE',
+    accountType: 'FOREIGN',
+    accountOwnerType: 'PERSONAL',
+    createCard: false,
+    monthlyFee: 0
+  };
+  //za kompaniju novo
+  companies: Company[] = [];
+  selectedCompanyId: number | null = null;
+  isNewCompany = false;
+  loadingCompanies = false;
+
+  currencies: CurrencyDto[] = [];
+  // currencies: Currency[] = [
+  //   {
+  //     code: 'EUR',
+  //     name: 'Euro',
+  //     symbol: '€',
+  //     country: ['Germany', 'Slovenia', 'Other EU'],
+  //     description: 'Euro',
+  //     isActive: true,
+  //   },
+  //   {
+  //     code: 'USD',
+  //     name: 'US Dollar',
+  //     symbol: '$',
+  //     country: ['USA'],
+  //     description: 'US Dollar',
+  //     isActive: true,
+  //   },
+  //   {
+  //     code: 'CHF',
+  //     name: 'Swiss Franc',
+  //     symbol: 'CHF',
+  //     country: ['Switzerland'],
+  //     description: 'Swiss Franc',
+  //     isActive: true,
+  //   }
+  // ];
+
+  //za onog dodatnog
+  selectedAuthorizedPersonnelId: number | null = null;
+  availablePersonnel: User[] = [];
+
+  constructor(
+    private userService: ClientService,
+    private authService: AuthService,
+    private accountService: AccountService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private employeeService: EmployeeService,
+    private alertService: AlertService,
+    private companyService: CompanyService,
+    private authorizedPersonnelService: AuthorizedPersonnelService,
+    private currencyService: CurrencyService
+  ) {}
 
   ngOnInit(): void {
-    this.accountForm
-      .get('accountType')
-      ?.valueChanges.subscribe(accountType => {
-        this.isBusinessAccount = accountType === 'business';
-        this.updateBusinessFieldsVisibility();
-        this.generateAccountNumber();
-      });
-    this.updateBusinessFieldsVisibility();
+    const isAdmin = this.authService.isAdmin();
+    const isEmployee = this.authService.isEmployee();
+    this.isCurrAdmin = isAdmin;
+    this.currencies = this.currencyService.getCurrencies();
+
+    if (!(isAdmin || isEmployee)) {
+      alert("Access denied. Only employees and admins can create accounts.");
+      this.router.navigate(['/']);
+      return;
+    }
 
     this.loadUsers();
-    this.preselectNewUser();
-    this.loadCurrencies();
-    this.generateAccountNumber();
-    this.populateEmployeeId();
-    this.loadLoggedInEmployeeInfo();
-  }
-
-  private populateEmployeeId() {
-    const loggedInEmployeeId = this.authService.getUserId();
-    if (loggedInEmployeeId !== null) {
-      this.accountForm.patchValue({ employeeId: loggedInEmployeeId });
-    } else {
-      this.alertService.showAlert(
-        'error',
-        'Failed to load employee details. Please try again later.'
-      );
-    }
-  }
-
-  private loadLoggedInEmployeeInfo() {
-    this.employeeService.getEmployeeSelf().subscribe({
-      next: (fetchedEmployee) => {
-        if (!fetchedEmployee) {
-          this.alertService.showAlert('error', 'Employee not found.');
-          this.router.navigate(['/']);
-          return;
+    this.loadAvailablePersonnel();
+    this.employeeId = this.authService.getUserId();
+    if (this.employeeId) {
+      this.newAccount.employeeId = this.employeeId;
+      this.employeeService.getEmployeeSelf().subscribe(
+        (employee) => {
+          this.loggedInEmployee = employee;
+        },
+        (error) => {
+          console.error('Error fetching employee details:', error);
         }
-        this.loggedInEmployeeFullName = `${fetchedEmployee.firstName} ${fetchedEmployee.lastName}`;
-        this.loggedInEmployeePosition = fetchedEmployee.position;
-      },
-      error: () => {
-        this.alertService.showAlert(
-          'error',
-          'Failed to load employee details. Please try again later.'
-        );
-      },
+      );
+
+
+    }
+    this.route.queryParams.subscribe(params => {
+      const userId = params['userId'];
+      if (userId) {
+        this.newAccount.clientId = +userId; // preselect
+        if (this.isCompanyAccount) this.loadCompaniesForClient(); //preload i za kompanije ako treba
+      }
     });
+    // this.loadUsers();
+    // this.onAccountTypeChange();
   }
 
-  private loadUsers() {
-    this.userService.getAllUsers(0, 1000).subscribe({
+  navigateToRegisterUser() {
+    this.router.navigate(['/register-user'], { queryParams: { redirect: 'foreign-account' } });
+  }
+
+  loadUsers() {
+    this.userService.getAllUsers(0, 100).subscribe({
       next: (response) => {
         this.users = response.content;
       },
-      error: () => {
-        this.alertService.showAlert(
-          'error',
-          'Failed to load users. Please try again later.'
-        );
+      error: (error) => console.error('Failed to load users:', error)
+    });
+  }
+  private loadAvailablePersonnel() {
+    this.userService.getAllUsers(0, 100).subscribe({
+      next: (response) => {
+        this.availablePersonnel = response.content;
       },
+      error: (error) => console.error('Failed to load personnel:', error)
     });
   }
 
-  private preselectNewUser() {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      const newUserId = params['newUserId'];
-      if (newUserId) {
-        this.accountForm.patchValue({ clientId: newUserId });
+  onAccountOwnerTypeChange() {
+    this.isCompanyAccount = this.newAccount.accountOwnerType === 'COMPANY';
+    if (this.isCompanyAccount && this.newAccount.clientId) {
+      this.loadCompaniesForClient();
+    }
+    if (!this.isCompanyAccount) {
+      this.newAccount.companyId = undefined;
+      this.selectedCompanyId = null;
+      this.isNewCompany = false;
+    }
+  }
+
+  toggleIsActive() {
+    this.newAccount.isActive = this.newAccount.isActive === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE';
+  }
+
+  isCompanyFormValid(): boolean {
+    if (!this.isCompanyAccount) return true;
+    if (this.isNewCompany) {
+      // validiraj sve osim majority ownera za sad
+      return this.companyInfo.name.trim() !== '' &&
+        this.companyInfo.registrationNumber.trim() !== '' &&
+        this.companyInfo.taxNumber.trim() !== '' &&
+        this.companyInfo.activityCode.trim() !== '' &&
+        this.companyInfo.address.trim() !== '';
+    }
+    return !!this.selectedCompanyId; // just sel comp
+  }
+
+  //novo za kompanije
+
+  onClientChange() {
+    if (this.newAccount.clientId && this.isCompanyAccount) {
+      this.loadCompaniesForClient();
+    }
+  }
+
+  private loadCompaniesForClient() {
+    this.loadingCompanies = true;
+    this.companyService.getCompaniesByClientId(this.newAccount.clientId!).subscribe({
+      next: (companies) => {
+        this.companies = companies;
+        this.loadingCompanies = false;
+      },
+      error: (error) => {
+        console.error('Error loading companies:', error);
+        this.loadingCompanies = false;
       }
     });
   }
 
-  private loadCurrencies() {
-    // mock data, should be loaded from the server when implemented
-    this.currencies = [
-      {
-        code: 'RSD',
-        name: 'Serbian Dinar',
-        symbol: 'RSD',
-        country: ['Serbia'],
-        description: 'Serbian Dinar',
-        isActive: true,
-      },
-      {
-        code: 'EUR',
-        name: 'Euro',
-        symbol: '€',
-        country: ['Germany', 'Slovenia', 'Other EU'],
-        description: 'Euro',
-        isActive: true,
-      },
-      {
-        code: 'USD',
-        name: 'US Dollar',
-        symbol: '$',
-        country: ['USA'],
-        description: 'US Dollar',
-        isActive: true,
-      },
-      {
-        code: 'CHF',
-        name: 'Swiss Franc',
-        symbol: 'CHF',
-        country: ['Switzerland'],
-        description: 'Swiss Franc',
-        isActive: true,
-      },
-    ];
-
-    const rsdIndex = this.currencies.findIndex(
-      (currency) => currency.code === 'RSD'
-    );
-    if (rsdIndex > -1) this.currencies.splice(rsdIndex, 1);
-  }
-
-  generateAccountNumber() {
-    const bankCode = '111';
-    const branchCode = '0001';
-    const accountNumberDigits = 9;
-    const randomNumber = Math.random()
-      .toString()
-      .slice(2, 2 + accountNumberDigits)
-      .padEnd(accountNumberDigits, '0');
-    const accountType =
-      this.accountForm.get('accountType')?.value === 'business' ? '22' : '21';
-
-    this.generatedAccountNumber = `${bankCode}${branchCode}${randomNumber}${accountType}`;
-    this.accountForm.patchValue({ accountNumber: this.generatedAccountNumber });
-  }
-
-  updateBusinessFieldsVisibility() {
-    if (this.isBusinessAccount) {
-      this.accountForm.controls['companyName'].enable();
-      this.accountForm.controls['companyRegistrationNumber'].enable();
-      this.accountForm.controls['taxIdentificationNumber'].enable();
-      this.accountForm.controls['companyActivityCode'].enable();
-      this.accountForm.controls['companyAddress'].enable();
-      this.accountForm.controls['majorityOwnerId'].enable();
+  onCompanySelect() {
+    // alert(this.selectedCompanyId);
+    // alert(`Value: ${this.selectedCompanyId}, Type: ${typeof this.selectedCompanyId}`);
+    if (this.selectedCompanyId === -1) { // Create new company selektovano
+      // alert("dakle jes -1, sto onda nisu slobodna polja");
+      this.isNewCompany = true;
+      this.resetCompanyForm();
     } else {
-      this.accountForm.controls['companyName'].disable();
-      this.accountForm.controls['companyRegistrationNumber'].disable();
-      this.accountForm.controls['taxIdentificationNumber'].disable();
-      this.accountForm.controls['companyActivityCode'].disable();
-      this.accountForm.controls['companyAddress'].disable();
-      this.accountForm.controls['majorityOwnerId'].disable();
+      // alert("ne registruje da je isto?");
+      this.isNewCompany = false;
+      const selectedCompany = this.companies.find(c => c.id === Number(this.selectedCompanyId));
+      if (selectedCompany) {
+        this.populateCompanyForm(selectedCompany);
+      } else {
+        // alert("NITI OVDE");
+        this.resetCompanyForm();
+      }
     }
   }
 
-  onSubmit() {
-    if (this.accountForm.invalid) {
-      Object.keys(this.accountForm.controls).forEach((key) => {
-        this.accountForm.get(key)?.markAsTouched();
-      });
-      return;
-    }
-
-    const accountData = this.accountForm.value;
-    accountData.clientId = parseInt(accountData.clientId, 10);
-    accountData.employeeId = parseInt(accountData.employeeId, 10);
-    accountData.createCard = !!accountData.createCard;
-
-    const foreignCurrencyAccountData: Account = {
-      availableBalance: 0, name: "", number: "",
-      currency: accountData.currency,
-      clientId: accountData.clientId,
-      employeeId: accountData.employeeId,
-      companyId: accountData.companyName ? accountData.companyId : null,
-      initialBalance: 0,
-      dailyLimit: accountData.dailyLimit,
-      monthlyLimit: accountData.monthlyLimit,
-      dailySpending: 0,
-      monthlySpending: 0,
-      isActive: AccountStatus.ACTIVE,
-      accountType: AccountType.FOREIGN,
-      accountOwnerType: this.isBusinessAccount
-        ? AccountOwnerType.COMPANY
-        : AccountOwnerType.PERSONAL,
-      createCard: accountData.createCard
+  private populateCompanyForm(company: Company) {
+    this.companyInfo = {
+      name: company.name,
+      registrationNumber: company.registrationNumber,
+      taxNumber: company.taxId,
+      activityCode: company.activityCode,
+      address: company.address,
+      majorityOwner: this.newAccount.clientId.toString()
     };
-
-    this.accountService.createForeignAccount(foreignCurrencyAccountData).subscribe({
-      next: () => {
-        this.alertService.showAlert('success', 'Account created successfully!');
-        this.router.navigate(['/users']);
-      },
-      error: () => {
-        this.alertService.showAlert(
-          'error',
-          'Failed to create account. Please try again.'
-        );
-      },
-    });
   }
 
-  onCreateNewUserClick() {
-    this.router.navigate(['/register-user']);
+  private resetCompanyForm() {
+    this.companyInfo = {
+      name: '',
+      registrationNumber: '',
+      taxNumber: '',
+      activityCode: '',
+      address: '',
+      majorityOwner: ''
+    };
   }
 
-  isBusinessFormValid(): boolean {
-    if (!this.isBusinessAccount) return true;
+  private formatDate(date: Date): string {
+    const isoString = new Date(date).toISOString();
+    return isoString.split('T')[0];
+  }
 
-    const businessFields = [
-      'companyName',
-      'companyRegistrationNumber',
-      'taxIdentificationNumber',
-      'companyActivityCode',
-      'companyAddress',
-      'majorityOwnerId'
-    ];
+  getClientName(clientId: number): string {
+    const client = this.users.find(u => u.id === clientId);
+    return client ? `${client.firstName} ${client.lastName}` : 'Unknown';
+  }
 
-    return businessFields.every(field => {
-      const control = this.accountForm.get(field);
-      return control?.valid && control?.value.trim() !== '';
-    });
+  async onSubmit() {
+    //nov
+    try {
+      let companyId: number | undefined;
+
+      if (this.isCompanyAccount) {
+        // create if new
+        if (this.isNewCompany) {
+          const createCompanyDto: CreateCompany = {
+            name: this.companyInfo.name,
+            registrationNumber: this.companyInfo.registrationNumber,
+            taxId: this.companyInfo.taxNumber,
+            activityCode: this.companyInfo.activityCode,
+            address: this.companyInfo.address,
+            majorityOwner: this.newAccount.clientId
+          };
+          //za err hendl
+          try {
+            const newCompany = await this.companyService.createCompany(createCompanyDto).toPromise();
+            if (newCompany && 'id' in newCompany) {
+              companyId = newCompany.id;
+            }
+          } catch (error: any) {
+
+            const errorMessage = error?.error?.message || 'Failed to create company (try different tax number or registration number';
+            this.alertService.showAlert('error', errorMessage);
+            return;
+          }
+
+        } else {
+          companyId = this.selectedCompanyId || undefined;
+        }
+        //za personelu
+        if (this.selectedAuthorizedPersonnelId) {
+          const selectedUser = this.availablePersonnel.find(u => u.id === this.selectedAuthorizedPersonnelId);
+
+          if (!selectedUser) {
+            throw new Error('Selected authorized personnel not found');
+          }
+          const formattedDate = this.formatDate(selectedUser.birthDate);
+
+          try {
+            const createPersonnelDto: CreateAuthorizedPersonnel = {
+              firstName: selectedUser.firstName,
+              lastName: selectedUser.lastName,
+              dateOfBirth: formattedDate,
+              gender: selectedUser.gender,
+              email: selectedUser.email,
+              phoneNumber: selectedUser.phone || '',
+              address: selectedUser.address || '',
+              companyId: companyId!
+            };
+
+            await this.authorizedPersonnelService.createAuthorizedPersonnel(createPersonnelDto).toPromise();
+          } catch (error: any) {
+            const errorMessage = error?.error?.message || 'Failed to create authorized personnel';
+            this.alertService.showAlert('error', errorMessage);
+            return;
+          }
+
+        }
+
+      }
+
+      this.newAccount.companyId = companyId;
+
+      this.accountService.createCurrentAccount(this.newAccount).subscribe({
+        next: () => {
+          this.alertService.showAlert('success', 'Account created successfully!');
+          // this.router.navigate(['/client-portal']);
+          this.router.navigate(['/success'], {
+            state: {
+              title: 'Account Created!',
+              message: 'The account has been successfully created.',
+              buttonName: 'Go to Client Portal',
+              continuePath: '/client-portal'
+            }
+          });
+        },
+        error: (error) => {
+          console.error('Failed to create account:', error);
+          this.alertService.showAlert('error', 'Failed to create account');
+        }
+      });
+
+    } catch (error) {
+      console.error('Error creating company:', error);
+      this.alertService.showAlert('error', 'Failed to create company');
+    }
   }
 }

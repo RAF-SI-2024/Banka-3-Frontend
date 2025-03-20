@@ -86,6 +86,7 @@
       <small class="error" *ngIf="isInvalid('interestRateType')">You must select an interest rate type.</small>
     </div>
 
+
     <div class="input-group">
       <label for="accountNumber">Bank Account Number</label>
       <app-select formControlName="accountNumber" id="accountNumber" (blur)="resetInvalidField('accountNumber')">
@@ -109,4 +110,15 @@
     <app-success message="Your loan request has been successfully submitted!" title="Loan Request Submitted"
                  continuePath="/user/:id"></app-success>
   </div>
+
+<!-- bilo        <div class="form-buttons">
+            <button class="btn confirm" type="submit" [disabled]="loanForm.invalid">Submit Request</button>
+            <button class="btn cancel" type="button" (click)="navigateToLoanManagement()">Cancel</button>
+        </div>
+    </form> -->
+
+<!--    <div *ngIf="success">-->
+<!--        <app-success message="Your loan request has been successfully submitted!" title="Loan Request Submitted" continuePath="/user/:id"></app-success>-->
+<!--    </div>-->
+
 </div>

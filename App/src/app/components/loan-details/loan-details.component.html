@@ -38,7 +38,7 @@
         </thead>
         <tbody>
         <tr *ngFor="let installment of installments">
-          <td>{{ installment.amount }} {{ loan?.currencyCode }}</td>
+          <td>{{ installment.amount }} {{ loan.currencyCode }}</td>
           <td>{{ installment.interestRate }}%</td>
           <td>{{ formatDate(installment.expectedDueDate) }}</td>
           <td>{{ formatDate(installment.actualDueDate) }}</td>

@@ -38,9 +38,9 @@ export class TransferComponent implements OnInit {
   transferAmount: number | undefined;
 
   ngOnInit(): void {
-    this.accountService.getAccountsForClient(this.authService.getUserId()).subscribe({
+    this.accountService.getMyAccountsRegular().subscribe({
       next: (response) => {
-        this.accounts = response.content;
+        this.accounts = response;
       },
       error: () => {
         this.alertService.showAlert('error', 'Failed to load your account. Please try again later.');
@@ -70,7 +70,15 @@ export class TransferComponent implements OnInit {
 
     this.alertService.showAlert('success', 'Transfer successful!');
 
-    this.router.navigate(['/employees']);
+    // this.router.navigate(['/employees']);
+    this.router.navigate(['/success'], {
+      state: {
+        title: 'Transfer Successful! 🎉',
+        message: 'Your funds have been transferred successfully.',
+        buttonName: 'View Payment Details',
+        continuePath: '/payment-details'
+      }
+    });
   }
 
 }

@@ -30,4 +30,5 @@ export interface AccountResponse {
   owner: ClientDto;
   ownershipType: string;
   accountCategory: string;
+  name: string;
 }

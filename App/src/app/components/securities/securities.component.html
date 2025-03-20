@@ -1,0 +1,117 @@
+<div class="securities-container">
+  <div class="header">
+    <div class="search-bar">
+      <input type="text" placeholder="Q Actions Futures Forex pairs" [(ngModel)]="searchTerm" (input)="onSearch()">
+    </div>
+    <button class="sort-button" (click)="onSort()">
+      SORT BY:
+      <span *ngIf="sortBy === 'price'">Price</span>
+      <span *ngIf="sortBy === 'volume'">Volume</span>
+      <span *ngIf="sortBy === 'maintenanceMargin'">Margin</span>
+      <span *ngIf="!sortBy">None</span>
+      <span *ngIf="sortOrder === 'asc'">▲</span>
+      <span *ngIf="sortOrder === 'desc'">▼</span>
+    </button>
+  </div>
+
+  <div class="security-types">
+    <button class="security-type-button"
+            [class.active]="selectedSecurityType === 'All'"
+            (click)="onSelectSecurityType('All')">
+      All
+    </button>
+    <button class="security-type-button"
+            [class.active]="selectedSecurityType === 'Stock'"
+            (click)="onSelectSecurityType('Stock')">
+      Stocks
+    </button>
+    <button class="security-type-button"
+            [class.active]="selectedSecurityType === 'Future'"
+            (click)="onSelectSecurityType('Future')">
+      Futures
+    </button>
+    <button class="security-type-button"
+            [class.active]="selectedSecurityType === 'Forex'"
+            (click)="onSelectSecurityType('Forex')">
+      Forex pairs
+    </button>
+  </div>
+
+  <div class="content">
+    <div class="filters-section">
+      <h3>Filters</h3>
+
+      <div class="filter-group">
+        <label>Exchange:</label>
+        <div>
+          <input type="text" placeholder="Prefix" [(ngModel)]="exchangePrefix" (input)="onFilterChange()">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Price:</label>
+        <div class="range-inputs">
+          <input type="number" placeholder="Min" [(ngModel)]="priceRange.min" (input)="onRangeFilterChange()">
+          <input type="number" placeholder="Max" [(ngModel)]="priceRange.max" (input)="onRangeFilterChange()">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Volume:</label>
+        <div class="range-inputs">
+          <input type="number" placeholder="Min" [(ngModel)]="volumeRange.min" (input)="onRangeFilterChange()">
+          <input type="number" placeholder="Max" [(ngModel)]="volumeRange.max" (input)="onRangeFilterChange()">
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <label>Maintenance Margin:</label>
+        <div class="range-inputs">
+          <input type="number" placeholder="Min" [(ngModel)]="marginRange.min" (input)="onRangeFilterChange()">
+          <input type="number" placeholder="Max" [(ngModel)]="marginRange.max" (input)="onRangeFilterChange()">
+        </div>
+      </div>
+
+      <div class="filter-group" *ngIf="selectedSecurityType === 'Future' || selectedSecurityType === 'All'">
+        <label>Settlement Date:</label>
+        <div>
+          <input type="text" placeholder="YYYY-MM-DD" [(ngModel)]="settlementDateFilter" (input)="onFilterChange()">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="grid-area">
+      <h3>Securities Grid</h3>
+      <div class="securities-table-container">
+        <table class="securities-table">
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>Price</th>
+              <th>Change</th>
+              <th>Volume</th>
+              <th>Initial Margin Cost</th>
+              <th *ngIf="selectedSecurityType === 'Future' || selectedSecurityType === 'All'">Settlement Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let security of securities">
+              <td>{{ security.ticker }}</td>
+              <td>{{ security.price }}</td>
+              <td>{{ security.change }}</td>
+              <td>{{ security.volume }}</td>
+              <td>{{ security.initialMarginCost }}</td>
+              <td *ngIf="selectedSecurityType === 'Future' || selectedSecurityType === 'All'">{{ security.settlementDate }}</td>
+              <td class="actions-column">
+                <button class="action-button refresh-button" (click)="refreshSecurity(security)">Refresh</button>
+                <button class="action-button buy-button">Buy</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,8 @@ import { EmployeeDetailComponent } from './components/employee-detail/employee-d
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { AccountCreationComponent } from './components/account-creation/account-creation.component';
 import { CreateForeignCurrencyAccountComponent } from './components/create-foreign-currency-account/create-foreign-currency-account.component';
+import { SecuritiesComponent } from './components/securities/securities.component';
+import { securitiesGuard } from './guards/securities.guard';
 import { MailComponent } from './components/mail/mail.component';
 import { CardsComponent } from './components/cards/cards.component';
 import { ClientPortalComponent } from './components/client-portal/client-portal.component';
@@ -28,6 +30,7 @@ import { CreateCardComponent } from './components/create-card/create-card.compon
 import { PaymentDetailsComponent } from './components/payment-details/payment-details.component';
 import { SuccessComponent } from './components/success/success.component';
 import { LoansComponent } from './components/loans/loans.component';
+import { OptionsDisplayComponent } from './components/option/option.component';
 import {MyPortfolioComponent} from './components/my-portfolio/my-portfolio.component';
 import {LoanDetailsComponent} from './components/loan-details/loan-details.component';
 
@@ -71,20 +74,24 @@ export const routes: Routes = [
   { path: 'card/:cardNumber/transactions/new', component: NewTransactionComponent, canActivate: [authGuard] },
   { path: 'transactions/:transactionId', component: TransactionDetailsComponent, canActivate: [authGuard] },
   { path: 'account/:accountNumber/create-card', component: CreateCardComponent, canActivate: [authGuard] },
+  { path: 'loan-management/:clientId', component: LoansComponent, canActivate: [authGuard] },
+
+  //options
+  { path: 'options/:stockId', component: OptionsDisplayComponent, canActivate: [authGuard] },
 
   // exchange
   { path: 'exchange-rate', component: ExchageRateListComponent, canActivate: [authGuard] },
 
   // securities
   { path: 'my-portfolio', component: MyPortfolioComponent, canActivate: [authGuard] },
+  { path: 'securities', component: SecuritiesComponent, canActivate: [securitiesGuard] },
 
   // loans
   { path: 'loan-request', component: LoanRequestComponent,canActivate: [authGuard] },
   { path: 'loan-management/:clientId', component: LoansComponent, canActivate: [authGuard] },
   { path: 'loan-details/:loanId', component: LoanDetailsComponent, canActivate: [authGuard] },
 
-  // success
+  //success
   { path: 'success', component: SuccessComponent }
-
 ];
 

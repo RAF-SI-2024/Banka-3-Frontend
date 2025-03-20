@@ -30,6 +30,8 @@ export class RegisterUserComponent implements OnInit {
   loading = false;
   redirectToAccountCreation = false;
 
+  redirectTarget = '';
+
   get isAdmin(): boolean {
     return <boolean>this.authService.isAdmin();
   }
@@ -43,12 +45,14 @@ export class RegisterUserComponent implements OnInit {
       this.router.navigate(['/']);
       return;
     }
-
     this.route.queryParams.subscribe(params => {
-      if (params['redirect'] === 'account') {
-        this.redirectToAccountCreation = true;
-      }
+      this.redirectTarget = params['redirect'] || '';
     });
+    // this.route.queryParams.subscribe(params => {
+    //   if (params['redirect'] === 'account') {
+    //     this.redirectToAccountCreation = true;
+    //   }
+    // });
 
     this.initForm();
   }
@@ -87,15 +91,25 @@ export class RegisterUserComponent implements OnInit {
     this.userService.registerUser(formData).subscribe({
       next: (newUser: User) => {
         this.alertService.showAlert('success', 'User registered successfully!');
-        // this.router.navigate(['/create-foreign-currency-account'], {
-        //   queryParams: { newUserId: newUser.id }
-        // });
-        if (this.redirectToAccountCreation) {
-          this.router.navigate(['/create-current-account'], { queryParams: { userId: newUser.id } });
+
+        if (this.redirectTarget) {
+          switch(this.redirectTarget) {
+            case 'current-account':
+              this.router.navigate(['/create-current-account'], {
+                queryParams: { userId: newUser.id }
+              });
+              break;
+            case 'foreign-account':
+              this.router.navigate(['/create-foreign-currency-account'], {
+                queryParams: { userId: newUser.id }
+              });
+              break;
+            default:
+              this.router.navigate(['/client-portal']);
+          }
         } else {
           this.router.navigate(['/client-portal']);
         }
-        // this.router.navigate(['/users']);
       },
       error: (err) => {
         this.alertService.showAlert('error', err?.error?.message || 'Failed to register user. Please try again.');

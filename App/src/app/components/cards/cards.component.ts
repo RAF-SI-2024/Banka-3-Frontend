@@ -45,7 +45,7 @@ export class CardsComponent implements OnInit {
   }
 
   loadCards(): void {
-    this.cardService.getMyCardsForAccount(this.accountNumber).subscribe(data => {
+    this.cardService.getUserCardsForAccount(this.accountNumber).subscribe(data => {
       this.cards = data
     })
   }

@@ -3,13 +3,14 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
+import {ModalComponent} from '../modal/modal.component';
 import {AsideComponent} from '../aside/aside.component';
 import {DropdownComponent} from '../dropdown/dropdown.component';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule, AsideComponent, DropdownComponent],
+  imports: [CommonModule, ModalComponent, AsideComponent, DropdownComponent],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -27,6 +28,7 @@ export class NavbarComponent implements OnInit {
   userId: number | null = null;
   private authSubscription!: Subscription; // Subscription to track auth changes
 
+  isModalOpen: boolean = false;
   ngOnInit(): void {
     this.authSubscription = this.authService.authStatus$.subscribe((isAuth) => {
       this.isAuthenticated = isAuth;
@@ -44,6 +46,12 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  openModal() {
+    this.isModalOpen = true;
+  }
+  closeModal() {
+    this.isModalOpen = false;
+  }
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/']);
@@ -54,6 +62,11 @@ export class NavbarComponent implements OnInit {
       this.authSubscription.unsubscribe();
     }
   }
+  navigateTo(route: string) {
+    this.closeModal();
+    this.router.navigate([route]);
+  }
+
 
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;

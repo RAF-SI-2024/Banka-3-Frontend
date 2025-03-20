@@ -3,7 +3,6 @@
     <h2>Account Management</h2>
   </div>
 
-  <!-- Tabela računa -->
   <section class="account-list">
     <h3>Accounts</h3>
     <table>
@@ -16,16 +15,18 @@
       </tr>
       <tr *ngFor="let account of filteredAccounts">
         <td>{{ account.accountNumber }}</td>
-        <td>
-          {{ account.owner.firstName }} {{ account.owner.lastName }}
-        </td>
+        <td>{{ account.owner.firstName }} {{ account.owner.lastName }}</td>
         <td>{{ account.ownershipType }}</td>
         <td>{{ account.accountCategory }}</td>
         <td>
+
           <app-button
             label="View Cards"
             (onClick)="viewCards(account.accountNumber)"
           ></app-button>
+<!-- bilo          <button class="details-btn" (click)="viewCards(account.accountNumber)">View Cards</button>
+          <button class="edit-btn" (click)="openNameModal(account.accountNumber, account.name)">Edit Name</button>
+          <button class="edit-btn" (click)="openLimitModal(account.accountNumber, account.dailyLimit)">Edit Limit</button> -->
         </td>
       </tr>
       <tr *ngIf="accounts.length === 0">
@@ -33,4 +34,24 @@
       </tr>
     </table>
   </section>
+
+</div>
+
+<div class="modal" *ngIf="isNameModalOpen">
+  <div class="modal-content">
+    <h3>Change Account Name</h3>
+    <input type="text" [(ngModel)]="newAccountName" placeholder="Enter new account name" />
+    <button (click)="changeAccountName()">Save</button>
+    <button (click)="closeNameModal()">Cancel</button>
+  </div>
+</div>
+
+<div class="modal" *ngIf="isLimitModalOpen">
+  <div class="modal-content">
+    <h3>Request Account Limit Change</h3>
+    <input type="number" [(ngModel)]="newAccountLimit" placeholder="Enter new account limit" />
+    <button (click)="changeAccountLimit()">Request</button>
+    <button (click)="closeLimitModal()">Cancel</button>
+  </div>
+
 </div>

@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import {ButtonComponent} from '../shared/button/button.component';
 import {InputTextComponent} from '../shared/input-text/input-text.component';
 import {SelectComponent} from '../shared/select/select.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-card',
@@ -24,7 +25,12 @@ export class CreateCardComponent implements OnInit {
     cardLimit: 0
   }
 
-  constructor(private route: ActivatedRoute, private cardService: CardService, private authService: AuthService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private cardService: CardService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const acc = this.route.snapshot.paramMap.get('accountNumber')
@@ -35,9 +41,38 @@ export class CreateCardComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.authService.isClient())
-      this.cardService.requestCard(this.newCard)
-    else
-      this.cardService.createCard(this.newCard)
+    if (this.authService.isClient()) {
+      this.cardService.requestCard(this.newCard).subscribe({
+        next: () => {
+          this.router.navigate(['/success'], {
+            state: {
+              title: 'Card Request Successful!',
+              message: 'Your card request has been submitted successfully.',
+              buttonName: 'Go Back to Cards',
+              continuePath: `/account/${this.accountNumber}`
+            }
+          });
+        },
+        error: (err) => {
+          console.error('Failed to request card:', err);
+        }
+      });
+    } else {
+      this.cardService.createCard(this.newCard).subscribe({
+        next: () => {
+          this.router.navigate(['/success'], {
+            state: {
+              title: 'Card Created Successfully!',
+              message: 'The card has been created successfully.',
+              buttonName: 'Go Back to Cards',
+              continuePath: `/account/${this.accountNumber}`
+            }
+          });
+        },
+        error: (err) => {
+          console.error('Failed to create card:', err);
+        }
+      });
+    }
   }
 }

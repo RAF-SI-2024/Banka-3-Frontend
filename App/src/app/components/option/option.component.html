@@ -1,0 +1,211 @@
+<div class="options-container">
+  <h3>Options Chain</h3>
+
+  <!-- Loading indicator and error message -->
+  <div *ngIf="isLoading" class="loading-indicator">
+    <p>Loading options data...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Date Picker -->
+  <div class="date-control">
+    <label for="datePicker">Select Expiration Date: </label>
+    <input
+      type="date"
+      id="datePicker"
+      [value]="selectedDate | date : 'yyyy-MM-dd'"
+      (change)="onDateSelected($event)"
+      [min]="minDate | date : 'yyyy-MM-dd'"
+      [max]="maxDate | date : 'yyyy-MM-dd'"
+    />
+  </div>
+
+
+  <!-- Option Chains Table -->
+  <div class="options-chain" *ngIf="!isLoading && currentChain">
+    <div class="current-stock-info">
+      <p>Stock Price: {{ currentChain.stockPrice | currency }}</p>
+      <p>Expiration: {{ selectedDate | date : "fullDate" }}</p>
+      <p>Days to Expiry: {{ currentChain.daysToExpiry }}</p>
+    </div>
+
+    <div class="options-table-container">
+      <table class="options-table">
+        <thead>
+          <tr>
+            <th colspan="6">CALLS</th>
+            <th></th>
+            <th colspan="6">PUTS</th>
+          </tr>
+          <tr>
+            <th>Last</th>
+            <th>Theta</th>
+            <th>Bid</th>
+            <th>Ask</th>
+            <th>Vol</th>
+            <th>OI</th>
+            <th>Strike</th>
+            <th>Last</th>
+            <th>Theta</th>
+            <th>Bid</th>
+            <th>Ask</th>
+            <th>Vol</th>
+            <th>OI</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let pair of getVisiblePairs()">
+            <tr [class.shared-price]="isSharedPrice(pair.strikePrice)">
+              <!-- CALL side -->
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+              >
+                {{ pair.call?.price | currency }}
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+              >
+                {{ calculateTheta(pair.call) }}
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+              >
+                {{
+                  pair.call !== null
+                    ? (pair.call.price - 0.05 | currency)
+                    : "N/A"
+                }}
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+              >
+                {{ pair.call?.ask | currency }}
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+              >
+                <!-- {{ pair.call?.volume || 'N/A' }} -->
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.CALL, pair.strikePrice)
+                "
+              >
+                {{ pair.call?.openInterest || "N/A" }}
+              </td>
+
+              <!-- Strike Price in the middle -->
+              <td class="strike-price">
+                {{
+                  isSharedPrice(pair.strikePrice)
+                    ? "Shared $" + pair.strikePrice
+                    : "$" + pair.strikePrice
+                }}
+              </td>
+
+              <!-- PUT side -->
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+              >
+                {{ pair.put?.price | currency }}
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+              >
+                {{ calculateTheta(pair.put) }}
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+              >
+                {{
+                  pair.put !== null ? (pair.put.price - 0.05 | currency) : "N/A"
+                }}
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+              >
+                {{ pair.put?.ask | currency }}
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+              >
+                <!-- {{ pair.put?.volume || 'N/A' }} -->
+              </td>
+              <td
+                [class.in-the-money]="
+                  isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+                [class.out-of-money]="
+                  !isInTheMoney(OptionType.PUT, pair.strikePrice)
+                "
+              >
+                {{ pair.put?.openInterest || "N/A" }}
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- No Data Message -->
+  <div *ngIf="!isLoading && !currentChain && !errorMessage" class="no-data">
+    <p>No option data available for the selected date.</p>
+  </div>
+</div>
