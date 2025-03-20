@@ -8,11 +8,11 @@
       <p><strong>Account Number:</strong> {{ account?.accountNumber }}</p>
       <p><strong>Balance:</strong> {{ account?.availableBalance }} RSD</p>
     </div>
-    <button class="payment-btn" (click)="openModal()">Payment</button>
+    <app-button label="Payment" (onClick)="openModal()"></app-button>
   </div>
-  <button class="payment-btn" [routerLink]="['/account', accountNumber, 'create-card']">
-    Create New Card
-  </button>
+
+  <app-button label="Create New Card" [routerLink]="['/account', accountNumber, 'create-card']"></app-button>
+
   <h3>Associated Cards</h3>
   <table>
     <tr>
@@ -25,19 +25,20 @@
       <td>{{ maskCardNumber(card.cardNumber) }}</td>
       <td [ngClass]="getCardStatusClass(card.status)">{{ card.status }}</td>
       <td>{{ card.owner.firstName }} {{ card.owner.lastName }}</td>
-      <td>
-        <button class="payment-btn" (click)="makePayment(card.cardNumber)">New Payment</button>
-        <button class="block-card-btn" (click)="blockCard(card.cardNumber)">Block Card</button>
+      <td class="action-buttons">
+        <app-button label="New Payment" (onClick)="makePayment(card.cardNumber)"></app-button>
+        <app-button label="Block Card" (onClick)="blockCard(card.cardNumber)" class="block-card-btn"></app-button>
       </td>
     </tr>
   </table>
+
   <app-modal [title]="'Payment'" [isOpen]="isModalOpen" (closeModalEvent)="closeModal()">
     <div class="modal-content">
       <div style="display: grid; gap: 0.5rem; margin-top: 1rem; grid-template-columns: repeat(2, 1fr)">
-        <button class="payment-btn" [routerLink]="['/new-payment']">New Payment</button>
-        <button class="payment-btn" [routerLink]="['/transfer']">Transfer Payment</button>
-        <button class="payment-btn" [routerLink]="['/recipients']">Payment Recipients</button>
-        <button class="payment-btn" [routerLink]="['/payment-details']">Payment Details</button>
+        <app-button label="New Payment" [routerLink]="['/new-payment']"></app-button>
+        <app-button label="Transfer Payment" [routerLink]="['/transfer']"></app-button>
+        <app-button label="Payment Recipients" [routerLink]="['/recipients']"></app-button>
+        <app-button label="Payment Details" [routerLink]="['/payment-details']"></app-button>
       </div>
     </div>
   </app-modal>

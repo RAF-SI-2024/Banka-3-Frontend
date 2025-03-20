@@ -1,62 +1,47 @@
+/* Container */
 .transaction-list-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  }
-  
-  .transaction-list-container h2 {
-    margin-bottom: 1rem;
-  }
-  
-  .new-transaction-btn {
-    background-color: #6A4BBC;
-    color: #fff;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-bottom: 1rem;
-  }
-  
-  .new-transaction-btn:hover {
-    background-color: #8E79D2;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
-  }
-  
-  th, td {
-    padding: 0.75rem;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
-  }
-  
-  .details-btn {
-    background-color: #1976d2;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 6px 10px;
-    cursor: pointer;
-  }
-  
-  .details-btn:hover {
-    background-color: #1565c0;
-  }
-  
-  .loading-msg {
-    font-style: italic;
-    color: #666;
-  }
-  
-  .no-transactions {
-    margin-top: 1rem;
-    font-weight: bold;
-    color: #999;
-    text-align: center;
-  }
-  
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* Title */
+.transaction-list-container h2 {
+  margin-bottom: 1rem;
+  color: #6A4BBC;
+}
+
+/* Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+/* Table Cells */
+th, td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+/* Loading and No Transaction Messages */
+.loading-msg {
+  font-style: italic;
+  color: #666;
+}
+
+.no-transactions {
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #999;
+}
+
+/* Button container */
+.transaction-list-container td {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

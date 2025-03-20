@@ -11,11 +11,13 @@ import { LoanService } from '../../services/loan.service';
 import { Loan } from '../../models/loan-dto.model';
 import { Router } from '@angular/router';
 import { LoanRequestService } from '../../services/loan-request.service';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-loans',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, InputTextComponent, ButtonComponent],
   templateUrl: './loans.component.html',
   styleUrl: './loans.component.css',
 })

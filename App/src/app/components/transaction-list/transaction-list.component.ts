@@ -3,13 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PaymentService } from '../../services/payment.service';
 import { PaymentOverviewDto } from '../../models/payment-overview-dto';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-transaction-list',
   templateUrl: './transaction-list.component.html',
   styleUrls: ['./transaction-list.component.css'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent],
 })
 export class TransactionListComponent implements OnInit {
   cardNumber: string = '';

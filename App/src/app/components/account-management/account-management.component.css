@@ -1,160 +1,71 @@
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #B399DD, #D0C9EA);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #B399DD, #D0C9EA);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
 }
 
 /* Kontejner */
 .container {
-    width: 70%;
-    text-align: center;
-}
-
-/* Filter sekcija */
-.filter-section {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.filter-input {
-    padding: 10px;
-    border: 1px solid #C2B4E2;
-    border-radius: 6px;
-    width: 200px;
-    font-size: 1rem;
-}
-
-.filter-btn {
-    padding: 10px 15px;
-    background: #6A4BBC;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-}
-
-.filter-btn:hover {
-    background: #8E79D2;
+  width: 70%;
+  text-align: center;
 }
 
 /* Tabele */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
 }
 
 th, td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
 }
 
 th {
-    background: #D0C9EA;
-    font-weight: bold;
-}
-
-/* Dugme za detalje */
-.details-btn {
-    padding: 8px 12px;
-    background: #6A4BBC;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.details-btn:hover {
-    background: #8E79D2;
+  background: #D0C9EA;
+  font-weight: bold;
 }
 
 /* Akcije za kartice */
 .action-btn {
-    padding: 8px 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-    font-size: 0.9rem;
-    font-weight: 600;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .block {
-    background: red;
-    color: white;
+  background: red;
+  color: white;
 }
 
 .block:hover {
-    background: darkred;
+  background: darkred;
 }
 
 .unblock {
-    background: orange;
-    color: white;
+  background: orange;
+  color: white;
 }
 
 .unblock:hover {
-    background: darkorange;
+  background: darkorange;
 }
 
 .deactivate {
-    background: gray;
-    color: white;
+  background: gray;
+  color: white;
 }
 
 .deactivate:hover {
-    background: darkgray;
-}
-
-/* New Account */
-.new-account-container {
-  text-align: center;
-}
-
-.new-account-btn {
-  background: #996FD6;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-  height: fit-content;
-}
-
-.new-account-btn:hover {
-  background: #9E7CD7;
-  transform: scale(1.05);
-}
-
-.new-account-options {
-  margin-top: 10px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-}
-
-.hidden {
-  display: none;
-}
-
-.account-option {
-  background: #D0C9EA;
-  border: none;
-  padding: 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.account-option:hover {
-  background: #B399DD;
+  background: darkgray;
 }

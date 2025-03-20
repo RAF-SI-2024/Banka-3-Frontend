@@ -4,7 +4,14 @@
 
     <div class="row">
       <div class="column">
-        <div class="form-group">
+        <h3>Account Owner</h3>
+        <app-select label="Select Existing User" formControlName="clientId">
+          <option value="">Select User</option>
+          <option *ngFor="let user of users" [value]="user.id">{{ user.firstName }} {{ user.lastName }}</option>
+        </app-select>
+
+        <app-button (click)="onCreateNewUserClick()" label="Create New User"/>
+<!-- bilo         <div class="form-group">
           <!-- Clients -->
           <label for="clientId">Client:</label>
 
@@ -15,7 +22,7 @@
           </select>
           <button (click)="navigateToRegisterUser()" class="create-user-link">Create New User</button>
 
-        </div>
+        </div> -->
 
 
         <!-- Monthly Fee -->
@@ -24,8 +31,18 @@
           <input id="monthlyFee" name="monthlyFee" [(ngModel)]="newAccount.monthlyFee" type="number" />
         </div>
 
+      </div>
+
+      <div class="column">
+        <h3>Limits and Initial Card</h3>
+        <input-text formControlName="dailyLimit" placeholder="Daily Limit" label="Daily Limit" type="number"/>
+        <input-text formControlName="monthlyLimit" placeholder="Monthly Limit" label="Monthly Limit" type="number"/>
+
+        <div class="form-group checkbox-group">
+          <app-checkbox formControlName="createCard" label="Create initial card"/>
+
         <!-- Employee info -->
-        <div class="employee-info">
+<!-- bilo         <div class="employee-info">
           <h3>Account Created By</h3>
 
           <div *ngIf="loggedInEmployee">
@@ -46,12 +63,13 @@
 
       <div class="column">
         <div class="form-group">
-          <!-- Account Owner Type -->
+          
           <label for="accountOwnerType">Account Owner Type:</label>
           <select id="accountOwnerType" name="accountOwnerType" [(ngModel)]="newAccount.accountOwnerType" (change)="onAccountOwnerTypeChange()">
             <option value="PERSONAL">PERSONAL</option>
             <option value="COMPANY">COMPANY</option>
-          </select>
+          </select> -->
+
         </div>
         <!-- Company Dropdown (Conditional) -->
         <div class="form-group" *ngIf="isCompanyAccount">
@@ -86,7 +104,31 @@
                        [disabled]="!isNewCompany" />
               </div>
 
-              <div class="form-group">
+        <h3>Account Details</h3>
+        <app-select label="Currency" formControlName="currency">
+          <option value="">Select Currency</option>
+          <option *ngFor="let currency of currencies" [value]="currency.code">{{ currency.name }} ({{ currency.code }})</option>
+        </app-select>
+
+        <div *ngIf="isBusinessAccount">
+          <h3>Company Information</h3>
+          <input-text formControlName="companyName" placeholder="Company Name" label="Company Name"/>
+          <input-text formControlName="companyRegistrationNumber" placeholder="Company Registration Number" label="Company Registration Number"/>
+          <input-text formControlName="taxIdentificationNumber" placeholder="Tax Identification Number" label="Tax Identification Number"/>
+          <input-text formControlName="companyActivityCode" placeholder="Company Activity Code" label="Company Activity Code"/>
+          <input-text formControlName="companyAddress" placeholder="Company Address" label="Company Address"/>
+          <input-text formControlName="majorityOwnerId" placeholder="Majority Owner ID" label="Majority Owner ID"/>
+        </div>
+      </div>
+    </div>
+
+    <app-button
+      type="submit"
+      label="Create Account"
+      [disabled]="(accountForm.invalid || !isBusinessFormValid() || !accountForm.get('clientId')?.value)"
+    />
+
+<!--  bilo             <div class="form-group">
                 <label for="registrationNumber">Registration Number:</label>
                 <input id="registrationNumber" name="registrationNumber"
                        [(ngModel)]="companyInfo.registrationNumber"
@@ -211,5 +253,6 @@
     </div>
     <button type="submit" class="submit-btn" [disabled]="accountForm.invalid || !newAccount.clientId || !employeeId
                                             || !isCompanyFormValid()">Create Account</button>
+ -->
   </form>
 </div>

@@ -8,6 +8,13 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
+import { Account as Account } from '../../models/account.model';
+import { AccountType } from '../../enums/account-type.enum';
+import { AccountOwnerType } from '../../enums/account-owner-type.enum';
+import { AccountStatus } from '../../enums/account-status.enum';
+import {SelectComponent} from '../shared/select/select.component';
+import {ButtonComponent} from '../shared/button/button.component';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
 import { Employee } from '../../models/employee.model';
 import {AlertService} from '../../services/alert.service';
 import { CompanyService } from '../../services/company.service';
@@ -21,7 +28,7 @@ import {CurrencyDto} from '../../models/currency-dto.model';
 @Component({
   selector: 'app-create-foreign-currency-account',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, SelectComponent, ButtonComponent, InputTextComponent],
   templateUrl: './create-foreign-currency-account.component.html',
   styleUrl: './create-foreign-currency-account.component.css',
 })

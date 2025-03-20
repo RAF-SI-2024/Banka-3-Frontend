@@ -1,97 +1,42 @@
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #B399DD, #D0C9EA);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0;
-  }
-  .container {
-    background: white;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    width: 600px;
-    animation: fadeIn 0.5s ease-in-out;
-  }
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: #444;
-  }
-  .form-group {
-    margin-bottom: 15px;
-    text-align: left;
-  }
-  .form-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 5px;
-  }
-  .form-group input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #C2B4E2;
-    border-radius: 6px;
-    font-size: 1rem;
-    outline: none;
-    transition: 0.3s;
-  }
-  .form-group input:focus {
-    border-color: #6A4BBC;
-    box-shadow: 0 0 8px rgba(106, 75, 188, 0.3);
-  }
-
-.form-group input, .form-group select {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #C2B4E2;
-  border-radius: 6px;
-  font-size: 1rem;
-  outline: none;
-  transition: 0.3s;
+.payment-container {
+  width: 600px;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+  margin: auto;
 }
 
-.form-group input:focus, .form-group select:focus {
-  border-color: #6A4BBC;
-  box-shadow: 0 0 8px rgba(106, 75, 188, 0.3);
+/* Purple Heading */
+h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #6A4BBC; /* Soft Purple */
 }
 
-  button {
-    width: 100%;
-    padding: 12px;
-    background: #6A4BBC;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-top: 20px;
-  }
-  button:hover {
-    background: #8E79D2;
-    transform: scale(1.05);
-  }
-  button:disabled {
-    background: #C2B4E2;
-    cursor: not-allowed;
-    transform: none;
-    opacity: 0.7;
-  }
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+/* Form Layout */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
 
+/* Button Alignment */
+app-button {
+  margin-top: 20px;
+}
 
+/* Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

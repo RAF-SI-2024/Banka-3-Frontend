@@ -18,12 +18,10 @@
       <span [ngClass]="getLoanStatusClass(loan.status)">{{ loan.status }}</span>
     </p>
 
-    <button class="back-btn" (click)="goBack()">Back</button>
-
-    <!-- Installments Button -->
-    <button class="toggle-btn" (click)="toggleInstallments()">
-      {{ showInstallments ? 'Hide Installments' : 'Show Installments' }}
-    </button>
+    <div class="button-container">
+      <app-button (click)="goBack()" label="Back"></app-button>
+      <app-button (click)="toggleInstallments()" [label]="showInstallments ? 'Hide Installments' : 'Show Installments'"></app-button>
+    </div>
 
     <!-- Installments Section -->
     <div *ngIf="showInstallments" class="installments-section">
@@ -53,6 +51,8 @@
 
   <div *ngIf="!loan" class="error-message">
     <p>Loan details not available.</p>
-    <button class="back-btn" (click)="goBack()">Back</button>
+    <div class="button-container">
+      <app-button (click)="goBack()" label="Back"></app-button>
+    </div>
   </div>
 </div>

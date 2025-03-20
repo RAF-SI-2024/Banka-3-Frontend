@@ -23,66 +23,9 @@ body {
 
 /* 🔹 Heading */
 .edit-user-container h2 {
-  color: #1976D2;
+  color: #6A4BBC; /* Changed to purple */
   font-size: 24px;
   margin-bottom: 20px;
-}
-
-/* 🔹 Form Styling */
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* 🔹 Form Group */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.form-group label {
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-/* 🔹 Input Fields */
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: all 0.3s ease-in-out;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #1976D2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.3);
-}
-
-/* 🔹 Readonly Fields */
-.form-group input[readonly] {
-  background: #f5f5f5;
-  cursor: not-allowed;
-}
-
-/* 🔹 Dropdown Styling */
-.form-group select {
-  appearance: none;
-  background: white;
-  cursor: pointer;
-}
-
-.form-group select:disabled {
-  background: #f5f5f5;
-  cursor: not-allowed;
 }
 
 /* 🔹 Error Messages */
@@ -90,29 +33,6 @@ form {
   color: #D32F2F;
   font-size: 12px;
   margin-top: 5px;
-}
-
-/* 🔹 Submit Button */
-button[type="submit"] {
-  background: #28A745;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-  margin-top: 10px;
-}
-
-button[type="submit"]:hover {
-  background: #218838;
-}
-
-button[type="submit"]:disabled {
-  background: #ccc;
-  cursor: not-allowed;
 }
 
 /* 🔹 Loading Indicator */

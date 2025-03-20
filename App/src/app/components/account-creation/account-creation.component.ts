@@ -10,6 +10,9 @@ import {ActivatedRoute, Router} from '@angular/router';
 import { EmployeeService } from '../../services/employee.service';
 import { Employee } from '../../models/employee.model';
 import {AlertService} from '../../services/alert.service';
+import {SelectComponent} from '../shared/select/select.component';
+import {ButtonComponent} from '../shared/button/button.component';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
 import { CompanyService } from '../../services/company.service';
 import { Company, CreateCompany } from '../../models/company.model';
 import {AuthorizedPersonnel, CreateAuthorizedPersonnel} from '../../models/authorized-personnel.model';
@@ -22,7 +25,10 @@ import {AuthorizedPersonnelService} from '../../services/authorized-personnel.se
   standalone: true,
   imports: [
     FormsModule,
-    CommonModule
+    CommonModule,
+    SelectComponent,
+    ButtonComponent,
+    InputTextComponent,
     // NgForOf,
     // NgIf
   ],

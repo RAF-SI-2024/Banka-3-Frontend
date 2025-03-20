@@ -19,9 +19,14 @@
         <td>{{ account.ownershipType }}</td>
         <td>{{ account.accountCategory }}</td>
         <td>
-          <button class="details-btn" (click)="viewCards(account.accountNumber)">View Cards</button>
+
+          <app-button
+            label="View Cards"
+            (onClick)="viewCards(account.accountNumber)"
+          ></app-button>
+<!-- bilo          <button class="details-btn" (click)="viewCards(account.accountNumber)">View Cards</button>
           <button class="edit-btn" (click)="openNameModal(account.accountNumber, account.name)">Edit Name</button>
-          <button class="edit-btn" (click)="openLimitModal(account.accountNumber, account.dailyLimit)">Edit Limit</button>
+          <button class="edit-btn" (click)="openLimitModal(account.accountNumber, account.dailyLimit)">Edit Limit</button> -->
         </td>
       </tr>
       <tr *ngIf="accounts.length === 0">
@@ -29,6 +34,7 @@
       </tr>
     </table>
   </section>
+
 </div>
 
 <div class="modal" *ngIf="isNameModalOpen">
@@ -47,4 +53,5 @@
     <button (click)="changeAccountLimit()">Request</button>
     <button (click)="closeLimitModal()">Cancel</button>
   </div>
+
 </div>

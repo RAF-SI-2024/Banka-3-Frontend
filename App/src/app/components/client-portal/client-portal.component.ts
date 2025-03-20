@@ -10,11 +10,12 @@ import { PaginationComponent } from '../shared/pagination/pagination.component';
 import { AuthService } from '../../services/auth.service';
 import { AccountService } from '../../services/account.service';
 import {ButtonComponent} from '../shared/button/button.component';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
 
 @Component({
   selector: 'app-client-portal',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule, AlertComponent, PaginationComponent, ButtonComponent],
+  imports: [CommonModule, FormsModule, RouterModule, AlertComponent, PaginationComponent, ButtonComponent, InputTextComponent],
   templateUrl: './client-portal.component.html',
   styleUrls: ['./client-portal.component.css'],
 })

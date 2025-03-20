@@ -7,46 +7,43 @@
         <div class="form-group">
           <!-- Clients -->
           <label for="clientId">Client:</label>
+          <app-select id="clientId" name="clientId" [(ngModel)]="newAccount.clientId" required>
+            <option *ngFor="let user of users" [ngValue]="user.id">
+              {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
+            </option>
+          </app-select>
+          <app-button (click)="navigateToRegisterUser()" label="Create New User" class="create-user-link"></app-button>
 
-            <select id="clientId" name="clientId" [(ngModel)]="newAccount.clientId" (change)="onClientChange()" required>
+
+<!-- bilo             <select id="clientId" name="clientId" [(ngModel)]="newAccount.clientId" (change)="onClientChange()" required>
               <option *ngFor="let user of users" [ngValue]="user.id">
                 {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
               </option>
             </select>
-            <button (click)="navigateToRegisterUser()" class="create-user-link">Create New User</button>
+            <button (click)="navigateToRegisterUser()" class="create-user-link">Create New User</button> -->
 
         </div>
 
-<!--        <div class="form-group">-->
-<!--          &lt;!&ndash; Account Type &ndash;&gt;-->
-<!--          <label for="accountType">Account Type:</label>-->
-<!--          <select id="accountType" name="accountType" [(ngModel)]="newAccount.accountType" (change)="onAccountTypeChange()">-->
-<!--            <option value="CURRENT">CURRENT</option>-->
-<!--            <option value="FOREIGN">FOREIGN</option>-->
-<!--          </select>-->
-<!--        </div>-->
         <div class="form-group">
           <label for="accountType">Account Type:</label>
-          <select id="accountType" name="accountType" [(ngModel)]="newAccount.accountType" disabled class="non-editable">
+          <app-select id="accountType" name="accountType" [(ngModel)]="newAccount.accountType" disabled>
             <option value="CURRENT">CURRENT</option>
-          </select>
+          </app-select>
         </div>
 
         <!-- Monthly Fee -->
         <div class="form-group monthly-fee-container" *ngIf="isCurrentAccount">
           <label for="monthlyFee">Monthly Fee:</label>
-          <input id="monthlyFee" name="monthlyFee" [(ngModel)]="newAccount.monthlyFee" type="number" />
+          <input-text id="monthlyFee" name="monthlyFee" [(ngModel)]="newAccount.monthlyFee" type="number"/>
         </div>
 
         <!-- Employee info -->
         <div class="employee-info">
           <h3>Account Created By</h3>
-
           <div *ngIf="loggedInEmployee">
             <p><strong>Name:</strong> {{ loggedInEmployee.firstName }} {{ loggedInEmployee.lastName }}</p>
             <p><strong>Position:</strong> {{ loggedInEmployee.position }}</p>
           </div>
-
           <div *ngIf="!loggedInEmployee">
             <div *ngIf="isCurrAdmin">
               <p>Admin creating account...</p>
@@ -60,19 +57,27 @@
 
       <div class="column">
         <div class="form-group">
-          <!-- Account Owner Type -->
           <label for="accountOwnerType">Account Owner Type:</label>
-          <select id="accountOwnerType" name="accountOwnerType" [(ngModel)]="newAccount.accountOwnerType" (change)="onAccountOwnerTypeChange()">
+          <app-select id="accountOwnerType" name="accountOwnerType" [(ngModel)]="newAccount.accountOwnerType" (change)="onAccountOwnerTypeChange()">
             <option value="PERSONAL">PERSONAL</option>
             <option value="COMPANY">COMPANY</option>
-          </select>
+          </app-select>
         </div>
+
         <!-- Company Dropdown (Conditional) -->
 
         <div class="form-group" *ngIf="isCompanyAccount">
           <h3>Company Information</h3>
 
-          <div *ngIf="!newAccount.clientId">
+          <input-text id="companyName" name="companyName" [(ngModel)]="companyInfo.name" label="Company Name"/>
+          <input-text id="registrationNumber" name="registrationNumber" [(ngModel)]="companyInfo.registrationNumber" label="Registration Number"/>
+          <input-text id="taxNumber" name="taxNumber" [(ngModel)]="companyInfo.taxNumber" label="Tax Number"/>
+          <input-text id="activityCode" name="activityCode" [(ngModel)]="companyInfo.activityCode" label="Activity Code"/>
+          <input-text id="address" name="address" [(ngModel)]="companyInfo.address" label="Address"/>
+          <input-text id="majorityOwner" name="majorityOwner" [(ngModel)]="companyInfo.majorityOwner" label="Majority Owner"/>
+
+
+<!-- bilo           <div *ngIf="!newAccount.clientId">
             <p class="info-message">Please select a client first to manage companies.</p>
           </div>
 
@@ -189,18 +194,21 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
 
 
         <div class="form-group">
           <label for="currency">Currency:</label>
-          <select id="currency" name="currency" [(ngModel)]="newAccount.currency" disabled class="non-editable">
+          <app-select id="currency" name="currency" [(ngModel)]="newAccount.currency" disabled>
             <option value="RSD">RSD</option>
-          </select>
+          </app-select>
         </div>
 
-        <div class="form-group">
+        <input-text id="dailyLimit" name="dailyLimit" [(ngModel)]="newAccount.dailyLimit" type="number" label="Daily Limit" required/>
+        <input-text id="monthlyLimit" name="monthlyLimit" [(ngModel)]="newAccount.monthlyLimit" type="number" label="Monthly Limit" required/>
+
+<!-- bilo         <div class="form-group">
           <label for="dailyLimit">Daily Limit:</label>
           <input id="dailyLimit" name="dailyLimit" [(ngModel)]="newAccount.dailyLimit" type="number" required />
         </div>
@@ -208,11 +216,12 @@
         <div class="form-group">
           <label for="monthlyLimit">Monthly Limit:</label>
           <input id="monthlyLimit" name="monthlyLimit" [(ngModel)]="newAccount.monthlyLimit" type="number" required />
-        </div>
+        </div> -->
+
 
         <div class="form-group checkbox-group">
           <label for="isActive">Is Active:</label>
-          <input id="isActive" name="isActive" type="checkbox" (change)="toggleIsActive()" [checked]="newAccount.isActive === 'ACTIVE'" />
+          <input id="isActive" name="isActive" type="checkbox" (change)="toggleIsActive()" [checked]="newAccount.isActive === 'ACTIVE'"/>
         </div>
 
         <div class="form-group checkbox-group">
@@ -221,7 +230,7 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="submit-btn" [disabled]="accountForm.invalid || !newAccount.clientId || !employeeId
-                                            || !isCompanyFormValid()">Create Account</button>
+
+    <app-button type="submit" label="Create Account" [disabled]="accountForm.invalid || !newAccount.clientId || !employeeId || !isCompanyFormValid()" class="submit-btn"></app-button>
   </form>
 </div>

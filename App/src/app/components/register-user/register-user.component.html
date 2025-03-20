@@ -6,78 +6,101 @@
   <form *ngIf="registerUserForm" [formGroup]="registerUserForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="firstName">First Name</label>
-      <input id="firstName" formControlName="firstName" required>
-      <div class="error" *ngIf="(registerUserForm.get('firstName')?.touched || registerUserForm.get('firstName')?.dirty) && hasError('firstName', 'required')">Required.</div>
+      <input-text id="firstName" formControlName="firstName" required></input-text>
+      <div class="error" *ngIf="hasError('firstName', 'required')">Required.</div>
+<!--       <input id="firstName" formControlName="firstName" required>
+      <div class="error" *ngIf="(registerUserForm.get('firstName')?.touched || registerUserForm.get('firstName')?.dirty) && hasError('firstName', 'required')">Required.</div> -->
     </div>
 
     <div class="form-group">
       <label for="lastName">Last Name</label>
-      <input id="lastName" formControlName="lastName" required>
-      <div class="error" *ngIf="(registerUserForm.get('lastName')?.touched || registerUserForm.get('lastName')?.dirty) && hasError('lastName', 'required')">Required.</div>
+      <input-text id="lastName" formControlName="lastName" required></input-text>
+      <div class="error" *ngIf="hasError('lastName', 'required')">Required.</div>
+<!--       <input id="lastName" formControlName="lastName" required>
+      <div class="error" *ngIf="(registerUserForm.get('lastName')?.touched || registerUserForm.get('lastName')?.dirty) && hasError('lastName', 'required')">Required.</div> -->
     </div>
 
     <div class="form-group">
       <label for="username">Username</label>
-      <input id="username" formControlName="username" required>
-      <div class="error" *ngIf="(registerUserForm.get('username')?.touched || registerUserForm.get('username')?.dirty) && hasError('username', 'required')">Required.</div>
+      <input-text id="username" formControlName="username" required></input-text>
+      <div class="error" *ngIf="hasError('username', 'required')">Required.</div>
+
+<!--       <input id="username" formControlName="username" required>
+      <div class="error" *ngIf="(registerUserForm.get('username')?.touched || registerUserForm.get('username')?.dirty) && hasError('username', 'required')">Required.</div> -->
     </div>
 
     <div class="form-group">
       <label for="birthDate">Birth Date</label>
-      <input id="birthDate" type="date" formControlName="birthDate" required>
-      <div class="error" *ngIf="(registerUserForm.get('birthDate')?.touched || registerUserForm.get('birthDate')?.dirty) && hasError('birthDate', 'invalidDate')">Must be in the past.</div>
+      <input-text id="birthDate" type="date" formControlName="birthDate" required></input-text>
+      <div class="error" *ngIf="hasError('birthDate', 'invalidDate')">Must be in the past.</div>
+<!--       <input id="birthDate" type="date" formControlName="birthDate" required>
+      <div class="error" *ngIf="(registerUserForm.get('birthDate')?.touched || registerUserForm.get('birthDate')?.dirty) && hasError('birthDate', 'invalidDate')">Must be in the past.</div> -->
     </div>
 
     <div class="form-group">
       <label for="gender">Gender</label>
-      <select id="gender" formControlName="gender">
+      <app-select id="gender" formControlName="gender">
         <option value="M">Male</option>
         <option value="F">Female</option>
-      </select>
-      <div class="error" *ngIf="(registerUserForm.get('gender')?.touched || registerUserForm.get('gender')?.dirty) && hasError('gender', 'required')">Required.</div>
+      </app-select>
+      <div class="error" *ngIf="hasError('gender', 'required')">Required.</div>
+<!--       </select>
+      <div class="error" *ngIf="(registerUserForm.get('gender')?.touched || registerUserForm.get('gender')?.dirty) && hasError('gender', 'required')">Required.</div> -->
     </div>
 
     <div class="form-group">
       <label for="email">Email</label>
-      <input id="email" type="email" formControlName="email" required>
-      <div class="error" *ngIf="(registerUserForm.get('email')?.touched || registerUserForm.get('email')?.dirty) && hasError('email', 'required')">Required.</div>
+      <input-text id="email" type="email" formControlName="email" required></input-text>
+      <div class="error" *ngIf="hasError('email', 'required')">Required.</div>
+<!--       <input id="email" type="email" formControlName="email" required>
+      <div class="error" *ngIf="(registerUserForm.get('email')?.touched || registerUserForm.get('email')?.dirty) && hasError('email', 'required')">Required.</div> -->
     </div>
 
     <div class="form-group">
       <label for="phone">Phone</label>
-      <input id="phone" formControlName="phone" required>
+      <input-text id="phone" formControlName="phone" required></input-text>
+      <div class="error" *ngIf="hasError('phone', 'pattern')">Invalid phone number.</div>
+<!--       <input id="phone" formControlName="phone" required>
       <div class="error" *ngIf="(registerUserForm.get('phone')?.touched || registerUserForm.get('phone')?.dirty) && hasError('phone', 'required')">Required.</div>
-      <div class="error" *ngIf="(registerUserForm.get('phone')?.touched || registerUserForm.get('phone')?.dirty) && hasError('phone', 'pattern')">Invalid phone number.</div>
+      <div class="error" *ngIf="(registerUserForm.get('phone')?.touched || registerUserForm.get('phone')?.dirty) && hasError('phone', 'pattern')">Invalid phone number.</div> -->
     </div>
 
     <div class="form-group">
       <label for="address">Address</label>
-      <input id="address" formControlName="address" required>
-      <div class="error" *ngIf="(registerUserForm.get('address')?.touched || registerUserForm.get('address')?.dirty) && hasError('address', 'required')">Required.</div>
+      <input-text id="address" formControlName="address" required></input-text>
+      <div class="error" *ngIf="hasError('address', 'required')">Required.</div>
+<!--       <input id="address" formControlName="address" required>
+      <div class="error" *ngIf="(registerUserForm.get('address')?.touched || registerUserForm.get('address')?.dirty) && hasError('address', 'required')">Required.</div> -->
     </div>
 
     <div class="form-group">
       <label for="jmbg">JMBG</label>
-      <input id="jmbg" formControlName="jmbg" required>
+      <input-text id="jmbg" formControlName="jmbg" required></input-text>
+      <div class="error" *ngIf="hasError('jmbg', 'pattern')">Must be 13 digits.</div>
+<!--       <input id="jmbg" formControlName="jmbg" required>
       <div class="error" *ngIf="(registerUserForm.get('jmbg')?.touched || registerUserForm.get('jmbg')?.dirty) && hasError('jmbg', 'required')">Required.</div>
-      <div class="error" *ngIf="(registerUserForm.get('jmbg')?.touched || registerUserForm.get('jmbg')?.dirty) && hasError('jmbg', 'pattern')">Must be 13 digits.</div>
+      <div class="error" *ngIf="(registerUserForm.get('jmbg')?.touched || registerUserForm.get('jmbg')?.dirty) && hasError('jmbg', 'pattern')">Must be 13 digits.</div> -->
     </div>
 
     <div class="form-group">
       <label for="password">Password</label>
-      <input id="password" type="password" formControlName="password" required>
+      <input-text id="password" type="password" formControlName="password" required></input-text>
+      <div class="error" *ngIf="hasError('password', 'required')">Required.</div>
+      <div class="error" *ngIf="hasError('password', 'minlength')">At least 8 characters.</div>
+<!--       <input id="password" type="password" formControlName="password" required>
       <div class="error" *ngIf="(registerUserForm.get('password')?.touched || registerUserForm.get('password')?.dirty) && hasError('password', 'required')">Required.</div>
-      <div class="error" *ngIf="(registerUserForm.get('password')?.touched || registerUserForm.get('password')?.dirty) && hasError('password', 'minlength')">At least 8 characters.</div>
+      <div class="error" *ngIf="(registerUserForm.get('password')?.touched || registerUserForm.get('password')?.dirty) && hasError('password', 'minlength')">At least 8 characters.</div> -->
     </div>
 
     <div class="form-group">
       <label for="role">Role</label>
-      <select id="role" formControlName="role" required>
+      <app-select id="role" formControlName="role" required>
         <option value="user">User</option>
         <option value="admin">Admin</option>
-      </select>
+      </app-select>
     </div>
 
-    <button type="submit" [disabled]="registerUserForm.invalid || loading">Register</button>
+    <app-button type="submit" label="Register" [disabled]="loading"></app-button>
+<!--     <button type="submit" [disabled]="registerUserForm.invalid || loading">Register</button> -->
   </form>
 </div>

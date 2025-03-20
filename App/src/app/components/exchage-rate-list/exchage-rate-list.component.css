@@ -1,4 +1,4 @@
-/* Global styling for exchange page */
+/* 🔹 General Styling */
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #B399DD, #D0C9EA);
@@ -9,6 +9,7 @@ body {
   margin: 0;
 }
 
+/* 🔹 Exchange Container */
 .exchange-container {
   background: white;
   padding: 30px;
@@ -19,19 +20,22 @@ body {
   margin: 10px auto;
 }
 
+/* 🔹 Heading */
 h2 {
   font-size: 1.8rem;
   font-weight: 600;
-  color: #333;
+  color: #6A4BBC;
 }
 
+/* 🔹 Exchange Table */
 .exchange-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
 
-.exchange-table th, .exchange-table td {
+.exchange-table th,
+.exchange-table td {
   padding: 12px;
   border: 1px solid #C2B4E2;
   text-align: center;
@@ -46,6 +50,7 @@ h2 {
   background: #F3F2F8;
 }
 
+/* 🔹 Open Popup Button */
 .open-popup {
   display: inline-block;
   padding: 12px 20px;
@@ -63,7 +68,7 @@ h2 {
   background: #8E79D2;
 }
 
-/* Popup Styling */
+/* 🔹 Popup Styling */
 .popup {
   position: fixed;
   top: 0;
@@ -85,6 +90,7 @@ h2 {
   width: 400px;
 }
 
+/* 🔹 Popup Toggle */
 .popup-toggle {
   display: none;
 }
@@ -93,43 +99,30 @@ h2 {
   display: flex;
 }
 
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.form-group input, .form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #C2B4E2;
-  border-radius: 6px;
-  font-size: 1rem;
-  outline: none;
-}
-
-.result {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #6A4BBC;
-  margin-top: 10px;
-}
-
-.btn.close {
-  padding: 10px 15px;
-  background: #888;
+/* 🔹 Close Popup Button (Inside Popup) */
+.close-popup {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #6A4BBC;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   transition: 0.3s;
   font-size: 1rem;
+  margin-top: 15px;
+  text-align: center;
 }
 
-.btn.close:hover {
-  background: #666;
+.close-popup:hover {
+  background: #8E79D2;
+}
+
+
+/* 🔹 Result Styling */
+.result {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #6A4BBC;
+  margin-top: 10px;
 }

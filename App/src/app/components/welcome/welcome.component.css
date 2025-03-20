@@ -1,3 +1,4 @@
+/*  Gorgeous Purple Gradient Background */
 .welcome-container {
   position: absolute;
   top: 0;
@@ -8,37 +9,64 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  background: linear-gradient(135deg, #6A4BBC, #B399DD, #D0C9EA);
+  animation: fadeIn 0.7s ease-in-out;
   padding: 50px;
 }
 
+/*  Stylish Card with Soft Glow */
 .welcome-container .card {
-  width: 350px;
-  margin: auto;
+  width: 400px;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
+  text-align: center;
+  animation: fadeInScale 0.7s ease-in-out;
 }
 
-button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 18px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
+/*  Beautiful Heading */
+.welcome-container h2 {
+  color: #6A4BBC;
+  font-size: 26px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
-.employee-btn {
-  background-color: #4682B4;
-  color: white;
+/*  Subtitle */
+.welcome-container p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
 }
 
-.user-btn {
-  background-color: #8B4513;
-  color: white;
+/*  Flexbox for Buttons */
+.flex {
+  display: flex;
+  gap: 15px;
 }
 
-button:hover {
-  opacity: 0.8;
+/*  Smooth Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/*  Smooth Scaling Animation */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }

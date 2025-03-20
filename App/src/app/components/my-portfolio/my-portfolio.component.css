@@ -1,78 +1,79 @@
 .portfolio-container {
   max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: #f9f9f9;
-}
-
-h2 {
+  margin: 40px auto;
+  padding: 25px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: center;
 }
 
-/* Dugmad */
-.sell-button {
-  background-color: #9370DB; /* Lila boja */
+/* Portfolio Table */
+.securities-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.securities-table th,
+.securities-table td {
+  border: 1px solid #C2B4E2;
+  padding: 12px;
+  text-align: left;
+}
+
+.securities-table th {
+  background: #6A4BBC;
   color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 5px;
 }
 
-.sell-button:hover {
-  background-color: #7B68EE; /* Tamnija lila */
+/* Profit Positive/Negative */
+.positive {
+  color: #4CAF50; /* Green */
 }
 
-.info-button {
-  background-color: #D8BFD8; /* Svetlo ljubičasta */
-  color: black;
-  border: none;
-  padding: 10px 15px;
-  margin: 5px;
-  cursor: pointer;
-  border-radius: 5px;
+.negative {
+  color: #E74C3C; /* Red */
 }
 
-.info-button:hover {
-  background-color: #C9A1D0; /* Malo tamnija ljubičasta */
-}
-/* Stil za public broj */
+/* Public Cell & Publish Button */
 .public-cell {
   position: relative;
-  padding: 5px;
   text-align: center;
 }
 
-/* Dugme "Publish" se inicijalno ne vidi */
 .publish-button {
   position: absolute;
   top: 50%;
-  left: 100%;
+  left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #6a5acd; /* Ljubičasta */
+  background: #6A4BBC;
   color: white;
   border: none;
-  padding: 5px 8px;
+  padding: 6px 10px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 12px;
-  display: none; /* Sakriveno dok nije hover */
+  display: none;
 }
 
-/* Kada korisnik pređe preko ćelije, dugme se pojavi */
 .public-cell:hover .publish-button {
   display: inline-block;
 }
 
-/* Efekat na hover dugmeta */
 .publish-button:hover {
-  background-color: #483d8b; /* Tamnija ljubičasta */
+  background: #8E79D2;
 }
 
+/* Portfolio Buttons */
+.portfolio-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
 
-/* Modalni prozor */
+/* Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -87,68 +88,14 @@ h2 {
 
 .modal-content {
   background: white;
-  padding: 20px;
-  border-radius: 8px;
+  padding: 25px;
+  border-radius: 10px;
   text-align: center;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Close Button */
 .close-button {
-  background-color: #FF6B6B; /* Crvena */
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-.close-button:hover {
-  background-color: #FF4C4C;
-}
-
-.securities-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-.securities-table th, .securities-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.securities-table th {
-  background-color: #f4f4f4;
-}
-
-.securities-table button {
-  color: #a855f7;
-  border: none;
-  padding: 8px 12px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background 0.3s ease;
-}
-
-.securities-table button:hover {
-  background-color: #a855f7;
-}
-
-.portfolio-container div button {
-  background-color: #e9d5ff;
-  color: #6b21a8;
-  border: 1px solid #c084fc;
-  padding: 10px 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  font-weight: bold;
-  margin-right: 10px;
-  transition: background 0.3s ease, color 0.3s ease;
-}
-
-.portfolio-container div button:hover {
-  background-color: #d8b4fe;
-  color: #4c1d95;
+  margin-top: 15px;
 }

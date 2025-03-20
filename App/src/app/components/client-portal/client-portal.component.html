@@ -4,20 +4,19 @@
 
   <h1>Client Portal</h1>
 
-
   <!-- Filter Section -->
   <div class="flex justify-between">
 
-  <div class="flex-col" style="gap: 0.5rem">
-    <span>Filter by:</span>
-    <div class="filter-section">
-
-    <input type="text" placeholder="Name" [(ngModel)]="filter.name" (input)="filterClients()">
-    <input type="text" placeholder="Last Name" [(ngModel)]="filter.surname" (input)="filterClients()">
-    <input type="email" placeholder="Email" [(ngModel)]="filter.email" (input)="filterClients()">
+    <div class="flex-col" style="gap: 0.5rem">
+      <span>Filter by:</span>
+      <div class="filter-section">
+        <input-text placeholder="Name" [(ngModel)]="filter.name" (input)="filterClients()" label=""/>
+        <input-text placeholder="Last Name" [(ngModel)]="filter.surname" (input)="filterClients()" label=""/>
+        <input-text placeholder="Email" type="email" [(ngModel)]="filter.email" (input)="filterClients()" label=""/>
+      </div>
     </div>
-  </div>
-  <app-button *ngIf="isEmployee || isAdmin" (click)="registerNewUser()" label="Register New User"/>
+
+    <app-button *ngIf="isEmployee || isAdmin" (onClick)="registerNewUser()" label="Register New User"/>
   </div>
 
   <!-- Client List -->
@@ -28,9 +27,9 @@
         <span class="client-email">{{ client.email }}</span>
       </div>
       <div class="flex" style="gap: 0.4rem">
-        <app-button *ngIf="isAdmin || isEmployee" (click)="listAccounts(client.id)" label="List Accounts"/>
+        <app-button *ngIf="isAdmin || isEmployee" (onClick)="listAccounts(client.id)" label="List Accounts"/>
         <app-button *ngIf="isEmployee" [routerLink]="['/users', client.id]" label="Edit User"/>
-        <app-button *ngIf="isAdmin" (click)="deleteUser(client.id)" label="Delete User"/>
+        <app-button *ngIf="isAdmin" (onClick)="deleteUser(client.id)" label="Delete User"/>
       </div>
     </div>
   </div>

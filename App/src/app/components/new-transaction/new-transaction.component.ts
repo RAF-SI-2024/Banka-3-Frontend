@@ -4,13 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PaymentService } from '../../services/payment.service';
 import { CreatePaymentDto } from '../../models/create-payment-dto';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-new-transaction',
   templateUrl: './new-transaction.component.html',
   styleUrls: ['./new-transaction.component.css'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, InputTextComponent, ButtonComponent],
 })
 export class NewTransactionComponent implements OnInit {
   transactionForm!: FormGroup;

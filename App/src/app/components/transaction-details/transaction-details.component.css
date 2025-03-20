@@ -1,58 +1,45 @@
+/* Center the container */
 .transaction-details-container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    margin: 0 auto;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Title */
+.transaction-details-container h2 {
+  margin-bottom: 1rem;
+  font-size: 22px;
+  color: #6A4BBC;
+}
+
+/* Spacing for paragraphs */
+.transaction-details-container p {
+  margin: 8px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+/* Button container for alignment */
+.transaction-details-container div {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* Fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
-  .transaction-details-container h2 {
-    margin-bottom: 1rem;
-    text-align: center;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .transaction-details-container p {
-    margin: 6px 0;
-  }
-  
-  .confirm-btn {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-    margin-right: 8px;
-    cursor: pointer;
-  }
-  
-  .confirm-btn:hover {
-    background-color: #218838;
-  }
-  
-  .cancel-btn {
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #c82333;
-  }
-  
-  .ok-btn {
-    background-color: #6c757d;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-  
-  .ok-btn:hover {
-    background-color: #5a6268;
-  }
-  
+}
