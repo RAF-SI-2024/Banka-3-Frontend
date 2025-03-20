@@ -4,11 +4,13 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { SuccessComponent } from '../success/success.component';
+import {ButtonComponent} from '../shared/button/button.component';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
 
 @Component({
   selector: 'app-mail',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, SuccessComponent],
+  imports: [ReactiveFormsModule, CommonModule, SuccessComponent, ButtonComponent, InputTextComponent],
   templateUrl: './mail.component.html',
   styleUrls: ['./mail.component.css']
 })

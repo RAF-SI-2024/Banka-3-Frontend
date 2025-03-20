@@ -6,10 +6,14 @@ import { AccountResponse } from '../../models/account-response.model';
 import { FormsModule } from '@angular/forms';
 import {AuthService} from '../../services/auth.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ButtonComponent} from '../shared/button/button.component';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
+import {PaginationComponent} from '../shared/pagination/pagination.component';
+import {ModalComponent} from '../shared/modal/modal.component';
 
 @Component({
   selector: 'app-account-management',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ButtonComponent, InputTextComponent, PaginationComponent, ModalComponent],
   standalone: true,
   templateUrl: './account-management.component.html',
   styleUrl: './account-management.component.css',

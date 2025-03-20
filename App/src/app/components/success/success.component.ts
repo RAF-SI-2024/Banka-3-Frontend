@@ -1,10 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-success',
   templateUrl: './success.component.html',
   standalone: true,
+  imports: [
+    ButtonComponent
+  ],
   styleUrl: './success.component.css'
 })
 export class SuccessComponent {

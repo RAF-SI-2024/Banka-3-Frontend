@@ -1,4 +1,4 @@
-/* 🌟 Global Styling */
+/* 🔹 General Styling */
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #B399DD, #D0C9EA);
@@ -23,7 +23,7 @@ body {
 
 /* 🔹 Header */
 h2 {
-  color: #333;
+  color: #6A4BBC; /* Changed to project’s purple */
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -38,7 +38,7 @@ h2 {
 
 /* 🔹 Employee Card */
 .employee-card {
-  background: #f9f9f9;
+  background: #F5F3FB; /* Light purple */
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -56,10 +56,21 @@ h2 {
 
 /* 🔹 Role */
 .role {
-  color: #777;
+  color: #6A4BBC; /* Purple */
   font-size: 0.9rem;
   font-weight: 600;
   margin-top: 5px;
+}
+
+/* 🔹 Status Colors */
+.status-active {
+  color: #28A745;
+  font-weight: bold;
+}
+
+.status-inactive {
+  color: #D32F2F;
+  font-weight: bold;
 }
 
 /* 🔹 Employee Actions */
@@ -67,155 +78,6 @@ h2 {
   display: flex;
   gap: 10px;
   margin-top: 10px;
-}
-
-.employee-actions button {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-/* 🔹 View Details Button */
-.view-details-btn {
-  background: #4682B4;
-  color: white;
-}
-
-.view-details-btn:hover {
-  background: #5A9BD5;
-}
-
-/* 🔹 Delete Button */
-.delete-btn {
-  background: #8B4513;
-  color: white;
-}
-
-.delete-btn:hover {
-  background: #A0522D;
-}
-
-/* 🔹 Deactivate Button */
-.deactivate-btn {
-  background: #DAA520;
-  color: white;
-}
-
-.deactivate-btn:hover {
-  background: #FFD700;
-}
-
-/* 🔹 Disabled Deactivate Button */
-.deactivate-btn:disabled {
-  background: #ccc;
-  color: #666;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-/* 🔹 Register Button */
-.register-btn {
-  background: #4CAF50;
-  color: white;
-  padding: 10px 18px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease-in-out;
-  margin-bottom: 20px;
-}
-
-.register-btn:hover {
-  background: #45A049;
-}
-
-/* 🔹 Filters */
-.filter-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  background: #F5F5F5;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.filter-container label {
-  font-weight: bold;
-  color: #555;
-}
-
-.filter-container input,
-.filter-container select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  width: 100%;
-}
-
-.filter-container button {
-  background: #4682B4;
-  color: white;
-  padding: 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.filter-container button:hover {
-  background: #5A9BD5;
-}
-
-/* 🔹 Pagination */
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-  gap: 10px;
-}
-
-.pagination button {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-  font-size: 0.9rem;
-  font-weight: bold;
-}
-
-.pagination button:disabled {
-  background: #ccc;
-  color: #666;
-  cursor: not-allowed;
-}
-
-.pagination span {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #555;
-}
-
-/* 🔹 Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* 🔹 Modal Overlay */
@@ -249,6 +111,7 @@ h2 {
   margin-top: 15px;
 }
 
+/* 🔹 Cancel & Confirm Buttons */
 .cancel-btn {
   background: #888;
   color: white;
@@ -263,7 +126,7 @@ h2 {
 }
 
 .confirm-btn {
-  background: #8B4513;
+  background: #D32F2F;
   color: white;
   padding: 8px 12px;
   border-radius: 5px;
@@ -272,5 +135,17 @@ h2 {
 }
 
 .confirm-btn:hover {
-  background: #A0522D;
+  background: #B22222;
+}
+
+/* 🔹 Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

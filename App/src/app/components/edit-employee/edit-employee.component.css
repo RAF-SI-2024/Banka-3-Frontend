@@ -1,8 +1,9 @@
-.edit-main{
+.edit-main {
   width: 100%;
   display: flex;
   justify-content: center;
 }
+
 /* 🔹 Main Container */
 .edit-container {
   background: white;
@@ -16,7 +17,7 @@
 
 /* 🔹 Heading */
 .edit-container h2 {
-  color: #510076;
+  color: #6A4BBC; /* Changed to purple */
   margin-bottom: 20px;
   margin-top: 0;
 }
@@ -28,62 +29,11 @@ form {
   gap: 15px;
 }
 
-/* 🔹 Form Group */
-.form-group {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.form-group label {
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #333;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: all 0.3s ease-in-out;
-}
-
-.form-group input:focus {
-  border-color: #1976D2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.3);
-}
-
-/* 🔹 Submit Button */
-button[type="submit"] {
-  background: #28A745;
-  color: white;
-  padding: 10px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-button[type="submit"]:hover {
-  background: #218838;
-}
-
-button[type="submit"]:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
 /* 🔹 Admin Toggle Section */
 .admin-toggle {
   margin-top: 20px;
   padding: 10px;
-  background: #f4f4f4;
+  background: #F4F0FA;
   border-radius: 8px;
   text-align: center;
 }
@@ -95,7 +45,7 @@ button[type="submit"]:disabled {
 }
 
 .admin-toggle button {
-  background: #8B4513;
+  background: #6A4BBC; /* Changed to purple */
   color: white;
   padding: 8px 12px;
   border: none;
@@ -106,7 +56,7 @@ button[type="submit"]:disabled {
 }
 
 .admin-toggle button:hover {
-  background: #A0522D;
+  background: #8E79D2; /* Slightly lighter purple */
 }
 
 /* 🔹 Error Message */

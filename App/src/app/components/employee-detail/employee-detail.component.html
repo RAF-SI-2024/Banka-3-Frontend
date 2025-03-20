@@ -15,7 +15,12 @@
       <p><strong>Address:</strong> {{ employee.address }}</p>
       <p><strong>Position:</strong> {{ employee.position }}</p>
       <p><strong>Department:</strong> {{ employee.department }}</p>
-      <p><strong>Status:</strong> {{ employee.active ? 'Active' : 'Inactive' }}</p>
+      <p>
+        <strong>Status:</strong>
+        <span [ngClass]="{'status-active': employee.active, 'status-inactive': !employee.active}">
+          {{ employee.active ? 'Active' : 'Inactive' }}
+        </span>
+      </p>
     </div>
 
     <div *ngIf="!isAdmin" class="note">

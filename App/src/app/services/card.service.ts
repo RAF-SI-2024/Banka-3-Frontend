@@ -37,7 +37,8 @@ export class CardService {
   }
 
   getCardsByAccount(accountNumber: string): Observable<Card[]> {
-    return this.http.get<Card[]>(`${this.apiUrl}/${accountNumber}/cards`, { headers: this.getAuthHeaders() })
+    return this.http.get<Card[]>(`${this.apiUrl}/${accountNumber}/cards`, {headers: this.getAuthHeaders()})
+  }
 
   getTransactions(cardNumber?: string): Observable<PaymentOverviewDto[]> {
     let url = this.apiUrl;

@@ -1,4 +1,3 @@
-
 <div class="exchange-container">
   <h2>Exchange Rates</h2>
 
@@ -27,32 +26,34 @@
 <!-- Popup for Exchange Calculation -->
 <input type="checkbox" id="popupToggle" class="popup-toggle">
 
-<div class="popup" id="exchangePopup">
+<div class="popup">
   <div class="popup-content">
     <h3>Currency Conversion</h3>
 
     <div class="form-group">
-      <label>Amount</label>
-      <input type="number" [(ngModel)]="exchangeAmount" (input)="exchangeRateCalculation()" placeholder="Enter amount" min="0">
+      <input-text
+        [(ngModel)]="exchangeAmount"
+        (input)="exchangeRateCalculation()"
+        placeholder="Enter amount"
+        label="Amount"
+        type="number"
+      ></input-text>
     </div>
 
     <div class="form-group">
-      <label>From Currency</label>
-      <select [(ngModel)]="fromCurrency" (change)="onFromCurrencyChange()">
+      <app-select label="From Currency" [(ngModel)]="fromCurrency" (change)="onFromCurrencyChange()">
         <option *ngFor="let currency of currencies" [value]="currency">{{ currency }}</option>
-      </select>
+      </app-select>
     </div>
 
     <div class="form-group">
-      <label>To Currency</label>
-      <select [(ngModel)]="toCurrency" (change)="onToCurrencyChange()">
+      <app-select label="To Currency" [(ngModel)]="toCurrency" (change)="onToCurrencyChange()">
         <option *ngFor="let currency of availableToCurrencies" [value]="currency">{{ currency }}</option>
-      </select>
+      </app-select>
     </div>
 
     <p class="result">Equivalent: {{ convertedAmount }} {{ toCurrency }}</p>
 
-    <label for="popupToggle" class="btn close" >Close</label>
+    <label for="popupToggle" class="btn close">Close</label>
   </div>
 </div>
-

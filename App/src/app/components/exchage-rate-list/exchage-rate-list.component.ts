@@ -5,10 +5,12 @@ import { Exchange } from '../../models/exchange';
 import { ExchangeService } from '../../services/exchange.service';
 import { FormsModule } from '@angular/forms';
 import { NgForOf, NgIf } from '@angular/common';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
+import {SelectComponent} from '../shared/select/select.component';
 
 @Component({
   selector: 'app-exchage-rate-list',
-  imports: [FormsModule, NgForOf, NgIf],
+  imports: [FormsModule, NgForOf, NgIf, InputTextComponent, SelectComponent],
   templateUrl: './exchage-rate-list.component.html',
   styleUrl: './exchage-rate-list.component.css'
 })

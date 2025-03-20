@@ -38,12 +38,7 @@ h1 {
   font-weight: 600;
 }
 
-.filter-section input {
-  padding: 8px;
-  border: 1px solid #C2B4E2;
-  border-radius: 6px;
-  outline: none;
-  font-size: 0.9rem;
+.filter-section input-text {
   width: 150px;
 }
 
@@ -82,43 +77,6 @@ h1 {
 }
 
 .client-email {
-  color: #666;
+  color: #6A4BBC;
   font-size: 0.9rem;
-}
-
-.client-jmbg {
-  font-weight: bold;
-  color: #333;
-}
-
-/* View Button */
-.view-btn {
-  background: #996FD6;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.view-btn:hover {
-  background: #9E7CD7;
-}
-
-.new-account-btn {
-  background: #996FD6;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-  height: fit-content;
-  margin-bottom: 10px;
-}
-
-.new-account-btn:hover {
-  background: #9E7CD7;
-  transform: scale(1.05);
 }

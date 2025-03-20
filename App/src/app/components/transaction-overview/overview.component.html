@@ -1,6 +1,3 @@
-
-
-
 <div class="overview-container">
   <h2>Transaction Overview</h2>
 
@@ -8,28 +5,28 @@
   <div class="filters">
     <div class="filter-group">
       <label for="dateFilter">Date:</label>
-      <input type="date" id="dateFilter">
+      <input-text id="dateFilter"></input-text>
     </div>
 
     <div class="filter-group">
       <label for="amountFilter">Amount:</label>
-      <input type="number" id="amountFilter" placeholder="Enter amount">
+      <input-text id="amountFilter" placeholder="Enter amount"></input-text>
     </div>
 
     <div class="filter-group">
       <label for="statusFilter">Status:</label>
-      <select id="statusFilter">
+      <app-select id="statusFilter">
         <option value="all">All</option>
         <option value="processed">Processed</option>
         <option value="pending">Pending</option>
         <option value="rejected">Rejected</option>
-      </select>
+      </app-select>
     </div>
   </div>
 
   <!-- Transaction List -->
   <div class="transaction-list">
-    <div class="transaction-item" onclick="openDetails()">
+    <div class="transaction-item" (click)="openDetails()">
       <span class="transaction-name">{{ transaction?.name }}</span>
       <span class="transaction-date">{{ transaction?.date }}</span>
       <span class="transaction-amount">{{ transaction?.amount }} RSD</span>
@@ -40,7 +37,7 @@
   <!-- Transaction Details Popup -->
   <div id="transactionDetails" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeDetails()">&times;</span>
+      <span class="close" (click)="closeDetails()">&times;</span>
       <h3>Transaction Details</h3>
       <div class="transaction-grid">
         <div>
@@ -59,20 +56,7 @@
           <p><strong>Date of Payment:</strong> {{ transaction?.date }}</p>
         </div>
       </div>
-      <button class="print-btn">Print Confirmation</button>
+      <app-button label="Print Confirmation" class="print-btn"></app-button>
     </div>
   </div>
-
 </div>
-
-<script>
-  function openDetails() {
-    document.getElementById("transactionDetails").style.display = "block";
-  }
-
-  function closeDetails() {
-    document.getElementById("transactionDetails").style.display = "none";
-  }
-</script>
-
-!---->

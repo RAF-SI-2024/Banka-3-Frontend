@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {NgClass, NgForOf, NgIf} from '@angular/common';
 import {PortfolioService} from '../../services/portfolio.service';
 import {Securities} from '../../models/securities';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-my-portfolio',
@@ -13,7 +14,8 @@ import {Securities} from '../../models/securities';
     FormsModule,
     NgIf,
     NgForOf,
-    NgClass
+    NgClass,
+    ButtonComponent
   ],
   templateUrl: './my-portfolio.component.html',
   styleUrl: './my-portfolio.component.css'

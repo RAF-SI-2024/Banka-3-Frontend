@@ -1,0 +1,124 @@
+/* 🔹 Global Styling */
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #B399DD, #D0C9EA);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 0;
+  padding: 20px;
+}
+
+/* 🔹 Main Container */
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  width: 750px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* 🔹 Headings */
+h2 {
+  text-align: center;
+  color: #6A4BBC;
+  margin-bottom: 20px;
+}
+
+/* 🔹 Loan Details */
+p {
+  font-size: 1rem;
+  color: #333;
+  line-height: 1.6;
+  margin: 5px 0;
+}
+
+p strong {
+  color: #6A4BBC;
+}
+
+/* 🔹 Loan Status */
+span {
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  text-transform: uppercase;
+}
+
+/* 🔹 Loan Status Colors */
+span[data-status="ACTIVE"] {
+  background: #28A745;
+}
+
+span[data-status="OVERDUE"] {
+  background: #D32F2F;
+}
+
+span[data-status="PAID"] {
+  background: #6A4BBC;
+}
+
+/* 🔹 Installments Section */
+.installments-section {
+  margin-top: 20px;
+  background: #F8F5FC;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.installments-section h3 {
+  color: #6A4BBC;
+  margin-bottom: 10px;
+}
+
+/* 🔹 Table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background: #D0C9EA;
+  font-weight: bold;
+}
+
+/* 🔹 Error Message */
+.error-message {
+  color: #D32F2F;
+  background: #FFEBEE;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* 🔹 Button Spacing */
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* 🔹 Fade-in Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

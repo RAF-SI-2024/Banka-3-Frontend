@@ -4,7 +4,7 @@
   <app-alert></app-alert>
 
   <div *ngIf="isAdmin; else unauthorized">
-    <button class="register-btn" (click)="register()">Register new employee</button>
+    <app-button (click)="register()" label="Register new employee" class="register-btn"></app-button>
 
     <div id="employees-list" class="employee-list">
       <div *ngFor="let employee of pagedEmployees;" class="employee-card">
@@ -13,19 +13,21 @@
         </span>
         <p class="role"><strong>Role:</strong> {{ employee.position }}</p>
         <p><strong>Phone:</strong> {{ employee.phone }}</p>
-        <p><strong>Status:</strong> {{ employee.active ? 'Active' : 'Inactive' }}</p>
+        <p><strong>Status:</strong>
+          <span [ngClass]="{'status-active': employee.active, 'status-inactive': !employee.active}">
+            {{ employee.active ? 'Active' : 'Inactive' }}
+          </span>
+        </p>
 
         <div class="employee-actions">
-          <button class="view-details-btn" (click)="viewEmployeeDetails(employee.id)">View Details</button>
-          <button class="delete-btn" (click)="openDeleteModal(employee)">Delete</button>
-          <button class="deactivate-btn" (click)="deactivateEmployee(employee.id)" [disabled]="!employee.active">
-            Deactivate
-          </button>
+          <app-button (click)="viewEmployeeDetails(employee.id)" label="View Details" class="view-details-btn"></app-button>
+          <app-button (click)="openDeleteModal(employee)" label="Delete" class="delete-btn"></app-button>
+          <app-button (click)="deactivateEmployee(employee.id)" [disabled]="!employee.active" label="Deactivate" class="deactivate-btn"></app-button>
         </div>
       </div>
     </div>
 
-    <!-- Paginacija -->
+    <!-- Pagination -->
     <app-pagination
       [totalItems]="filteredEmployees.length"
       [pageSize]="pageSize"
@@ -47,8 +49,8 @@
       </p>
 
       <div class="modal-actions">
-        <button class="cancel-btn" (click)="closeDeleteModal()">Cancel</button>
-        <button class="confirm-btn" (click)="confirmDelete()">Delete</button>
+        <app-button (click)="closeDeleteModal()" label="Cancel" class="cancel-btn"></app-button>
+        <app-button (click)="confirmDelete()" label="Delete" class="confirm-btn"></app-button>
       </div>
     </div>
   </div>

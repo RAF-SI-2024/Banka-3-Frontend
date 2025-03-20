@@ -25,37 +25,13 @@
   border-bottom: 1px solid #ddd;
 }
 
-.payment-btn {
-  padding: 8px 12px;
-  color: white;
-  background: #6A4BBC;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: 600;
-  margin-right: 5px;
+/* Ispravka preklapanja dugmadi */
+.action-buttons {
+  display: flex;
+  gap: 8px;
 }
 
-.payment-btn:hover {
-  background: #8E79D2;
-}
-
-.block-card-btn {
-  padding: 8px 12px;
-  color: white;
-  background: #DC143C;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: 600;
-}
-
-.block-card-btn:hover {
-  background: #B22222;
-}
-
+/* Statusi */
 .status-active {
   color: #228B22;
   font-weight: 600;
@@ -69,20 +45,4 @@
 .status-deactivated {
   color: gray;
   font-weight: 600;
-}
-
-.request-card-btn {
-  padding: 8px 12px;
-  background: #996FD6;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-weight: 600;
-  margin: 10px 0;
-}
-
-.request-card-btn:hover {
-  background: #9E7CD7;
 }

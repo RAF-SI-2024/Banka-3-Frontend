@@ -7,12 +7,14 @@ import { PayeeService } from '../../services/payee.service';
 import { Payee } from '../../models/payee.model';
 import {AuthService} from '../../services/auth.service';
 import { ChangeDetectorRef } from '@angular/core';
+import {ButtonComponent} from '../shared/button/button.component';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
 
 
 @Component({
   selector: 'app-recipients',
   standalone: true,
-  imports: [FormsModule, NgIf, NgForOf],
+  imports: [FormsModule, NgIf, NgForOf, ButtonComponent, InputTextComponent],
   templateUrl: './recipients.component.html',
   styleUrl: './recipients.component.css'
 })

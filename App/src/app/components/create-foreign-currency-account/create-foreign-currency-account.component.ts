@@ -19,11 +19,14 @@ import { Account as Account } from '../../models/account.model';
 import { AccountType } from '../../enums/account-type.enum';
 import { AccountOwnerType } from '../../enums/account-owner-type.enum';
 import { AccountStatus } from '../../enums/account-status.enum';
+import {SelectComponent} from '../shared/select/select.component';
+import {ButtonComponent} from '../shared/button/button.component';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
 
 @Component({
   selector: 'app-create-foreign-currency-account',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, SelectComponent, ButtonComponent, InputTextComponent],
   templateUrl: './create-foreign-currency-account.component.html',
   styleUrl: './create-foreign-currency-account.component.css',
 })

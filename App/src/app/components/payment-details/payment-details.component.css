@@ -1,14 +1,4 @@
-body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #B399DD, #D0C9EA);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding-top: 30px;
-}
-
+/* Payment Container */
 .payments-container {
   background: white;
   padding: 40px;
@@ -16,15 +6,19 @@ body {
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
   text-align: center;
   width: 650px;
+  margin: auto;
   animation: fadeIn 0.5s ease-in-out;
 }
 
+/* Purple Header */
 h2 {
-  color: #333;
-  font-size: 24px;
+  color: #6A4BBC;
+  font-size: 1.8rem;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
+/* Payment List */
 .payment-list {
   display: flex;
   flex-direction: column;
@@ -33,7 +27,7 @@ h2 {
 }
 
 .payment-card {
-  background: #f9f9f9;
+  background: #f3ebff;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -49,38 +43,15 @@ h2 {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
+/* Amount */
 .amount {
-  color: #777;
-  font-size: 0.9rem;
+  color: #6A4BBC;
+  font-size: 1rem;
   font-weight: 600;
   margin-top: 5px;
 }
 
-.payment-actions {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-.payment-actions button {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  font-size: 0.9rem;
-  font-weight: 600;
-}
-
-.view-details-btn {
-  background: #4682B4;
-  color: white;
-}
-
-.view-details-btn:hover {
-  background: #5A9BD5;
-}
-
+/* Filters */
 .filter-container {
   display: flex;
   flex-direction: column;
@@ -93,32 +64,12 @@ h2 {
   text-align: left;
 }
 
-.filter-container label {
-  font-weight: bold;
-  color: #555;
-}
-
-.filter-container input,
-.filter-container select {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  width: 100%;
-}
-
-.filter-container button {
-  background: #4682B4;
-  color: white;
-  padding: 8px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease-in-out;
-}
-
-.filter-container button:hover {
-  background: #5A9BD5;
+/* Buttons for filters */
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
+  margin-top: 10px;
 }
 
 @keyframes fadeIn {

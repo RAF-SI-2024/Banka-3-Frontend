@@ -23,14 +23,14 @@ body {
 
 /* 🔹 Heading */
 .employee-detail-container h2 {
-  color: #1976D2;
+  color: #6A4BBC; /* Changed to purple */
   font-size: 24px;
   margin-bottom: 20px;
 }
 
 /* 🔹 Employee Card */
 .employee-card {
-  background: #f9f9f9;
+  background: #F5F3FB; /* Soft purple background */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -45,30 +45,18 @@ body {
 }
 
 .employee-card p strong {
-  color: #555;
+  color: #6A4BBC; /* Purple text for titles */
 }
 
-/* 🔹 Status Badge */
-.employee-card p:last-child {
+/* 🔹 Status Styling */
+.status-active {
+  color: #28A745;
   font-weight: bold;
-  color: white;
-  display: inline-block;
-  padding: 5px 10px;
-  border-radius: 5px;
 }
 
-/* 🔹 Active/Inactive Status Colors */
-.employee-card p:last-child::after {
-  content: attr(data-status);
-  text-transform: uppercase;
-}
-
-.employee-card p:last-child[data-status="Active"] {
-  background: #28A745;
-}
-
-.employee-card p:last-child[data-status="Inactive"] {
-  background: #D32F2F;
+.status-inactive {
+  color: #D32F2F;
+  font-weight: bold;
 }
 
 /* 🔹 Admin/User Note */
@@ -78,15 +66,7 @@ body {
   border-radius: 8px;
   font-size: 14px;
   font-weight: 500;
-}
-
-/* 🔹 Admin Privileges */
-.note p {
   background: #F4F4F4;
-  padding: 10px;
-  border-radius: 6px;
-  font-weight: 600;
-  color: #333;
 }
 
 /* 🔹 Error Message */

@@ -7,6 +7,9 @@ import {Router} from '@angular/router';
 import {AlertService} from '../../services/alert.service';
 import {AccountResponse} from '../../models/account-response.model';
 import {AuthService} from '../../services/auth.service';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
+import {ButtonComponent} from '../shared/button/button.component';
+import {SelectComponent} from '../shared/select/select.component';
 
 @Component({
   selector: 'app-transfer',
@@ -14,7 +17,10 @@ import {AuthService} from '../../services/auth.service';
   imports: [
     FormsModule,
     NgIf,
-    NgForOf
+    NgForOf,
+    InputTextComponent,
+    ButtonComponent,
+    SelectComponent
   ],
   standalone: true,
   styleUrls: ['./transfer.component.css']

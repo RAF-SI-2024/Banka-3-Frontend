@@ -1,40 +1,65 @@
-<div class="container">
+<div class="payment-container">
   <h2>New Payment</h2>
+
   <form #paymentForm="ngForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="senderAccountNumber">Sender Account Number</label>
-      <select id="senderAccountNumber" [(ngModel)]="payment.senderAccountNumber" name="senderAccountNumber" required>
-        <option value="" disabled>Select Sender Account</option>
-        <option *ngFor="let account of accounts" [value]="account.accountNumber">
-          {{ account.accountNumber }} ({{ account.owner.firstName }} {{ account.owner.lastName }})
-        </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="receiverAccountNumber">Receiver Account Number</label>
-      <select id="receiverAccountNumber" [(ngModel)]="payment.receiverAccountNumber" name="receiverAccountNumber" required>
-        <option value="" disabled>Select Receiver Account</option>
-        <option *ngFor="let account of accounts" [value]="account.accountNumber">
-          {{ account.accountNumber }} ({{ account.owner.firstName }} {{ account.owner.lastName }})
-        </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="amount">Amount</label>
-      <input id="amount" type="number" [(ngModel)]="payment.amount" name="amount" required min="0.01" />
-    </div>
-    <div class="form-group">
-      <label for="paymentCode">Payment Code</label>
-      <input id="paymentCode" type="text" [(ngModel)]="payment.paymentCode" name="paymentCode" required />
-    </div>
-    <div class="form-group">
-      <label for="purposeOfPayment">Purpose of Payment</label>
-      <input id="purposeOfPayment" type="text" [(ngModel)]="payment.purposeOfPayment" name="purposeOfPayment" required />
-    </div>
-    <div class="form-group">
-      <label for="referenceNumber">Reference Number</label>
-      <input id="referenceNumber" type="text" [(ngModel)]="payment.referenceNumber" name="referenceNumber" />
-    </div>
-    <button type="submit" [disabled]="!paymentForm.form.valid">Submit Payment</button>
+    <app-select
+      label="Sender Account Number"
+      [(ngModel)]="payment.senderAccountNumber"
+      name="senderAccountNumber"
+      required>
+      <option value="" disabled>Select Sender Account</option>
+      <option *ngFor="let account of accounts" [value]="account.accountNumber">
+        {{ account.accountNumber }} ({{ account.owner.firstName }} {{ account.owner.lastName }})
+      </option>
+    </app-select>
+
+    <app-select
+      label="Receiver Account Number"
+      [(ngModel)]="payment.receiverAccountNumber"
+      name="receiverAccountNumber"
+      required>
+      <option value="" disabled>Select Receiver Account</option>
+      <option *ngFor="let account of accounts" [value]="account.accountNumber">
+        {{ account.accountNumber }} ({{ account.owner.firstName }} {{ account.owner.lastName }})
+      </option>
+    </app-select>
+
+    <input-text
+      label="Amount"
+      type="number"
+      [(ngModel)]="payment.amount"
+      name="amount"
+      required
+      min="0.01">
+    </input-text>
+
+    <input-text
+      label="Payment Code"
+      type="text"
+      [(ngModel)]="payment.paymentCode"
+      name="paymentCode"
+      required>
+    </input-text>
+
+    <input-text
+      label="Purpose of Payment"
+      type="text"
+      [(ngModel)]="payment.purposeOfPayment"
+      name="purposeOfPayment"
+      required>
+    </input-text>
+
+    <input-text
+      label="Reference Number"
+      type="text"
+      [(ngModel)]="payment.referenceNumber"
+      name="referenceNumber">
+    </input-text>
+
+    <app-button
+      type="submit"
+      label="Submit Payment"
+      [disabled]="!paymentForm.form.valid">
+    </app-button>
   </form>
 </div>

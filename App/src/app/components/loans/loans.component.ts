@@ -11,11 +11,13 @@ import { LoanService } from '../../services/loan.service';
 import { Loan } from '../../models/loan-dto.model';
 import { Router } from '@angular/router';
 import { LoanRequestService } from '../../services/loan-request.service';
+import {InputTextComponent} from '../shared/input-text/input-text.component';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-loans',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, InputTextComponent, ButtonComponent],
   templateUrl: './loans.component.html',
   styleUrl: './loans.component.css',
 })
@@ -99,31 +101,6 @@ export class LoansComponent implements OnInit {
     );
   }
 
-  showLoanDetails(loan: Loan): void {
-    if (loan.id) {
-      this.loanService.getLoan(loan.id).subscribe({
-        next: (data) => {
-          this.selectedLoan = data;
-        },
-        error: (err) => {
-          console.error('Error loading loan details:', err);
-          this.selectedLoan = null;
-        },
-      });
-    }
-  }
-
-  closeDetailsPopup(): void {
-    this.selectedLoan = null;
-  }
-
-  openNewCredit(): void {
-    this.router.navigate(['/loan-request'])
-  }
-
-  closeDetailsPopup(): void {
-    this.selectedLoan = null;
-  }
 
   getLoanStatusClass(status?: string): string {
     if (!status) return '';

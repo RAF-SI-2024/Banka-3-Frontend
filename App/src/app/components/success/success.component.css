@@ -1,14 +1,52 @@
-.success-button {
-  padding: 12px 24px;
-  background: #6A4BBC;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.3s ease;
+/* General Layout Fix */
+.main-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
 }
 
-.success-button:hover {
-  background: #8E79D2;
+/* Centered Activation Container */
+.activation-container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  text-align: center;
+  width: 400px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+/* Success Icon */
+.success-icon {
+  width: 80px;
+  margin-bottom: 15px;
+}
+
+/* Heading */
+.activation-container h2 {
+  color: #6A4BBC;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+/* Message */
+.activation-container p {
+  color: #444;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -3,13 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { PaymentService } from '../../services/payment.service';
 import { PaymentDetailsDto } from '../../models/payment-details-dto';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-transaction-details',
   templateUrl: './transaction-details.component.html',
   styleUrls: ['./transaction-details.component.css'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent],
 })
 export class TransactionDetailsComponent implements OnInit {
   transactionId!: number;

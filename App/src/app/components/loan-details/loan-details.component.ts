@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { LoanService } from '../../services/loan.service';
 import { Loan } from '../../models/loan-dto.model';
 import { Installment } from '../../models/installment-model';
+import {ButtonComponent} from '../shared/button/button.component';
 
 @Component({
   selector: 'app-loan-details',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ButtonComponent],
   templateUrl: './loan-details.component.html',
   styleUrl: './loan-details.component.css',
 })

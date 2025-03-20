@@ -1,4 +1,4 @@
-/* Globalni stil */
+/* Global Styles */
 body {
   font-family: 'Poppins', sans-serif;
   background: linear-gradient(135deg, #B399DD, #D0C9EA);
@@ -10,8 +10,8 @@ body {
   padding-top: 30px;
 }
 
-/* Kontejner */
-.container {
+/* Container */
+.recipients-container {
   background: white;
   padding: 30px;
   border-radius: 15px;
@@ -21,35 +21,22 @@ body {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Dugme za dodavanje */
-.add-btn {
-  width: 100%;
-  padding: 12px;
-  background: #996FD6;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.3s ease-in-out;
-  margin-bottom: 20px;
+/* Headings */
+h2, h3 {
+  color: #6A4BBC;
+  font-size: 22px;
+  margin-bottom: 15px;
 }
 
-.add-btn:hover {
-  background: #9E7CD7;
-  transform: scale(1.05);
-}
-
-/* Forma za dodavanje primaoca */
-.add-recipient-form {
+/* Add Recipient Form */
+.add-recipient-form, .edit-recipient-form {
   background: #F5F3FB;
   padding: 15px;
   border-radius: 10px;
   margin-bottom: 20px;
 }
 
-/* Polja u formi */
+/* Input Fields */
 .input-group {
   display: flex;
   flex-direction: column;
@@ -65,42 +52,20 @@ body {
   font-size: 1rem;
 }
 
-/* Dugmad */
+.input-group input:focus {
+  border-color: #6A4BBC;
+  box-shadow: 0 0 8px rgba(106, 75, 188, 0.3);
+}
+
+/* Buttons Group (Spacing) */
 .btn-group {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
   margin-top: 10px;
 }
 
-.confirm-btn, .cancel-btn {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-}
-
-.confirm-btn {
-  background: #996FD6;
-  color: white;
-}
-
-.confirm-btn:hover {
-  background: #9E7CD7;
-}
-
-.cancel-btn {
-  background: #D9534F;
-  color: white;
-}
-
-.cancel-btn:hover {
-  background: #C9302C;
-}
-
-/* Kartice primaoca */
+/* Recipient Card */
 .recipient-card {
   background: #F5F3FB;
   padding: 15px;
@@ -110,14 +75,14 @@ body {
   flex-direction: column;
 }
 
-/* Sadržaj primaoca - ime i dugmad u ravni */
+/* Recipient Content */
 .recipient-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Informacije o primaocu */
+/* Recipient Info */
 .recipient-info {
   display: flex;
   flex-direction: column;
@@ -133,51 +98,13 @@ body {
   color: #666;
 }
 
-/* Dugmad za edit i delete */
+/* Edit/Delete Button Group */
 .button-group {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
-.edit-btn, .delete-btn {
-  padding: 8px 12px;
-  border-radius: 6px;
-  border: none;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-.edit-btn {
-  background: #996FD6;
-  color: white;
-}
-
-.edit-btn:hover {
-  background: #9E7CD7;
-}
-
-.delete-btn {
-  background: #D9534F;
-  color: white;
-}
-
-.delete-btn:hover {
-  background: #C9302C;
-}
-
-/* Forma za izmenu */
-.edit-recipient-form {
-  background: #F5F3FB;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 5px;
-}
-
-.hidden {
-  display: none;
-}
-
-/*modal deo*/
+/* Delete Confirmation Modal */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -203,7 +130,7 @@ body {
 }
 
 .confirmation-modal h3 {
-  color: #641C85;
+  color: #6A4BBC;
   margin-bottom: 1rem;
 }
 
@@ -214,34 +141,18 @@ body {
 
 .modal-actions {
   display: flex;
-  gap: 1rem;
+  gap: 15px;
   justify-content: center;
 }
 
-.cancel-btn {
-  background: #996FD6;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.cancel-btn:hover {
-  background: #9E7CD7;
-}
-
-.confirm-delete-btn {
-  background: #D9534F;
-  color: white;
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.confirm-delete-btn:hover {
-  background: #C9302C;
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

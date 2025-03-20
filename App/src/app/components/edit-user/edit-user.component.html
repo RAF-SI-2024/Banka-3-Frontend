@@ -7,49 +7,28 @@
 
   <form *ngIf="userForm" [formGroup]="userForm" (ngSubmit)="saveChanges()">
 
-    <div class="form-group">
-      <label>First Name</label>
-      <input type="text" formControlName="firstName" readonly />
-    </div>
+    <input-text formControlName="firstName" [disabled]="true" label="First Name" placeholder="First Name"/>
 
-    <div class="form-group">
-      <label>Last Name</label>
-      <input type="text" formControlName="lastName" />
-      <div class="field-error" *ngIf="hasError('lastName', 'required')">Required.</div>
-      <div class="field-error" *ngIf="hasError('lastName', 'minlength')">At least 2 characters.</div>
-    </div>
+    <input-text formControlName="lastName" label="Last Name" placeholder="Last Name"/>
+    <div class="field-error" *ngIf="hasError('lastName', 'required')">Required.</div>
+    <div class="field-error" *ngIf="hasError('lastName', 'minlength')">At least 2 characters.</div>
 
-    <div class="form-group">
-      <label for="birthDate">Date of Birth</label>
-      <input id="birthDate" type="date" formControlName="birthDate" readonly>
-    </div>
+    <input-text formControlName="birthDate" [disabled]="true" type="date" label="Date of Birth"/>
 
-    <div class="form-group">
-      <label for="gender">Gender</label>
-      <select id="gender" formControlName="gender">
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-      </select>
-    </div>
+    <app-select label="Gender" formControlName="gender">
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </app-select>
 
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input id="email" type="email" formControlName="email" readonly>
-    </div>
+    <input-text formControlName="email" [disabled]="true" type="email" label="Email"/>
 
-    <div class="form-group">
-      <label for="phone">Phone Number</label>
-      <input id="phone" formControlName="phone">
-      <div class="field-error" *ngIf="hasError('phone', 'required')">Required.</div>
-      <div class="field-error" *ngIf="hasError('phone', 'pattern')">Invalid phone format.</div>
-    </div>
+    <input-text formControlName="phone" label="Phone Number" placeholder="Phone Number"/>
+    <div class="field-error" *ngIf="hasError('phone', 'required')">Required.</div>
+    <div class="field-error" *ngIf="hasError('phone', 'pattern')">Invalid phone format.</div>
 
-    <div class="form-group">
-      <label for="address">Address</label>
-      <input id="address" formControlName="address">
-      <div class="field-error" *ngIf="hasError('address', 'required')">Required.</div>
-    </div>
+    <input-text formControlName="address" label="Address" placeholder="Address"/>
+    <div class="field-error" *ngIf="hasError('address', 'required')">Required.</div>
 
-    <button type="submit" [disabled]="loading">Save</button>
+    <app-button type="submit" [disabled]="loading" label="Save"/>
   </form>
 </div>

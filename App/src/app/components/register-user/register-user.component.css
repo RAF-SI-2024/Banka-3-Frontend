@@ -1,7 +1,7 @@
-/* 🔹 General Styling */
+/* General Styling */
 body {
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #B399DD, #D0C9EA);
+  background: #F5F5F5; /* Light gray */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,7 @@ body {
   padding: 30px;
 }
 
-/* 🔹 Container */
+/* Container */
 .register-container {
   background: white;
   padding: 40px;
@@ -21,89 +21,35 @@ body {
   animation: fadeIn 0.5s ease-in-out;
 }
 
-/* 🔹 Heading */
+/* Heading */
 .register-container h2 {
-  color: #1976D2;
+  color: #6A4BBC; /* Purple */
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-/* 🔹 Form Styling */
+/* Form Layout */
 form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-/* 🔹 Form Group */
+/* Form Group */
 .form-group {
   display: flex;
   flex-direction: column;
   text-align: left;
 }
 
-/* 🔹 Labels */
-.form-group label {
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #444;
-}
-
-/* 🔹 Inputs & Select Fields */
-.form-group input,
-.form-group select {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: all 0.3s ease-in-out;
-}
-
-/* 🔹 Focus State */
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #1976D2;
-  outline: none;
-  box-shadow: 0 0 5px rgba(25, 118, 210, 0.3);
-}
-
-/* 🔹 Error Messages */
+/* Error Messages */
 .error {
-  color: #D32F2F;
-  background: #FFEBEE;
-  padding: 5px;
-  border-radius: 4px;
-  font-size: 13px;
-  font-weight: 600;
-  margin-top: 5px;
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }
 
-/* 🔹 Submit Button */
-button[type="submit"] {
-  background: #28A745;
-  color: white;
-  padding: 12px;
-  border: none;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-/* 🔹 Submit Button Hover */
-button[type="submit"]:hover {
-  background: #218838;
-}
-
-/* 🔹 Disabled Button */
-button[type="submit"]:disabled {
-  background: #ccc;
-  cursor: not-allowed;
-}
-
-/* 🔹 Fade-in Animation */
+/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;

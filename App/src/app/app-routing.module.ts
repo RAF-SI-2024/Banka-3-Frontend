@@ -79,7 +79,7 @@ export const routes: Routes = [
   { path: 'my-portfolio', component: MyPortfolioComponent, canActivate: [authGuard] },
 
   // loans
-  { path: 'loan-request', component: LoanRequestComponent, canActivate: [authGuard] },
+  { path: 'loan-request', component: LoanRequestComponent,canActivate: [authGuard] },
   { path: 'loan-management/:clientId', component: LoansComponent, canActivate: [authGuard] },
   { path: 'loan-details/:loanId', component: LoanDetailsComponent, canActivate: [authGuard] },
 

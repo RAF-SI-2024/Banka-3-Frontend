@@ -7,46 +7,34 @@
         <div class="form-group">
           <!-- Clients -->
           <label for="clientId">Client:</label>
-
-            <select id="clientId" name="clientId" [(ngModel)]="newAccount.clientId" required>
-              <option *ngFor="let user of users" [ngValue]="user.id">
-                {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
-              </option>
-            </select>
-            <button (click)="navigateToRegisterUser()" class="create-user-link">Create New User</button>
-
+          <app-select id="clientId" name="clientId" [(ngModel)]="newAccount.clientId" required>
+            <option *ngFor="let user of users" [ngValue]="user.id">
+              {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
+            </option>
+          </app-select>
+          <app-button (click)="navigateToRegisterUser()" label="Create New User" class="create-user-link"></app-button>
         </div>
 
-<!--        <div class="form-group">-->
-<!--          &lt;!&ndash; Account Type &ndash;&gt;-->
-<!--          <label for="accountType">Account Type:</label>-->
-<!--          <select id="accountType" name="accountType" [(ngModel)]="newAccount.accountType" (change)="onAccountTypeChange()">-->
-<!--            <option value="CURRENT">CURRENT</option>-->
-<!--            <option value="FOREIGN">FOREIGN</option>-->
-<!--          </select>-->
-<!--        </div>-->
         <div class="form-group">
           <label for="accountType">Account Type:</label>
-          <select id="accountType" name="accountType" [(ngModel)]="newAccount.accountType" disabled class="non-editable">
+          <app-select id="accountType" name="accountType" [(ngModel)]="newAccount.accountType" disabled>
             <option value="CURRENT">CURRENT</option>
-          </select>
+          </app-select>
         </div>
 
         <!-- Monthly Fee -->
         <div class="form-group monthly-fee-container" *ngIf="isCurrentAccount">
           <label for="monthlyFee">Monthly Fee:</label>
-          <input id="monthlyFee" name="monthlyFee" [(ngModel)]="newAccount.monthlyFee" type="number" />
+          <input-text id="monthlyFee" name="monthlyFee" [(ngModel)]="newAccount.monthlyFee" type="number"/>
         </div>
 
         <!-- Employee info -->
         <div class="employee-info">
           <h3>Account Created By</h3>
-
           <div *ngIf="loggedInEmployee">
             <p><strong>Name:</strong> {{ loggedInEmployee.firstName }} {{ loggedInEmployee.lastName }}</p>
             <p><strong>Position:</strong> {{ loggedInEmployee.position }}</p>
           </div>
-
           <div *ngIf="!loggedInEmployee">
             <p>Loading employee details...</p>
           </div>
@@ -55,93 +43,37 @@
 
       <div class="column">
         <div class="form-group">
-          <!-- Account Owner Type -->
           <label for="accountOwnerType">Account Owner Type:</label>
-          <select id="accountOwnerType" name="accountOwnerType" [(ngModel)]="newAccount.accountOwnerType" (change)="onAccountOwnerTypeChange()">
+          <app-select id="accountOwnerType" name="accountOwnerType" [(ngModel)]="newAccount.accountOwnerType" (change)="onAccountOwnerTypeChange()">
             <option value="PERSONAL">PERSONAL</option>
             <option value="COMPANY">COMPANY</option>
-          </select>
+          </app-select>
         </div>
+
         <!-- Company Dropdown (Conditional) -->
         <div class="form-group" *ngIf="isCompanyAccount">
           <h3>Company Information</h3>
-
-          <div class="form-group">
-            <label for="companyName">Company Name:</label>
-            <input id="companyName" name="companyName" [(ngModel)]="companyInfo.name" type="text"/>
-          </div>
-
-          <div class="form-group">
-            <label for="registrationNumber">Registration Number:</label>
-            <input id="registrationNumber" name="registrationNumber" [(ngModel)]="companyInfo.registrationNumber" type="text" />
-          </div>
-
-          <div class="form-group">
-            <label for="taxNumber">Tax Number:</label>
-            <input id="taxNumber" name="taxNumber" [(ngModel)]="companyInfo.taxNumber" type="text" />
-          </div>
-
-          <div class="form-group">
-            <label for="activityCode">Activity Code:</label>
-            <input id="activityCode" name="activityCode" [(ngModel)]="companyInfo.activityCode" type="text" />
-          </div>
-
-          <div class="form-group">
-            <label for="address">Address:</label>
-            <input id="address" name="address" [(ngModel)]="companyInfo.address" type="text" />
-          </div>
-
-          <div class="form-group">
-            <label for="majorityOwner">Majority Owner:</label>
-            <input id="majorityOwner" name="majorityOwner" [(ngModel)]="companyInfo.majorityOwner" type="text" />
-          </div>
+          <input-text id="companyName" name="companyName" [(ngModel)]="companyInfo.name" label="Company Name"/>
+          <input-text id="registrationNumber" name="registrationNumber" [(ngModel)]="companyInfo.registrationNumber" label="Registration Number"/>
+          <input-text id="taxNumber" name="taxNumber" [(ngModel)]="companyInfo.taxNumber" label="Tax Number"/>
+          <input-text id="activityCode" name="activityCode" [(ngModel)]="companyInfo.activityCode" label="Activity Code"/>
+          <input-text id="address" name="address" [(ngModel)]="companyInfo.address" label="Address"/>
+          <input-text id="majorityOwner" name="majorityOwner" [(ngModel)]="companyInfo.majorityOwner" label="Majority Owner"/>
         </div>
 
-<!--        <div class="form-group">-->
-<!--          &lt;!&ndash; Rest of the fields &ndash;&gt;-->
-<!--          <label for="currency">Currency:</label>-->
-<!--          &lt;!&ndash;  <input id="currency" name="currency" [(ngModel)]="newAccount.currency" type="text" required />&ndash;&gt;-->
-<!--          <select id="currency" name="currency" [(ngModel)]="newAccount.currency" required>-->
-<!--            <option *ngFor="let currency of availableCurrencies" [value]="currency">-->
-<!--              {{ currency }}-->
-<!--            </option>-->
-<!--          </select>-->
-<!--        </div>-->
         <div class="form-group">
           <label for="currency">Currency:</label>
-          <select id="currency" name="currency" [(ngModel)]="newAccount.currency" disabled class="non-editable">
+          <app-select id="currency" name="currency" [(ngModel)]="newAccount.currency" disabled>
             <option value="RSD">RSD</option>
-          </select>
+          </app-select>
         </div>
 
-<!--        <div class="form-group">-->
-<!--          <label for="initialBalance">Initial Balance:</label>-->
-<!--          <input id="initialBalance" name="initialBalance" [(ngModel)]="newAccount.initialBalance" type="number" required />-->
-<!--        </div>-->
-
-        <div class="form-group">
-          <label for="dailyLimit">Daily Limit:</label>
-          <input id="dailyLimit" name="dailyLimit" [(ngModel)]="newAccount.dailyLimit" type="number" required />
-        </div>
-
-        <div class="form-group">
-          <label for="monthlyLimit">Monthly Limit:</label>
-          <input id="monthlyLimit" name="monthlyLimit" [(ngModel)]="newAccount.monthlyLimit" type="number" required />
-        </div>
-
-<!--        <div class="form-group">-->
-<!--          <label for="dailySpending">Daily Spending:</label>-->
-<!--          <input id="dailySpending" name="dailySpending" [(ngModel)]="newAccount.dailySpending" type="number" required />-->
-<!--        </div>-->
-
-<!--        <div class="form-group">-->
-<!--          <label for="monthlySpending">Monthly Spending:</label>-->
-<!--          <input id="monthlySpending" name="monthlySpending" [(ngModel)]="newAccount.monthlySpending" type="number" required />-->
-<!--        </div>-->
+        <input-text id="dailyLimit" name="dailyLimit" [(ngModel)]="newAccount.dailyLimit" type="number" label="Daily Limit" required/>
+        <input-text id="monthlyLimit" name="monthlyLimit" [(ngModel)]="newAccount.monthlyLimit" type="number" label="Monthly Limit" required/>
 
         <div class="form-group checkbox-group">
           <label for="isActive">Is Active:</label>
-          <input id="isActive" name="isActive" type="checkbox" (change)="toggleIsActive()" [checked]="newAccount.isActive === 'ACTIVE'" />
+          <input id="isActive" name="isActive" type="checkbox" (change)="toggleIsActive()" [checked]="newAccount.isActive === 'ACTIVE'"/>
         </div>
 
         <div class="form-group checkbox-group">
@@ -150,7 +82,7 @@
         </div>
       </div>
     </div>
-    <button type="submit" class="submit-btn" [disabled]="accountForm.invalid || !newAccount.clientId || !employeeId
-                                            || !isCompanyFormValid()">Create Account</button>
+
+    <app-button type="submit" label="Create Account" [disabled]="accountForm.invalid || !newAccount.clientId || !employeeId || !isCompanyFormValid()" class="submit-btn"></app-button>
   </form>
 </div>

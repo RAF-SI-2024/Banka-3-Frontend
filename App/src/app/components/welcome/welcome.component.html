@@ -4,9 +4,8 @@
     <p>Select your login type:</p>
 
     <div class="flex">
-
-      <button class="employee-btn" (click)="selectLogin('employee')">Employee Login</button>
-      <button class="user-btn" (click)="selectLogin('client')">User Login</button>
+      <app-button label="Employee Login" (click)="selectLogin('employee')"></app-button>
+      <app-button label="User Login" (click)="selectLogin('client')"></app-button>
     </div>
   </div>
 </div>
