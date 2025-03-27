@@ -1,0 +1,143 @@
+<div class="container actuary-portal">
+    <h2 class="page-title">Actuary Management Portal</h2>
+  
+    <div class="row mb-3">
+      <div class="col filter-section">
+        <input
+          type="text"
+          [(ngModel)]="searchEmail"
+          placeholder="Email"
+          class="form-control form-control-sm mb-2"
+        />
+        <input
+          type="text"
+          [(ngModel)]="searchFirstName"
+          placeholder="First Name"
+          class="form-control form-control-sm mb-2"
+        />
+        <input
+          type="text"
+          [(ngModel)]="searchLastName"
+          placeholder="Last Name"
+          class="form-control form-control-sm mb-2"
+        />
+        <input
+          type="text"
+          [(ngModel)]="searchPosition"
+          placeholder="Position"
+          class="form-control form-control-sm mb-2"
+        />
+        <button (click)="applyFilter()" class="btn btn-primary btn-sm">
+          Search
+        </button>
+      </div>
+    </div>
+  
+    <div *ngIf="loading" class="alert alert-info" role="alert">
+      Loading...
+    </div>
+  
+    <div class="table-responsive" *ngIf="!loading && agents.length > 0">
+      <table class="table table-sm table-striped agents-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Position</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let agent of agents">
+            <td>{{ agent.firstName }} {{ agent.lastName }}</td>
+            <td>{{ agent.email }}</td>
+            <td>{{ agent.position }}</td>
+            <td>
+              <div class="action-buttons">
+                <input
+                  #limitBox
+                  type="number"
+                  class="form-control form-control-sm limit-input"
+                  placeholder="Limit"
+                />
+                <button
+                  class="btn btn-success btn-sm"
+                  (click)="changeLimit(agent.id, limitBox.value)"
+                >
+                  Update Limit
+                </button>
+                <button
+                  class="btn btn-warning btn-sm"
+                  (click)="resetUsedLimit(agent.id)"
+                >
+                  Reset Limit
+                </button>
+                <button
+                  class="btn btn-info btn-sm"
+                  (click)="setApproval(agent.id, true)"
+                >
+                  Need Appr
+                </button>
+                <button
+                  class="btn btn-secondary btn-sm"
+                  (click)="setApproval(agent.id, false)"
+                >
+                  No Appr
+                </button>
+                <button
+                  class="btn btn-link btn-sm"
+                  (click)="showAgentDetails(agent.id)"
+                >
+                  Details
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <div class="alert alert-light text-center" *ngIf="!loading && agents.length === 0">
+      No agents found.
+    </div>
+  
+    <div class="row" *ngIf="totalElements > pageSize && !loading">
+      <div class="col d-flex justify-content-center">
+        <nav>
+          <ul class="pagination pagination-sm">
+            <li class="page-item" [class.disabled]="currentPage === 0">
+              <button class="page-link" (click)="goToPage(currentPage - 1)">
+                Prev
+              </button>
+            </li>
+            <li class="page-item disabled">
+              <span class="page-link">
+                Page {{ currentPage + 1 }}
+              </span>
+            </li>
+            <li
+              class="page-item"
+              [class.disabled]="(currentPage + 1) * pageSize >= totalElements"
+            >
+              <button class="page-link" (click)="goToPage(currentPage + 1)">
+                Next
+              </button>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+  
+  <div class="actuary-details panel panel-default" *ngIf="showDetails">
+    <div class="panel-heading">
+      <h3>Agent Limit Details (ID: {{ selectedAgentId }})</h3>
+    </div>
+    <div class="panel-body">
+      <pre>{{ agentLimitDetails | json }}</pre>
+      <button (click)="closeDetails()" class="btn btn-sm btn-outline-secondary">
+        Close
+      </button>
+    </div>
+  </div>
+  

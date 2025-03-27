@@ -36,6 +36,7 @@ import { OptionsDisplayComponent } from './components/option/option.component';
 import { OrderOverviewComponent } from './components/order-overview/order-overview.component';
 import { TaxCalculationComponent } from './components/tax-calculation/tax-calculation.component';
 import { BankAccountsComponent } from './components/bank-accounts/bank-accounts.component';
+import { ActuaryManagementComponent } from './components/actuary-management/actuary-management.component';
 
 export const routes: Routes = [
   // login
@@ -100,4 +101,8 @@ export const routes: Routes = [
   //options
   { path: 'options/:stockId', component: OptionsDisplayComponent, canActivate: [authGuard, clientOrActuaryGuard] },
   { path: 'order-overview', component: OrderOverviewComponent, canActivate: [authGuard, supervisorGuard] },
+
+  //Actuary
+  { path: 'actuaries', component: ActuaryManagementComponent, canActivate: [authGuard, supervisorGuard] }
+
 ];

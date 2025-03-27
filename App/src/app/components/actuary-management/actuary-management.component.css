@@ -1,0 +1,50 @@
+.actuary-portal {
+    margin-top: 1rem;
+  }
+  
+  .page-title {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  
+  .filter-section input {
+    width: 100%;
+  }
+  
+  .table-responsive {
+    margin-top: 1rem;
+  }
+  
+  .agents-table th,
+  .agents-table td {
+    vertical-align: middle;
+  }
+  
+  .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  
+  .limit-input {
+    width: 80px;
+    margin-right: 0.4rem;
+  }
+  
+  .actuary-details {
+    margin: 1rem auto;
+    max-width: 700px;
+    background: #f9f9f9;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .actuary-details .panel-heading h3 {
+    margin-top: 0;
+  }
+  .actuary-details .panel-body {
+    margin-top: 1rem;
+  }
+  

@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@angular/common": "^19.2.3",
-    "@angular/core": "^19.2.3",
+    "@angular/core": "^19.2.4",
     "@angular/router": "^19.2.3"
   }
 }
