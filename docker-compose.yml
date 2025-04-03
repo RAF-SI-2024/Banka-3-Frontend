@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   main_db:
     image: postgres:17.3-alpine

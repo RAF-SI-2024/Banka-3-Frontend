@@ -22,12 +22,10 @@ presubmits:
               collectCypressReport() {
                 set +e
 
-                CYPRESS_REPORT_DIR=\"./cypress/videos\"
-                CYPRESS_SCREENSHOT_DIR=\"./cypress/screenshots\"
-                ARTIFACTS_DIR=\"/logs/artifacts/\"
+                CYPRESS_REPORT_DIR="./cypress/reports"
+                ARTIFACTS_DIR="/logs/artifacts/"
 
-                cp -r \"$CYPRESS_REPORT_DIR\" \"$ARTIFACTS_DIR\"
-                cp -r \"$CYPRESS_SCREENSHOT_DIR\" \"$ARTIFACTS_DIR\"
+                cp -r "$CYPRESS_REPORT_DIR" "$ARTIFACTS_DIR"
               }
 
               trap collectCypressReport EXIT
@@ -43,7 +41,8 @@ presubmits:
               cd \"$SERVICE_DIR\"
 
               npm install
-              npm run cy:run
+              npm run cy:report
+              npm run mocha:report
 
           securityContext:
             privileged: true
