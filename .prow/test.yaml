@@ -1,0 +1,49 @@
+# Obratiti pažnju na komentare \"PROMENITI PRI KOPIRANJU\" i promeniti
+# to što se traži.
+# \"presubmits\" su CI jobovi, odnosno jobovi koji su pokreću za svaki
+# Pull Request i za svaki novi commit u okviru Pull Request-a.
+presubmits:
+  # PROMENITI PRI KOPIRANJU
+  # Name treba da bude u formatu \"pull-<naziv-repozitorijuma>-<naziv-servisa>-test\", npr.
+  # pull-banka-1-backend-user-service-test ili pull-banka-2-backend-berza-service-test
+  - name: pull-banka-3-frontend-cypress-test
+    run_if_changed: \"(front-app/|docker-compose.yml|package.json|package-lock.json|.prow/)\"
+    decorate: true
+    spec:
+      containers:
+        - image: harbor.k8s.elab.rs/base-images/base:java-17-node-18-docker
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -euo pipefail
+
+              collectCypressReport() {
+                set +e
+
+                CYPRESS_REPORT_DIR=\"./cypress/videos\"
+                CYPRESS_SCREENSHOT_DIR=\"./cypress/screenshots\"
+                ARTIFACTS_DIR=\"/logs/artifacts/\"
+
+                cp -r \"$CYPRESS_REPORT_DIR\" \"$ARTIFACTS_DIR\"
+                cp -r \"$CYPRESS_SCREENSHOT_DIR\" \"$ARTIFACTS_DIR\"
+              }
+
+              trap collectCypressReport EXIT
+
+              start-docker.sh
+
+              docker compose -f docker-compose.yml up -d user-service bank-service email-service stock-service rabbitmq main_db bank_db stock_db 
+              docker compose -f docker-compose.yml up -d front-app
+
+              sleep 60
+
+              SERVICE_DIR=\"front-app\"
+              cd \"$SERVICE_DIR\"
+
+              npm install
+              npm run cy:run
+
+          securityContext:
+            privileged: true
+          imagePullPolicy: Always
