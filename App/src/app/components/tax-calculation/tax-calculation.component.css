@@ -7,15 +7,6 @@
   background: #f9f9f9;
 }
 
-h2 {
-  text-align: center;
-}
-/* General styles */
-
-h2 {
-  text-align: center;
-  color: #333;
-}
 
 /* Filters */
 .filters {
@@ -181,22 +172,6 @@ h2 {
 
 .close-button:hover {
   background-color: #FF4C4C;
-}
-
-.securities-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-.securities-table th, .securities-table td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: left;
-}
-
-.securities-table th {
-  background-color: #f4f4f4;
 }
 
 .securities-table button {

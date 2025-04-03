@@ -1,4 +1,4 @@
-describe('Loan Request Component', () => {
+describe('Cards Component', () => {
   beforeEach(() => {
     cy.loginAsEmployee();
     cy.get(':nth-child(1) > .flex > :nth-child(1) > button').contains('List Accounts').click()
