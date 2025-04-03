@@ -1,11 +1,104 @@
+version: '3.9'
+
 services:
+  main_db:
+    image: postgres:17.3-alpine
+    restart: always
+    volumes:
+      - main_db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=lozinka
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=main_db
+
+  bank_db:
+    image: postgres:17.3-alpine
+    restart: always
+    volumes:
+      - bank_db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=lozinka
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=bank_db
+
+  stock_db:
+    image: postgres:17.3-alpine
+    restart: always
+    volumes:
+      - stock_db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=lozinka
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=stock_db
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+  user-service:
+    image: harbor.k8s.elab.rs/banka-3/user-service:latest
+    ports:
+      - "8080:8080"
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://main_db/main_db
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_CLOUD_OPENFEIGN_CLIENT_CONFIG_BANK-SERVICE_URL: http://bank-service:8080
+    depends_on:
+      - main_db
+      - rabbitmq
+
+  email-service:
+    image: harbor.k8s.elab.rs/banka-3/email-service:latest
+    ports:
+      - "8081:8080"
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://main_db/main_db
+      SPRING_RABBITMQ_HOST: rabbitmq
+    depends_on:
+      - main_db
+      - rabbitmq
+
+  bank-service:
+    image: harbor.k8s.elab.rs/banka-3/bank-service:latest
+    ports:
+      - "8082:8080"
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://bank_db/bank_db
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_CLOUD_OPENFEIGN_CLIENT_CONFIG_USER-SERVICE_URL: http://user-service:8080
+    depends_on:
+      - bank_db
+      - rabbitmq
+
+  stock-service:
+    image: harbor.k8s.elab.rs/banka-3/stock-service:latest
+    ports:
+      - "8083:8080"
+    environment:
+      SERVER_PORT: 8080
+      SPRING_DATASOURCE_URL: jdbc:postgresql://stock_db/stock_db
+      SPRING_CLOUD_OPENFEIGN_CLIENT_CONFIG_USER-SERVICE_URL: http://user-service:8080
+      SPRING_RABBITMQ_HOST: rabbitmq
+    depends_on:
+      - stock_db
+      - rabbitmq
+
   front-app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "5005:5005"
-    volumes:
-      - ./App:/front-app
-      - /front-app/node_modules
-    # command: ["npx", "ng", "serve", "--host=0.0.0.0", "--port=5005"]
+      - "4200:80"
+
+volumes:
+  main_db_data:
+  bank_db_data:
+  stock_db_data:
