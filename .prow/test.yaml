@@ -22,7 +22,7 @@ presubmits:
               collectCypressReport() {
                 set +e
 
-                CYPRESS_REPORT_DIR="./cypress/reports"
+                CYPRESS_REPORT_DIR="./front-app/cypress/reports"
                 ARTIFACTS_DIR="/logs/artifacts/"
 
                 cp -r "$CYPRESS_REPORT_DIR" "$ARTIFACTS_DIR"
