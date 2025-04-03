@@ -7,7 +7,8 @@ presubmits:
   # Name treba da bude u formatu \"pull-<naziv-repozitorijuma>-<naziv-servisa>-test\", npr.
   # pull-banka-1-backend-user-service-test ili pull-banka-2-backend-berza-service-test
   - name: pull-banka-3-frontend-cypress-test
-    run_if_changed: \"(./|docker-compose.yml|package.json|package-lock.json|.prow/)\"
+#    run_if_changed: \"(./|docker-compose.yml|package.json|package-lock.json|.prow/)\"
+    always_run: true
     decorate: true
     spec:
       containers:
