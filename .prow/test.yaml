@@ -19,30 +19,32 @@ presubmits:
             - |
               set -euo pipefail
 
-              collectCypressReport() {
+              collectJUnitCoverage() {
                 set +e
 
-                CYPRESS_REPORT_DIR="./front-app/cypress/reports"
-                ARTIFACTS_DIR="/logs/artifacts/"
+                junit_source_directory="./target/site/jacoco"
+                junit_dest_directory="/logs/artifacts/"
 
-                cp -r "$CYPRESS_REPORT_DIR" "$ARTIFACTS_DIR"
+                cp -r "$junit_source_directory" "$junit_dest_directory"
+              
+                echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/jacoco/index.html" > /logs/artifacts/coverage.link.txt
               }
-
-              trap collectCypressReport EXIT
 
               start-docker.sh
 
               docker compose -f docker-compose.yml up -d user-service bank-service email-service stock-service rabbitmq main_db bank_db stock_db 
-              docker compose -f docker-compose.yml up -d front-app
+              docker compose -f docker-compos.yml up -d front-app
 
-              sleep 60
+              sleep 120
 
               SERVICE_DIR=\"front-app\"
               cd \"$SERVICE_DIR\"
 
               npm install
+              
+              trap collectJUnitCoverage EXIT
+              
               npm run cy:report
-              npm run mocha:report
 
           securityContext:
             privileged: true

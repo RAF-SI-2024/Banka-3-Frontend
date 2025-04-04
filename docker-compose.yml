@@ -1,4 +1,11 @@
 services:
+  front-pp:
+    build:
+      context: .
+      dockerfile: DockerFile
+    ports:
+      - published: 4200
+        target: 80
   main_db:
     image: postgres:17.3-alpine
     restart: always
@@ -88,14 +95,6 @@ services:
     depends_on:
       - stock_db
       - rabbitmq
-
-  front-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "4200:80"
-
 volumes:
   main_db_data:
   bank_db_data:
