@@ -2,7 +2,7 @@ services:
   front-app:
     build:
       context: .
-      dockerfile: DockerFile
+      dockerfile: DockerFileTest
     ports:
       - published: 4200
         target: 80
