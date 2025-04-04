@@ -1,5 +1,5 @@
 services:
-  front-pp:
+  front-app:
     build:
       context: .
       dockerfile: DockerFile
