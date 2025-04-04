@@ -33,7 +33,7 @@ presubmits:
               start-docker.sh
 
               docker compose -f docker-compose.yml up -d user-service bank-service email-service stock-service rabbitmq main_db bank_db stock_db 
-              docker compose -f docker-compos.yml up -d front-app
+              docker compose -f docker-compose.yml up -d front-app
 
               sleep 120
 
