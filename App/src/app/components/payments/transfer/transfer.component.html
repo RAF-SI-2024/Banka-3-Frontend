@@ -4,8 +4,8 @@
 
   <!-- Prvi red: Sa računa + Na račun -->
   <div class="form-row">
-    <div class="input-group">
-      <label for="from-account">From Account</label>
+    <div class="input-group mb-1">
+      <label for="from-account" class="mb-05">From Account</label>
       <select id="from-account" [(ngModel)]="selectedFromAccountNumber" class="dropdown">
         <option *ngFor="let account of accounts" [value]="account.accountNumber">
           {{ account.clientId }} - {{ account.accountNumber }}
@@ -14,8 +14,8 @@
       <p class="balance" *ngIf="selectedFromAccount">Available: {{ selectedFromAccount.availableBalance }} {{selectedFromAccount.currencyCode}}</p>
     </div>
 
-    <div class="input-group">
-      <label for="to-account">To Account</label>
+    <div class="input-group mb-1">
+      <label for="to-account" class="mb-05">To Account</label>
       <select id="to-account" [(ngModel)]="selectedToAccountNumber" class="dropdown">
         <option *ngFor="let account of accounts" [value]="account.accountNumber">
           {{ account.clientId }} - {{ account.accountNumber }}
@@ -48,7 +48,7 @@
 
     <div class="form-row">
       <div class="input-group full-width">
-        <label for="amount">Amount</label>
+        <label for="amount" class="mb-05">Amount</label>
         <input-text id="amount" type="number" placeholder="Enter amount" [(ngModel)]="transferAmount"></input-text>
       </div>
     </div>

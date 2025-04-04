@@ -64,11 +64,14 @@
       <div *ngIf="taxDataError">
         <p style="color: red;">{{ taxDataError }}</p>
       </div>
-      <div *ngIf="!loadingTaxData && !taxDataError">
+      <div class="text-left" *ngIf="!loadingTaxData && !taxDataError">
         <p>Tax Paid (Current Year): <strong>{{ taxPaidThisYear !== null ? (taxPaidThisYear | currency:'USD':'symbol':'1.2-2') : 'N/A' }}</strong></p>
         <p>Unpaid Tax (Current Month): <strong>{{ unpaidTaxThisMonth !== null ? (unpaidTaxThisMonth | currency:'USD':'symbol':'1.2-2') : 'N/A' }}</strong></p>
       </div>
+      <div class="width-fit">
+
       <app-button class="close-button" (click)="closeModals()">Close</app-button>
+      </div>
     </div>
   </app-modal>
 </div>

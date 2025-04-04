@@ -18,6 +18,7 @@ import {ButtonComponent} from '../../shared/button/button.component';
     NgIf,
     NgForOf,
     ButtonComponent,
+    InputTextComponent,
   ],
   standalone: true,
   styleUrls: ['./transfer.component.css']

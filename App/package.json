@@ -8,7 +8,11 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "cy:open": "cypress open",
-    "cy:run": "cypress run"
+    "cy:run": "cypress run",
+    "cy:report": "rimraf cypress/reports && npm run cy:run",
+    "mocha:json": "npx mochawesome-merge \"cypress/reports/*.json\" -o cypress/reports/report.json",
+    "mocha:html": "npx marge cypress/reports/report.json --reportDir cypress/reports/html --reportFilename report --inline",
+    "mocha:report": "npm run mocha:json && npm run mocha:html"
   },
   "private": true,
   "dependencies": {
@@ -31,13 +35,19 @@
     "@angular/cli": "^19.0.2",
     "@angular/compiler-cli": "^19.0.0",
     "@types/jasmine": "~5.1.0",
-    "cypress": "^14.2.0",
+    "cypress": "^14.2.1",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "mocha-junit-reporter": "^2.2.1",
+    "mocha-multi-reporters": "^1.5.1",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.2.0",
+    "rimraf": "^6.0.1",
     "typescript": "~5.6.2"
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {map, Observable} from 'rxjs';
 import { AuthService } from './auth.service';
 import { NewBankAccount } from '../models/new-bank-account.model';
 import { AccountResponse } from '../models/account-response.model';
@@ -39,7 +39,20 @@ export class AccountService {
   // client - getMyAccounts
   getMyAccountsRegular(): Observable<AccountResponse[]> {
     const headers = this.getAuthHeaders().set('Accept', '*/*');
-    return this.http.get<AccountResponse[]>(`${this.apiUrl}`, { headers });
+    return this.http.get<any>(`${this.apiUrl}/?firstName=Jovan&lastName=Jovanovic`, { headers })
+      .pipe(
+        map((response: any) => {
+          let accounts: AccountResponse[];
+
+          if (response && Array.isArray(response.content)) {
+            accounts = response.content;
+          } else {
+            accounts = response;
+          }
+
+          return accounts.filter(account => account.clientId != null);
+        })
+      );
   }
 
   getAccountDetails(accountNumber: string): Observable<any> {

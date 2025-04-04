@@ -1,10 +1,11 @@
 <app-modal [title]="modalTitle" [isOpen]="isOpen" (closeModalEvent)="closeModal()">
 
-  <div *ngIf="currentView === ModalView.FORM" class="order-form">
+  <br/>
+  <div *ngIf="currentView === ModalView.FORM" class="order-form flex-col gap-1">
     <!-- Quantity -->
     <div class="form-group">
       <label for="quantity">Quantity:</label>
-      <input
+      <input-text
         type="number"
         id="quantity"
         name="quantity"
@@ -15,11 +16,11 @@
         class="form-input"
       />
     </div>
-
+<div class="flex-col info-card">
     <!-- Limit Price -->
-    <div class="form-group">
+    <div class="form-group mb-1">
       <label for="limitPrice">Limit Price:</label>
-      <input
+      <input-text
         type="number"
         id="limitPrice"
         name="limitPrice"
@@ -35,7 +36,7 @@
     <!-- Stop Price -->
     <div class="form-group">
       <label for="stopPrice">Stop Price:</label>
-      <input
+      <input-text
         type="number"
         id="stopPrice"
         name="stopPrice"
@@ -59,10 +60,15 @@
         No accounts available for purchase.
       </div>
     </div>
+    <!-- Note -->
+    <p class="note" style="font-size: 0.8rem">
+      * If you leave limit/stop fields empty, market price is taken into account.
+    </p>
+  </div>
 
     <!-- Checkboxes -->
-    <div class="checkbox-group">
-      <div class="checkbox-item">
+    <div class="checkbox-group flex gap-1">
+      <div class="checkbox-item flex-col">
         <input
           type="checkbox"
           id="allOrNone"
@@ -72,7 +78,7 @@
         />
         <label for="allOrNone">All or None (AON)</label>
       </div>
-      <div class="checkbox-item">
+      <div class="checkbox-item flex-col">
         <input
           type="checkbox"
           id="margin"
@@ -85,7 +91,7 @@
     </div>
 
     <!-- Display Calculated Info -->
-    <div class="calculated-info" *ngIf="isOpen">
+    <div class="info-card" *ngIf="isOpen">
         <p>Order Type: <strong>{{ fullOrderName }}</strong></p>
         <p>Approx. Total Price:
            <strong *ngIf="approximatePrice !== null">{{ approximatePrice | currency:'USD':'symbol':'1.2-2' }}</strong>
@@ -95,21 +101,19 @@
         </p>
     </div>
 
-    <!-- Note -->
-    <p class="note">
-      * If you leave limit/stop fields empty, market price is taken into account.
-    </p>
 
     <!-- Actions -->
-    <div class="form-actions">
-      <app-button label="Review Order" (onClick)="proceedToConfirmation()">Review Order</app-button>
-      <app-button label="Cancel" type="button" (onClick)="closeModal()">Cancel</app-button>
+    <div class="form-actions flex gap-1">
+      <app-button (onClick)="proceedToConfirmation()">Review Order</app-button>
+      <app-button type="button" (onClick)="closeModal()">Cancel</app-button>
     </div>
   </div>
 
   <!-- Confirmation View -->
   <div *ngIf="currentView === ModalView.CONFIRMATION" class="confirmation-view">
-      <p>Please review your order details:</p>
+      <div class="info-card mb-1">
+
+    <p>Please review your order details:</p>
       <ul>
           <li><strong>Security:</strong> {{ securityTicker }}</li>
           <li><strong>Action:</strong> {{ direction }}</li>
@@ -124,10 +128,11 @@
           <li *ngIf="limitPrice"><strong>Limit Price:</strong> {{ limitPrice | currency }}</li>
           <li *ngIf="stopPrice"><strong>Stop Price:</strong> {{ stopPrice | currency }}</li>
       </ul>
+      </div>
 
-      <div class="form-actions">
-          <app-button label="Confirm" (onClick)="confirmOrder()">Confirm</app-button>
-          <app-button label="Back" type="button" (onClick)="goBackToForm()">Back</app-button>
+      <div class="form-actions flex gap-1">
+          <app-button (onClick)="confirmOrder()">Confirm</app-button>
+          <app-button type="button" (onClick)="goBackToForm()">Back</app-button>
       </div>
   </div>
 
