@@ -6,6 +6,7 @@ describe('Loan Request Component', () => {
   });
 
   it('submits a valid loan request', () => {
+    const accNumber = '333000197493096711'
     cy.get('#type').select('CASH');
     cy.get('#amount').type('5000');
     cy.get('#currencyCode').select('USD');
@@ -15,7 +16,7 @@ describe('Loan Request Component', () => {
     cy.get('#repaymentPeriod').select('12');
     cy.get('#contactPhone').type('+381641234567');
     cy.get('#rate-type').select('FIXED');
-    cy.get('#accountNumber').select('311111111111111111');
+    cy.get('#accountNumber').select(accNumber);
     cy.get('#purpose').type('Buying a car');
 
     cy.intercept('POST', '/api/loan-requests').as('submitLoan');
@@ -27,7 +28,7 @@ describe('Loan Request Component', () => {
     cy.get('.dropdown-trigger').click()
     cy.get('.dropdown-list > div > a').contains('Logout').click();
     cy.loginAsEmployee();
-    cy.visit('http://localhost:4200/account/311111111111111111');
+    cy.visit('http://localhost:4200/account/'+accNumber);
 
     cy.get('[style="justify-content: space-between; display: flex;"] > :nth-child(1) > :nth-child(6)').invoke('text').then((initialText) => {
       const currAmount = parseFloat(initialText.replace('Balance:', ' ').trim());
@@ -38,7 +39,7 @@ describe('Loan Request Component', () => {
         const addAmount = parseFloat(loanText.replace('Amount:', ' ').trim());
         cy.get(':nth-child(1) app-button > button').contains('Approve').click();
 
-        cy.visit('http://localhost:4200/account/311111111111111111');
+        cy.visit('http://localhost:4200/account/'+accNumber);
 
         cy.get('[style="justify-content: space-between; display: flex;"] > :nth-child(1) > :nth-child(6)').invoke('text').then((finalText) => {
           const newBalance = parseFloat(finalText.replace('Balance:', '').trim());

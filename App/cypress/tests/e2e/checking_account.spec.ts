@@ -80,6 +80,7 @@ describe('Create Current Account Component', () => {
     it('should create new company and account', () => {
       cy.get('select[name="selectedCompany"]').select('1: -1');
       cy.get('#companyName').type('New Company');
+      cy.get('#majorityOwner').type('Test123');
       cy.get('#registrationNumber').type('987654');
       cy.get('#taxNumber').type('123456789');
       cy.get('#activityCode').type('1234');
@@ -87,7 +88,6 @@ describe('Create Current Account Component', () => {
       cy.get('#name').type('New Company Account');
       cy.get('#dailyLimit').type('15000');
       cy.get('#monthlyLimit').type('75000');
-      cy.get('#majorityOwner').type('Test');
       cy.get('.submit-btn button').click();
       cy.url().should('include', '/success');
     });

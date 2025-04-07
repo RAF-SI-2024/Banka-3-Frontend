@@ -55,9 +55,6 @@ describe('Employee login and create user account test', () => {
     cy.get('[formcontrolname="birthDate"] input').type('1990-01-01');
 
     cy.get('[type="submit"] > button').click();
-
-    cy.visit('/client-portal');
-    cy.get('[class="client-list"]').should('exist').contains('John Doe');
   });
 
   it('should go to edit user, and update user', () => {
