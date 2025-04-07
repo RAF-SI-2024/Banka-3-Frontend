@@ -87,6 +87,7 @@ describe('Create Current Account Component', () => {
       cy.get('#name').type('New Company Account');
       cy.get('#dailyLimit').type('15000');
       cy.get('#monthlyLimit').type('75000');
+      cy.get('#majorityOwner').type('Test');
       cy.get('.submit-btn button').click();
       cy.url().should('include', '/success');
     });

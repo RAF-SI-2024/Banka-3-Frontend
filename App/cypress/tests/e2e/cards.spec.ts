@@ -5,6 +5,18 @@ describe('Cards Component', () => {
     cy.url().should('include', '/account-management?id=1');
     cy.get(':nth-child(1) app-button > button').contains('View Cards').click()
   });
+  it('should create card', () => {
+    cy.get('table tr').then(($rows) => {
+      cy.get('button').contains('Create New Card').click();
+      cy.get('[label="Card Name"]').type('Premium Credit Card 2');
+      cy.get('[label="Card Limit"]').type('10000');
+
+      cy.get('app-button > button').contains('Create').click();
+      cy.url().should('include', '/success');
+      cy.visit('/account-management?id=1');
+      cy.get(':nth-child(1) app-button > button').contains('View Cards').click()
+    })
+  });
   it('should block a card when active cards exist', () => {
     // First check if any active cards exist
     cy.get('table tr').then(($rows) => {
@@ -53,7 +65,9 @@ describe('Cards Component', () => {
   it('should deactivate a card', () => {
     // First check if any active cards exist
     cy.get('table tr').then(($rows) => {
-      const activeCards = $rows.find('td:contains("DEACTIVATED")');
+      const deactivatedCards = $rows.find('td:contains("DEACTIVATED")');
+      const activeCards = $rows.find('td:contains("ACTIVE")');
+      const blockedCards = $rows.find('td:contains("BLOCKED")');
 
       let initialCount = 0;
       if (activeCards.length === 0) {initialCount = activeCards.length}
@@ -70,16 +84,4 @@ describe('Cards Component', () => {
     });
   });
 
-  it('should create card', () => {
-    cy.get('table tr').then(($rows) => {
-      cy.get('button').contains('Create New Card').click();
-      cy.get('[label="Card Name"]').type('Premium Credit Card 2');
-      cy.get('[label="Card Limit"]').type('10000');
-
-      cy.get('app-button > button').contains('Create').click();
-      cy.url().should('include', '/success');
-      cy.visit('/account-management?id=1');
-      cy.get(':nth-child(1) app-button > button').contains('View Cards').click()
-    })
-  });
 });

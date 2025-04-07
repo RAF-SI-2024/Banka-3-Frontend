@@ -69,6 +69,10 @@ export class CardsComponent implements OnInit {
     }
   }
 
+  get isEmployee(){
+    return this.authService.isEmployee()
+  }
+
   loadCards(): void {
     if(this.authService.isClient()) {
       this.cardService.getMyCardsForAccount(this.accountNumber).subscribe(data => {

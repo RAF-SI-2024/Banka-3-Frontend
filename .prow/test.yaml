@@ -33,17 +33,24 @@ presubmits:
               start-docker.sh
 
               docker compose -f docker-compose.yml up -d user-service bank-service email-service stock-service rabbitmq main_db bank_db stock_db 
-
+              docker compose -f docker-compose.yml up -d front-app
+              
               sleep 120
 
-              SERVICE_DIR=\"App\"
-              cd \"$SERVICE_DIR\"
+              echo "Listing contents of current directory (repository root?):"
+              ls -la
 
+              echo "Navigating to frontend app directory..."
+              # Check the output of 'ls -la' above to confirm the directory name/path
+              cd "App"
+
+              echo "Installing frontend dependencies (including Cypress)..."
               npm install
-              
-              trap collectJUnitCoverage EXIT
-              
-              npm run cy:report
+
+              echo "Running Cypress tests..."
+              npm run cy:run
+
+              echo "Cypress tests finished."
 
           securityContext:
             privileged: true
