@@ -11,8 +11,10 @@ RUN npx ng build --configuration production
 # Production stage
 FROM nginx:alpine
 
-COPY --from=build /front-app/dist/app/browser /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+sudo mkdir /var/www/app.com
+
+COPY --from=build /front-app/dist/app/browser /var/www/app.com
+COPY nginx-default.conf /etc/nginx/sites-enabled/default
 
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

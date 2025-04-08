@@ -12,7 +12,7 @@ describe('foreign currency account test', () => {
 
   it('loads the form correctly', () => {
     cy.get('[class="details-btn"] button').contains('New Account').click();
-    cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button').contains('Foreign Currency Account').click();
+    cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button').contains('Foreign Currency Account').click();
     cy.get('h2').should('exist').and('contain', 'Create New');
     cy.get('form').should('exist');
   });
@@ -30,7 +30,7 @@ describe('foreign currency account test', () => {
         .contains('New Account')
         .click();
 
-      cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button')
+      cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button')
         .contains('Foreign Currency Account')
         .click();
 
@@ -105,20 +105,20 @@ describe('foreign currency account test', () => {
 
   it('validates required fields', () => {
     cy.get('[class="details-btn"] button').contains('New Account').click();
-    cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button').contains('Foreign Currency Account').click();
+    cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button').contains('Foreign Currency Account').click();
     cy.get('.submit-btn button').should('be.disabled');
   });
 
   it('navigates to user registration when clicking "Create New User"', () => {
     cy.get('[class="details-btn"] button').contains('New Account').click();
-    cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button').contains('Foreign Currency Account').click();
+    cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button').contains('Foreign Currency Account').click();
     cy.get('.create-user-link button').click();
     cy.url().should('include', '/register-user');
   });
 
   it('handles company selection correctly', () => {
     cy.get('[class="details-btn"] button').contains('New Account').click();
-    cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button').contains('Foreign Currency Account').click();
+    cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button').contains('Foreign Currency Account').click();
     cy.get('#accountOwnerType').select('COMPANY');
     cy.get('#clientId option').then($options => {
       const validOptions = $options
@@ -172,9 +172,15 @@ describe('foreign currency account test', () => {
     cy.get('#address').should('not.be.disabled');
   });
   it('fills in and submits the form for a company account', function () {
+    let initialUrl = '';
+
+    // Capture the current URL once, at the start
+    cy.url().then((url) => {
+      initialUrl = url;
+    });
     cy.get('table tr').its('length').then(function (initialRowCount) {
       cy.get('[class="details-btn"] button').contains('New Account').click();
-      cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button')
+      cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button')
         .contains('Foreign Currency Account')
         .click();
 
@@ -296,7 +302,7 @@ describe('foreign currency account test', () => {
       cy.get('.submit-btn button').click();
 
       // 9) Verify form submission success
-      cy.visit('/account-management');
+      cy.visit(initialUrl);
       cy.get('table tr').its('length').should('be.gt', initialRowCount);
     });
   });
@@ -304,7 +310,7 @@ describe('foreign currency account test', () => {
   describe('existing company', () => {
     beforeEach(function () { // MUST use function() here for 'this.skip()'
       cy.get('[class="details-btn"] button').contains('New Account').click();
-      cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button').contains('Foreign Currency Account').click();
+      cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button').contains('Foreign Currency Account').click();
       cy.get('#accountOwnerType').select('COMPANY');
       cy.get('#clientId option').then($options => {
         const validOptions = $options
@@ -436,7 +442,7 @@ describe('foreign currency account test', () => {
 
   // it('validates number inputs', () => {
   //   cy.get('[class="details-btn"] button').contains('New Account').click();
-  //   cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button').contains('Foreign Currency Account').click();
+  //   cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button').contains('Foreign Currency Account').click();
   //   cy.get('#dailyLimit').type('abc');
   //   cy.get('#dailyLimit').should('be.empty');
   //   cy.get('#dailyLimit').type('-100');
@@ -453,7 +459,7 @@ describe('foreign currency account test', () => {
 
   it('cancels account creation', () => {
     cy.get('[class="details-btn"] button').contains('New Account').click();
-    cy.get('.flex > [ng-reflect-router-link="/create-foreign-currency-accou"] > button').contains('Foreign Currency Account').click();
+    cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(2) > button').contains('Foreign Currency Account').click();
     cy.get('[type="back-button"] > button').click()
     cy.url().should('not.include', '/create-account'); // Ensure it navigates away
   });

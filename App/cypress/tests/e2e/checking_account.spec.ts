@@ -4,12 +4,12 @@ describe('Create Current Account Component', () => {
     cy.get(':nth-child(1) > .flex > :nth-child(1) > button').contains('List Accounts').click()
     cy.url().should('include', '/account-management');
     // cy.get('[class="details-btn"] button').contains('New Account').click();
-    // cy.get('.flex > [ng-reflect-router-link="/create-current-account"] > button').contains('Checking Account').click();
+    // cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(1) > button').contains('Checking Account').click();
   });
 
   it('should load the form with required fields', () => {
     cy.get('[class="details-btn"] button').contains('New Account').click();
-    cy.get('.flex > [ng-reflect-router-link="/create-current-account"] > button').contains('Checking Account').click();
+    cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(1) > button').contains('Checking Account').click();
     cy.get('h2').should('contain', 'Create New Current Account');
     cy.get('#clientId').should('exist');
     cy.get('#accountOwnerType').should('exist');
@@ -21,7 +21,7 @@ describe('Create Current Account Component', () => {
   describe('Personal Account Creation', () => {
     beforeEach(() => {
       cy.get('[class="details-btn"] button').contains('New Account').click();
-      cy.get('.flex > [ng-reflect-router-link="/create-current-account"] > button').contains('Checking Account').click();
+      cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(1) > button').contains('Checking Account').click();
       cy.wait(50)
 
       cy.get('#clientId option').then($options => {
@@ -86,7 +86,7 @@ describe('Create Current Account Component', () => {
   describe('Company Account Creation', () => {
     beforeEach(() => {
       cy.get('[class="details-btn"] button').contains('New Account').click();
-      cy.get('.flex > [ng-reflect-router-link="/create-current-account"] > button').contains('Checking Account').click();
+      cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(1) > button').contains('Checking Account').click();
       cy.get('#clientId option').then($options => {
         const validOptions = $options
           .filter((index, element) => {
@@ -254,7 +254,7 @@ describe('Create Current Account Component', () => {
   describe('Card Creation Modal', () => {
     beforeEach(() => {
       cy.get('[class="details-btn"] button').contains('New Account').click();
-      cy.get('.flex > [ng-reflect-router-link="/create-current-account"] > button').contains('Checking Account').click();
+      cy.get('app-account-management > app-modal > .modal-overlay > .modal-container > :nth-child(2) > .modal-content > .flex > :nth-child(1) > button').contains('Checking Account').click();
       cy.get('#clientId option').then($options => {
         const validOptions = $options
           .filter((index, element) => {

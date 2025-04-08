@@ -5,7 +5,7 @@ describe('Cards Component', () => {
     cy.url().should('include', '/account-management');
     cy.get('#view-cards button')
       .filter(':contains("View Cards")')
-      .last()
+      .first()
       .click();
   });
   function createCard(number: number, retries = 5) {
@@ -15,8 +15,10 @@ describe('Cards Component', () => {
 
     cy.log(`Attempting card creation with number: ${number}`);
 
-    cy.get('[label="Card Name"] input').clear().type(`Premium Credit Card ${number}`);
-    cy.get('[label="Card Limit"] input').clear().type('100');
+    cy.get('[label="Card Name"] input').clear();
+    cy.get('[label="Card Name"] input').type(`Premium Credit Card ${number}`);
+    cy.get('[label="Card Limit"] input').clear();
+    cy.get('[label="Card Limit"] input').type('100');
 
     // Click the "Create" button.
     cy.get('app-button > button').contains('Create').click();

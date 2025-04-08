@@ -4,8 +4,7 @@ services:
       context: .
       dockerfile: DockerFileTest
     ports:
-      - published: 4200
-        target: 80
+      - "4200:80"
   main_db:
     image: postgres:17.3-alpine
     restart: always

@@ -77,15 +77,14 @@ describe('Loan Request Component', () => {
     cy.get('.dropdown-trigger').click(); // Use better selectors if possible
     cy.get('.dropdown-list > div > a').contains('Logout').click();
 
-    // --- Employee Actions (Requires the dynamically selected account number) ---
-    // Use the alias '@selectedAccountNumber' stored earlier
     cy.get('@selectedAccountNumber').then(selectedAccNum => {
-      expect(selectedAccNum, 'Selected account number should exist').to.exist; // Sanity check alias
-      const clientAccountNumber = selectedAccNum.toString(); // Ensure it's a string if needed
+      expect(selectedAccNum, 'Selected account number should exist').to.exist;
+      const clientAccountNumber = selectedAccNum.toString();
 
       cy.loginAsEmployee();
       cy.visit(`http://localhost:4200/account/${clientAccountNumber}`);
 
+      cy.wait(222)
       cy.get('[style="justify-content: space-between; display: flex;"] > :nth-child(1) > :nth-child(6)').invoke('text').then((initialText) => {
         const currAmount = parseFloat(initialText.replace('Balance:', ' ').trim());
 
@@ -96,6 +95,7 @@ describe('Loan Request Component', () => {
           cy.get(':nth-child(1) app-button > button').contains('Approve').click();
 
           cy.visit(`http://localhost:4200/account/${clientAccountNumber}`);
+          cy.wait(222)
 
           cy.get('[style="justify-content: space-between; display: flex;"] > :nth-child(1) > :nth-child(6)').invoke('text').then((finalText) => {
             const newBalance = parseFloat(finalText.replace('Balance:', '').trim());
