@@ -18,7 +18,7 @@
         <td>
           <div class="flex gap-1 ">
 
-          <app-button (onClick)="viewCards(account.accountNumber)">View Cards</app-button>
+          <app-button id="view-cards" (onClick)="viewCards(account.accountNumber)">View Cards</app-button>
           <app-button *ngIf="isClient()" (click)="openNameModal(account.accountNumber, account.name)">Edit Name</app-button>
           <app-button *ngIf="isClient()" (click)="openLimitModal(account.accountNumber, account.dailyLimit)">Edit Limit</app-button>
           </div>

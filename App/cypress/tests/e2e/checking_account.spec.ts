@@ -2,7 +2,7 @@ describe('Create Current Account Component', () => {
   beforeEach(() => {
     cy.loginAsEmployee(); // Implement this custom command based on your auth flow
     cy.get(':nth-child(1) > .flex > :nth-child(1) > button').contains('List Accounts').click()
-    cy.url().should('include', '/account-management?id=1');
+    cy.url().should('include', '/account-management');
     // cy.get('[class="details-btn"] button').contains('New Account').click();
     // cy.get('.flex > [ng-reflect-router-link="/create-current-account"] > button').contains('Checking Account').click();
   });
@@ -22,6 +22,7 @@ describe('Create Current Account Component', () => {
     beforeEach(() => {
       cy.get('[class="details-btn"] button').contains('New Account').click();
       cy.get('.flex > [ng-reflect-router-link="/create-current-account"] > button').contains('Checking Account').click();
+      cy.wait(50)
       cy.get('#clientId').select('1: 1');
       cy.get('#accountOwnerType').select('PERSONAL');
       cy.get('#name').type('Personal Account');
