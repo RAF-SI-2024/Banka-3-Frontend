@@ -68,7 +68,7 @@
           <div *ngIf="accountForm.get('clientId')?.value">
             <div class="mb-1">
               <label class="mb-05">Select Company:</label>
-              <select formControlName="selectedCompany" (change)="onCompanySelect()">
+              <select id="selectedCompany" formControlName="selectedCompany" (change)="onCompanySelect()">
                 <option [value]="null" disabled>Select a company</option>
                 <option [value]="-1">Create New Company</option>
                 <option *ngFor="let company of companies" [value]="company.id">

@@ -159,10 +159,12 @@ describe('foreign currency account test', () => {
     })
 
     // Ensure "Select Company" dropdown appears
-    cy.get('select[name="selectedCompany"]').should('exist');
+cy.wait(222)
+    cy.get('select[id="selectedCompany"]').should('exist');
 
     // Select "Create New Company"
-    cy.get('select[name="selectedCompany"]').select('1: -1');
+cy.wait(222)
+    cy.get('select[id="selectedCompany"]').select('-1');
 
     // Ensure fields for new company are enabled
     cy.get('#companyName').should('not.be.disabled');
@@ -226,10 +228,12 @@ describe('foreign currency account test', () => {
       });
 
       // 2) Wait for and select an existing Company
-      cy.get('select[name="selectedCompany"]').should('exist');
+cy.wait(222)
+      cy.get('select[id="selectedCompany"]').should('exist');
       cy.get('[class="loading-message"]').should('not.exist');
 
-      cy.get('select[name="selectedCompany"] option').then(function ($options) {
+cy.wait(222)
+      cy.get('select[id="selectedCompany"] option').then(function ($options) {
         const validOptions = $options.filter((index, element) => {
           const $el = Cypress.$(element);
           return $el.val() !== '' && !$el.prop('disabled');
@@ -254,11 +258,12 @@ describe('foreign currency account test', () => {
 
           const currentValue = optionValuesToTry[index];
           cy.log(`(beforeEach) Attempting value: "${currentValue}" (Index ${index})`);
-          cy.get('select[name="selectedCompany"]').select(currentValue);
+cy.wait(222)
+          cy.get('select[id="selectedCompany"]').select(currentValue);
 
           cy.get('body').then(($body) => {
             const errorVisible = $body.find('.error:visible').length > 0;
-            const isDisallowedValue = currentValue === '1: -1';
+            const isDisallowedValue = currentValue === '-1';
 
             if (errorVisible || isDisallowedValue) {
               let reason = errorVisible
@@ -268,7 +273,8 @@ describe('foreign currency account test', () => {
               trySelectCompany(index + 1);
             } else {
               cy.log(`(beforeEach) Successfully selected "${currentValue}". Proceeding.`);
-              cy.get('select[name="selectedCompany"]').should('have.value', currentValue);
+cy.wait(222)
+              cy.get('select[id="selectedCompany"]').should('have.value', currentValue);
             }
           });
         };
@@ -277,7 +283,7 @@ describe('foreign currency account test', () => {
       });
 
       // 3) Select authorized personnel
-      cy.get('#authorizedPersonnel').select('1: -1'); // Create new authorized personnel
+      cy.get('#authorizedPersonnel').select('-1'); // Create new authorized personnel
 
       // 4) Fill in authorized personnel details
       cy.get('#firstName').type('John');
@@ -352,7 +358,8 @@ describe('foreign currency account test', () => {
       cy.log('--- beforeEach: Attempting to select a valid company ---');
       // Use cy.wrap(null) to ensure the Cypress chain continues even if get fails early
       // although cy.get failure would typically fail the test anyway.
-      cy.get('select[name="selectedCompany"] option').then($options => {
+cy.wait(222)
+      cy.get('select[id="selectedCompany"] option').then($options => {
         // Filter options: Get only those that are potentially selectable
         const validOptions = $options
           .filter((index, element) => {
@@ -383,13 +390,14 @@ describe('foreign currency account test', () => {
 
           const currentValue = optionValuesToTry[index];
           cy.log(`(beforeEach) Attempting value: "${currentValue}" (Index ${index})`);
-          cy.get('select[name="selectedCompany"]').select(currentValue);
+cy.wait(222)
+          cy.get('select[id="selectedCompany"]').select(currentValue);
 
           // Check the result asynchronously
           // Important: Ensure Cypress commands chain correctly
           cy.get('body', {log: false}).then($body => { // Use {log: false} to reduce noise if needed
             const errorVisible = $body.find('.error:visible').length > 0;
-            const isDisallowedValue = currentValue === '1: -1'; // Use strict equality
+            const isDisallowedValue = currentValue === '-1'; // Use strict equality
 
             if (errorVisible || isDisallowedValue) {
               let reason = errorVisible ? "'.error' visible" : `value disallowed ('${currentValue}')`;
@@ -400,7 +408,8 @@ describe('foreign currency account test', () => {
               // Success Case: Option selected without error.
               cy.log(`(beforeEach) Successfully selected "${currentValue}". Allowing test to run.`);
               // Verify selection (optional but good practice in beforeEach)
-              cy.get('select[name="selectedCompany"]').should('have.value', currentValue);
+cy.wait(222)
+              cy.get('select[id="selectedCompany"]').should('have.value', currentValue);
               // Let the beforeEach hook complete successfully for this test
             }
           }); // End of cy.get('body').then()
@@ -423,7 +432,7 @@ describe('foreign currency account test', () => {
       cy.get('#authorizedPersonnel').should('exist');
 
       // Select "Create new authorized personnel"
-      cy.get('#authorizedPersonnel').select('1: -1');
+      cy.get('#authorizedPersonnel').select('-1');
 
       // Ensure new personnel fields appear
       cy.get('#firstName').should('exist');
@@ -433,7 +442,7 @@ describe('foreign currency account test', () => {
     });
 
     it('validates email input for authorized personnel', () => {
-      cy.get('#authorizedPersonnel').select('1: -1');
+      cy.get('#authorizedPersonnel').select('-1');
 
       cy.get('#email').type('invalid-email');
       cy.get('.submit-btn button').should('be.disabled');
