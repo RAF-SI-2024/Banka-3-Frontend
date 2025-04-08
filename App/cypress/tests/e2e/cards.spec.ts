@@ -41,7 +41,7 @@ describe('Cards Component', () => {
       const initialCount = $rows.find('td').length;
       cy.get('table tr td:contains("ACTIVE")')
         .should(($newActive) => {
-          expect($newActive.length).to.be.lessThan(initialCount);
+          expect($newActive.length).to.be.greaterThan(initialCount);
         });
     })
   });

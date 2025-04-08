@@ -5,11 +5,9 @@ describe('Loan Request Component', () => {
     cy.get('app-button > button').contains('New Loan').click();
   });
 
-  const ACCOUNT_ERROR_SELECTOR = '.error'; // **** REPLACE THIS ****
+  const ACCOUNT_ERROR_SELECTOR = '.error';
 
-  // Function to recursively try account options
   function findAndSelectValidAccount(options: string | any[], index: number) {
-    // Base case: Checked all options, none worked
     if (index >= options.length) {
       throw new Error(`No valid account found after checking ${options.length} options. Last error selector checked: ${ACCOUNT_ERROR_SELECTOR}`);
     }
@@ -18,48 +16,36 @@ describe('Loan Request Component', () => {
     const optionValue = optionElement.value;
     const optionText = optionElement.text; // For logging
 
-    // Skip placeholder/disabled options (if any)
     if (!optionValue || optionElement.disabled) {
       cy.log(`Skipping disabled or placeholder option ${index + 1}: '${optionText}'`);
-      return findAndSelectValidAccount(options, index + 1); // Return the recursive call
+      return findAndSelectValidAccount(options, index + 1);
     }
 
     cy.log(`Attempting account option ${index + 1}/${options.length}: Value='${optionValue}', Text='${optionText}'`);
 
-    // Select the current option
     cy.get('#accountNumber').select(optionValue);
 
-    // --- Validation Check ---
-    // Wait a very short time potentially allowing synchronous UI updates/errors
-    cy.wait(150); // Adjust or remove if unnecessary
+    cy.wait(150);
 
-    // Check if the SPECIFIC error message appears within a timeout (e.g., 1.5 seconds)
-    // We check the whole body context in case the error isn't adjacent to the input
     cy.get('body', { timeout: 1500 }).then($body => {
       const errorElement = $body.find(ACCOUNT_ERROR_SELECTOR);
 
       if (errorElement.length > 0 && errorElement.is(':visible')) {
-        // Error *IS* present and visible for this option
         cy.log(`Error ('${ACCOUNT_ERROR_SELECTOR}') detected for account '${optionText}'. Trying next.`);
-        // Try the next option recursively
         findAndSelectValidAccount(options, index + 1);
       } else {
-        // Error *IS NOT* present (or not visible) after check
         cy.log(`Selected VALID account: '${optionText}' (Value: ${optionValue}) - No error detected.`);
-        // Store the successfully selected account number for later use
         cy.wrap(optionValue).as('selectedAccountNumber');
       }
     });
   }
 
 
-  // --- Test Case ---
   it('submits a valid loan request using dynamic account selection, approves it, and verifies balance', () => {
     const loanAmount = 5000;
     const loanCurrency = 'RSD';
     const loanPurpose = 'Buying a dynamic test car'; // Unique purpose
 
-    // --- Fill Form (excluding account number initially) ---
     cy.get('#type').select('CASH');
     cy.get('#amount').type(loanAmount.toString());
     cy.get('#currencyCode').select(loanCurrency);
@@ -70,7 +56,6 @@ describe('Loan Request Component', () => {
     cy.get('#contactPhone').type('+381641234567');
     cy.get('#rate-type').select('FIXED');
 
-    // --- Dynamic Account Selection ---
     cy.get('#accountNumber option').then($options => {
       const availableOptions = $options.toArray(); // Get all option elements
       if (availableOptions.length <= 1) { // Check if there's more than just a placeholder
