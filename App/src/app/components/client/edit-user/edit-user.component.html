@@ -11,6 +11,8 @@
 
       <input-text class="flex-1" formControlName="lastName" label="Last Name" placeholder="Last Name"
                   [validationRules]="[validations.required, validations.minLength(2)]"
+                  [formControlComp]="userForm.controls['lastName']"
+                  [errorMessages]="{ required: 'Last name is required.', minlength: 'Minimum 2 characters required.' }"
       />
     </div>
     <div class="flex gap-1">
@@ -28,10 +30,15 @@
     <input-text formControlName="email" [disabledInput]="true" type="email" label="Email"/>
 
     <input-text formControlName="phone" label="Phone Number" placeholder="Phone Number"
-                [validationRules]="[validations.required, validations.isValidPhone()]"/>
+                [validationRules]="[validations.required, validations.isValidPhone()]"
+                [formControlComp]="userForm.controls['phone']"
+                [errorMessages]="{ required: 'Phone number is required.', pattern: 'Invalid phone number.' }"/>
 
     <input-text formControlName="address" label="Address" placeholder="Address"
-                [validationRules]="[validations.required]"/>
+                [validationRules]="[validations.required]"
+                [formControlComp]="userForm.controls['address']"
+                [errorMessages]="{ required: 'Address is required.' }"
+    />
 
     <div class="flex gap-1 width-fit">
     <app-button type="submit" [disabled]="loading">Save</app-button>

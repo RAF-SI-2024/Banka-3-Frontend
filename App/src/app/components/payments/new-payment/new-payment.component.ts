@@ -1,42 +1,48 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { PaymentService } from '../../../services/payment.service';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CreatePaymentDto } from '../../../models/create-payment-dto';
 import { AlertService } from '../../../services/alert.service';
-import {AccountResponse} from '../../../models/account-response.model';
-import {AccountService} from '../../../services/account.service';
-import {NgForOf} from '@angular/common';
-import {InputTextComponent} from '../../shared/input-text/input-text.component';
-import {ButtonComponent} from '../../shared/button/button.component';
+import { AccountResponse } from '../../../models/account-response.model';
+import { AccountService } from '../../../services/account.service';
+import {NgForOf, NgIf} from '@angular/common';
+import { InputTextComponent } from '../../shared/input-text/input-text.component';
+import { ButtonComponent } from '../../shared/button/button.component';
 
 @Component({
   selector: 'app-new-payment',
   templateUrl: './new-payment.component.html',
+  styleUrls: ['./new-payment.component.css'],
   standalone: true,
-  imports: [FormsModule, NgForOf, InputTextComponent, ButtonComponent],
-  styleUrls: ['./new-payment.component.css']
+  imports: [ReactiveFormsModule, NgForOf, InputTextComponent, ButtonComponent, NgIf]
 })
-export class NewPaymentComponent {
-  payment: CreatePaymentDto = {
-    senderAccountNumber: '',
-    receiverAccountNumber: '',
-    amount: 0,
-    paymentCode: '',
-    purposeOfPayment: '',
-    referenceNumber: ''
-  };
+export class NewPaymentComponent implements OnInit {
+  paymentForm!: FormGroup;
   accounts: AccountResponse[] = [];
 
   constructor(
     private paymentService: PaymentService,
     private accountService: AccountService,
     private router: Router,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
     this.loadAccounts();
+  }
+
+  private initForm(): void {
+    this.paymentForm = this.fb.group({
+      senderAccountNumber: ['', Validators.required],
+      receiverAccountNumber: ['', Validators.required],
+      amount: [0, [Validators.required, Validators.min(0.01)]],
+      paymentCode: ['', Validators.required],
+      purposeOfPayment: ['', Validators.required],
+      referenceNumber: ['']
+    });
   }
 
   loadAccounts(): void {
@@ -51,10 +57,15 @@ export class NewPaymentComponent {
   }
 
   onSubmit(): void {
-    this.paymentService.createPayment(this.payment).subscribe({
+    if (this.paymentForm.invalid) {
+      this.paymentForm.markAllAsTouched();
+      return;
+    }
+
+    const payment: CreatePaymentDto = this.paymentForm.getRawValue();
+    this.paymentService.createPayment(payment).subscribe({
       next: (response) => {
         this.alertService.showAlert('success', 'Payment created!');
-        // this.router.navigate(['/payment-details']);
         this.router.navigate(['/success'], {
           state: {
             title: 'Payment Created!',
@@ -63,20 +74,20 @@ export class NewPaymentComponent {
             continuePath: '/payment-details'
           }
         });
-
       },
       error: (error) => {
-        this.alertService.showAlert('error', 'There has been an error: ' + error.message);
+        if (
+          error.status === 400 &&
+          error.error &&
+          typeof error.error.message === 'string' &&
+          error.error.message.includes('Cannot find receiver account')
+        ) {
+          // ako nije nasao acc
+          this.alertService.showAlert('error', error.error.message);
+        } else {
+          this.alertService.showAlert('error', 'There has been an error: ' + error.message);
+        }
       }
     });
-    // this.paymentService.createPayment(this.payment).subscribe({
-    //   next: () => {
-    //     alert('Plaćanje je kreirano')
-    //     this.router.navigate(['/transaction-overview'])
-    //   },
-    //   error: () => {
-    //     alert('Došlo je do greške')
-    //   }
-    // })
   }
 }

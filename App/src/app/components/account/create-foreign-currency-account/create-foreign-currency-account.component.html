@@ -1,41 +1,41 @@
 <div class="card width-50">
-  <h2>Create New {{ newAccount.accountType | titlecase }} Account</h2>
+  <h2>Create New {{ accountForm.get('accountType')?.value | titlecase }} Account</h2>
   <br>
-  <form #accountForm="ngForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="accountForm" (ngSubmit)="onSubmit()">
 
     <div class="flex gap-1">
       <div class="flex-col gap-1 width-50">
         <!-- Clients -->
         <div>
           <label class="mb-05">Client:</label>
-          <select id="clientId" name="clientId" [(ngModel)]="newAccount.clientId"
-                  (change)="onClientChange()" required>
+          <select id="clientId" formControlName="clientId" (change)="onClientChange()" required>
             <option value="0" disabled>Client...</option>
-            <option *ngFor="let user of users" [ngValue]="user.id">
+            <option *ngFor="let user of users" [value]="user.id">
               {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
             </option>
           </select>
         </div>
         <div>
-          <app-button (click)="navigateToRegisterUser()" class="create-user-link">Create New User</app-button>
+          <app-button (click)="navigateToRegisterUser()" class="create-user-link">
+            Create New User
+          </app-button>
         </div>
-
 
         <!-- Monthly Fee -->
         <input-text *ngIf="isCurrentAccount" placeholder="Monthly Fee:" label="Monthly Fee:" id="monthlyFee"
-                    name="monthlyFee"
-                    [(ngModel)]="newAccount.monthlyFee"
-                    type="number"/>
+                    formControlName="monthlyFee" type="number"
+                    [formControlComp]="accountForm.controls['monthlyFee']"
+                    [errorMessages]="{ pattern: 'Must be a valid number (decimal allowed).' }"
+        >
+        </input-text>
 
         <!-- Employee info -->
         <div class="info-card">
           <h3>Account Created By</h3>
-
           <div *ngIf="loggedInEmployee">
             <p><strong>Name:</strong> {{ loggedInEmployee.firstName }} {{ loggedInEmployee.lastName }}</p>
             <p><strong>Position:</strong> {{ loggedInEmployee.position }}</p>
           </div>
-
           <div *ngIf="!loggedInEmployee">
             <div *ngIf="isCurrAdmin">
               <p>Admin creating account...</p>
@@ -51,107 +51,130 @@
         <!-- Account Owner Type -->
         <div>
           <label class="mb-05">Account Owner Type:</label>
-          <select id="accountOwnerType" name="accountOwnerType"
-                  [(ngModel)]="newAccount.accountOwnerType" (change)="onAccountOwnerTypeChange()">
+          <select id="accountOwnerType" formControlName="accountOwnerType" (change)="onAccountOwnerTypeChange()">
             <option value="PERSONAL">PERSONAL</option>
             <option value="COMPANY">COMPANY</option>
           </select>
         </div>
+
         <!-- Company Dropdown (Conditional) -->
         <div class="info-card flex-col gap-1" *ngIf="isCompanyAccount">
           <h3>Company Information</h3>
 
-          <div *ngIf="!newAccount.clientId">
+          <div *ngIf="!accountForm.get('clientId')?.value">
             <p class="info-message">Please select a client first to manage companies.</p>
           </div>
 
-          <div *ngIf="newAccount.clientId">
+          <div *ngIf="accountForm.get('clientId')?.value">
             <div class="mb-1">
               <label class="mb-05">Select Company:</label>
-              <select [(ngModel)]="selectedCompanyId"
-                      name="selectedCompany"
-                      (change)="onCompanySelect()"
-                      [disabled]="loadingCompanies">
+              <select formControlName="selectedCompany" (change)="onCompanySelect()">
                 <option [value]="null" disabled>Select a company</option>
-                <option [ngValue]="-1">Create New Company</option>
-                <option *ngFor="let company of companies" [ngValue]="company.id">
+                <option [value]="-1">Create New Company</option>
+                <option *ngFor="let company of companies" [value]="company.id">
                   {{ company.name }} ({{ company.registrationNumber }})
                 </option>
               </select>
               <div *ngIf="loadingCompanies" class="loading-message">Loading companies...</div>
             </div>
 
-            <div class="flex-col gap-1" *ngIf="isNewCompany || selectedCompanyId">
-              <input-text placeholder="Company Name:" label="Company Name:" id="companyName" name="companyName"
-                          [(ngModel)]="companyInfo.name"
-                          type="text"
-                          [disabled]="!isNewCompany"/>
+            <div class="flex-col gap-1" *ngIf="isNewCompany || accountForm.get('selectedCompany')?.value">
+              <input-text placeholder="Company Name:" label="Company Name:" id="companyName"
+                          formControlName="companyName" type="text" [disabledInput]="!isNewCompany"
+                          [formControlComp]="accountForm.controls['companyName']"
+                          [errorMessages]="{ required: 'Company name is required.', minlength: 'Minimum length is 3.' }"
+              >
+              </input-text>
 
               <input-text placeholder="Registration Number:" label="Registration Number:" id="registrationNumber"
-                          name="registrationNumber"
-                          [(ngModel)]="companyInfo.registrationNumber"
-                          type="text"
-                          [disabled]="!isNewCompany"/>
+                          formControlName="registrationNumber" type="text" [disabledInput]="!isNewCompany"
+                          [formControlComp]="accountForm.controls['registrationNumber']"
+                          [errorMessages]="{ required: 'Registration number is required.', minlength: 'Minimum length is 3.' }"
+              >
+              </input-text>
 
+              <input-text placeholder="Tax Number:" label="Tax Number:" id="taxNumber"
+                          formControlName="taxNumber" type="text" [disabledInput]="!isNewCompany"
+                          [formControlComp]="accountForm.controls['taxNumber']"
+                          [errorMessages]="{ required: 'Tax number is required.', minlength: 'Minimum length is 3.' }"
+              >
+              </input-text>
 
-              <input-text placeholder="Tax Number:" label="Tax Number:" id="taxNumber" name="taxNumber"
-                          [(ngModel)]="companyInfo.taxNumber"
-                          type="text"
-                          [disabled]="!isNewCompany"/>
+              <input-text placeholder="Activity Code:" label="Activity Code:" id="activityCode"
+                          formControlName="activityCode" type="text" [disabledInput]="!isNewCompany"
+                          [formControlComp]="accountForm.controls['activityCode']"
+                          [errorMessages]="{ required: 'Activity code is required.', invalidActivityCode: 'Invalid activity code. :('  }"
+              >
+              </input-text>
 
-              <input-text placeholder="Activity Code:" label="Activity Code:" id="activityCode" name="activityCode"
-                          [(ngModel)]="companyInfo.activityCode"
-                          type="text"
-                          [disabled]="!isNewCompany"/>
+              <input-text placeholder="Majority Owner:" label="Majority Owner:" id="majorityOwner"
+                          [value]="getClientName(accountForm.get('clientId')?.value)" type="text" [disabledInput]="true">
+              </input-text>
 
-              <input-text placeholder="Majority Owner:" label="Majority Owner:" id="majorityOwner" name="majorityOwner"
-                          [value]="getClientName(newAccount.clientId)"
-                          type="text" [disabledInput]="true"/>
-
-              <input-text placeholder="Address:" label="Address:" id="address" name="address"
-                          [(ngModel)]="companyInfo.address"
-                          type="text"
-                          [disabled]="!isNewCompany"/>
+              <input-text placeholder="Address:" label="Address:" id="address"
+                          formControlName="companyAddress" type="text" [disabledInput]="!isNewCompany"
+                          [formControlComp]="accountForm.controls['companyAddress']"
+                          [errorMessages]="{ required: 'Address is required.', minlength: 'Minimum length is 5.' }"
+              >
+              </input-text>
 
               <div>
                 <label class="mb-05">Authorized Personnel (Optional):</label>
-                <select id="authorizedPersonnel" name="authorizedPersonnel"
-                        [(ngModel)]="selectedAuthorizedPersonnelId"
-                        (change)="onPersonnelSelect()">
-                  <option [ngValue]="null">Select authorized personnel</option>
-                  <option [ngValue]="-1">Create new authorized personnel</option>
-                  <option *ngFor="let personnel of availablePersonnel" [ngValue]="personnel.id">
+                <select id="authorizedPersonnel" formControlName="selectedAuthorizedPersonnel" (change)="onPersonnelSelect()">
+                  <option [value]="null">Select authorized personnel</option>
+                  <option [value]="-1">Create new authorized personnel</option>
+                  <option *ngFor="let personnel of availablePersonnel" [value]="personnel.id">
                     {{ personnel.firstName }} {{ personnel.lastName }}
                   </option>
                 </select>
               </div>
 
-              <div *ngIf="isNewPersonnel" class="flex-col text-left gap-1 mt-1">
+              <div *ngIf="isNewPersonnel" class="flex-col text-left gap-1 mt-1" [formGroup]="newPersonnelForm">
                 <h3>New Authorized Personnel Details</h3>
-                <input-text placeholder="First Name:" label="First Name:" id="firstName" name="firstName"
-                            [(ngModel)]="newPersonnel.firstName"
-                            required/>
-                <input-text placeholder="Last Name:" label="Last Name:" id="lastName" name="lastName"
-                            [(ngModel)]="newPersonnel.lastName"
-                            required/>
-                <input-text placeholder="Date of Birth:" label="Date of Birth:" id="dateOfBirth" name="dateOfBirth"
-                            type="date"
-                            [(ngModel)]="newPersonnel.dateOfBirth" required/>
+                <input-text placeholder="First Name:" label="First Name:" id="firstName"
+                            formControlName="firstName" required
+                            [formControlComp]="newPersonnelForm.controls['firstName']"
+                            [errorMessages]="{ required: 'First name is required.', onlyLetters: 'Only letters allowed.' }"
+                >
+                </input-text>
+                <input-text placeholder="Last Name:" label="Last Name:" id="lastName"
+                            formControlName="lastName" required
+                            [formControlComp]="newPersonnelForm.controls['lastName']"
+                            [errorMessages]="{ required: 'Last name is required.', onlyLetters: 'Only letters allowed.' }"
+                >
+                </input-text>
+                <input-text placeholder="Date of Birth:" label="Date of Birth:" id="dateOfBirth" type="date"
+                            formControlName="dateOfBirth" required
+                            [formControlComp]="newPersonnelForm.controls['dateOfBirth']"
+                            [errorMessages]="{ required: 'Birth date is required.', invalidDate: 'Must be in the past.' }"
+                >
+                </input-text>
                 <div>
-                <label class="mb-05">Gender:</label>
-                <select id="gender" name="gender" [(ngModel)]="newPersonnel.gender" required>
-                  <option value="" disabled>Gender...</option>
-                  <option value="M">Male</option>
-                  <option value="F">Female</option>
-                </select>
+                  <label class="mb-05">Gender:</label>
+                  <select id="gender" formControlName="gender" required>
+                    <option value="" disabled>Gender...</option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                  </select>
                 </div>
-                <input-text placeholder="Email:" label="Email:" id="email" name="email" type="email"
-                            [(ngModel)]="newPersonnel.email"
-                            required/>
-                <input-text placeholder="Phone Number:" label="Phone Number:" id="phoneNumber" name="phoneNumber"
-                            [(ngModel)]="newPersonnel.phoneNumber" required/>
-                <input-text placeholder="Address:" label="Address:" id="personnelAddress" name="personnelAddress"
-                            [(ngModel)]="newPersonnel.address" required/>
+                <input-text placeholder="Email:" label="Email:" id="email" type="email"
+                            formControlName="email" required
+                            [formControlComp]="newPersonnelForm.controls['email']"
+                            [errorMessages]="{ required: 'Email is required.', email: 'Invalid email address.' }"
+                >
+                </input-text>
+                <input-text placeholder="Phone Number:" label="Phone Number:" id="phoneNumber"
+                            formControlName="phoneNumber" required
+                            [formControlComp]="newPersonnelForm.controls['phoneNumber']"
+                            [errorMessages]="{ required: 'Phone number is required.', pattern: 'Invalid phone number.' }"
+                >
+                </input-text>
+                <input-text placeholder="Address:" label="Address:" id="personnelAddress"
+                            formControlName="address" required
+                            [formControlComp]="newPersonnelForm.controls['address']"
+                            [errorMessages]="{ required: 'Address is required.', minlength: 'Minimum length is 5.' }"
+                >
+                </input-text>
               </div>
             </div>
           </div>
@@ -159,39 +182,71 @@
 
         <div class="form-group">
           <label class="mb-05">Currency:</label>
-          <select id="currency" name="currency" [(ngModel)]="newAccount.currency" required>
+          <select id="currency" formControlName="currency" required>
             <option *ngFor="let currency of currencies" [value]="currency.code">
               {{ currency.name }} ({{ currency.code }})
             </option>
           </select>
         </div>
 
-        <input-text label="Daily Limit:" id="dailyLimit" placeholder="Daily Limit" name="dailyLimit"
-                    [(ngModel)]="newAccount.dailyLimit"
-                    type="number" required/>
+        <input-text label="Daily Limit:" id="dailyLimit" placeholder="Daily Limit" formControlName="dailyLimit"
+                    type="number" required
+                    [formControlComp]="accountForm.controls['dailyLimit']"
+                    [errorMessages]="{ pattern: 'Must be a valid number (decimal allowed).' }">
+        </input-text>
 
-        <input-text label="Monthly Limit:" placeholder="Monthly Limit:" id="monthlyLimit" name="monthlyLimit"
-                    [(ngModel)]="newAccount.monthlyLimit"
-                    type="number" required/>
+        <input-text label="Monthly Limit:" placeholder="Monthly Limit:" id="monthlyLimit" formControlName="monthlyLimit"
+                    type="number" required
+                    [formControlComp]="accountForm.controls['monthlyLimit']"
+                    [errorMessages]="{ pattern: 'Must be a valid number (decimal allowed).' }">
+        </input-text>
 
         <div class="flex justify-between cursor-pointer" (click)="toggleIsActive()">
           <label class="cursor-pointer" (click)="toggleIsActive()">Is Active:</label>
-          <input id="isActive" name="isActive" type="checkbox" [checked]="newAccount.isActive === 'ACTIVE'"/>
+          <input id="isActive" type="checkbox" formControlName="isActive"
+                 [checked]="accountForm.get('isActive')?.value === 'ACTIVE'">
         </div>
 
         <div class="flex justify-between cursor-pointer" (click)="toggleCreateCard()">
           <label class="cursor-pointer" (click)="toggleCreateCard()">Create Card:</label>
-          <input id="createCard" name="createCard" [(ngModel)]="newAccount.createCard" type="checkbox"/>
+          <input id="createCard" type="checkbox" formControlName="createCard">
         </div>
       </div>
     </div>
     <div class="flex gap-1 width-fit">
-
-    <app-button type="submit" class="submit-btn" [disabled]="accountForm.invalid || !newAccount.clientId || !employeeId
-                                            || !isCompanyFormValid()">Create Account
-    </app-button>
-    <app-button type="back-button">Cancel</app-button>
+      <app-button type="submit" class="submit-btn"
+                  [disabled]="accountForm.invalid || !accountForm.get('clientId')?.value || !employeeId || !isCompanyFormValid()">
+        Create Account
+      </app-button>
+      <app-button type="back-button">Cancel</app-button>
     </div>
-
   </form>
 </div>
+
+<app-modal [title]="'Create Card'" [isOpen]="showCardModal" (closeModalEvent)="showCardModal = false">
+  <div class="modal-content">
+    <br/>
+    <form [formGroup]="cardForm" (ngSubmit)="submitCardForm()" class="flex-col gap-1">
+      <div>
+        <label class="mb-05">Card Type</label>
+        <select formControlName="type" required>
+          <option value="DEBIT">DEBIT</option>
+          <option value="CREDIT">CREDIT</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="mb-05">Issuer</label>
+        <select formControlName="issuer" required>
+          <option value="VISA">VISA</option>
+          <option value="MASTER">MASTER</option>
+        </select>
+      </div>
+
+      <input-text label="Card Name" type="text" formControlName="name" required></input-text>
+      <input-text label="Card Limit" type="number" formControlName="cardLimit" required></input-text>
+
+      <app-button type="submit" [disabled]="cardForm.invalid">Create Card</app-button>
+    </form>
+  </div>
+</app-modal>

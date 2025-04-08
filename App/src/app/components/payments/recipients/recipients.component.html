@@ -1,26 +1,41 @@
 <div class="recipients-container">
   <div class="flex justify-between" [class.mb-2]="isAdding">
-  <h2>Payment Recipients</h2>
-  <app-button (click)="toggleAddRecipient()">+ Add Recipient</app-button>
-
+    <h2>Payment Recipients</h2>
+    <app-button (click)="toggleAddRecipient()">+ Add Recipient</app-button>
   </div>
 
   <!-- Add Recipient Form -->
   <div *ngIf="isAdding" class="add-recipient-form flex-col text-left gap-1">
     <h3>Add New Recipient</h3>
-    <div class="input-group">
-      <input-text [(ngModel)]="newRecipient.name" placeholder="Recipient Name"></input-text>
-      <input-text [(ngModel)]="newRecipient.accountNumber" placeholder="Account Number"></input-text>
-    </div>
-    <div class="flex width-fit margin-auto gap-1">
-      <app-button (click)="addRecipient()">Confirm</app-button>
-      <app-button (click)="toggleAddRecipient()" type="secondary">Cancel</app-button>
-    </div>
+    <form [formGroup]="addRecipientForm" (ngSubmit)="addRecipient()">
+      <div class="input-group">
+        <input-text
+          formControlName="name"
+          placeholder="Recipient Name"
+          [formControlComp]="addRecipientForm.controls['name']"
+          [errorMessages]="{ required: 'Recipient name is required.' }"
+        ></input-text>
+        <input-text
+          formControlName="accountNumber"
+          placeholder="Account Number"
+          [formControlComp]="addRecipientForm.controls['accountNumber']"
+        [errorMessages]="{
+        required: 'Account number is required.',
+        pattern: 'Only numbers allowed.',
+        minlength: 'Min 5 digits required.'
+        }"
+        ></input-text>
+      </div>
+      <div class="flex width-fit margin-auto gap-1">
+        <app-button type="submit">Confirm</app-button>
+        <app-button (click)="toggleAddRecipient()" type="secondary">Cancel</app-button>
+      </div>
+    </form>
   </div>
 
   <div id="recipientsList">
     <div *ngFor="let recipient of recipients" class="recipient-card">
-      <div class="recipient-content" *ngIf="editingRecipient?.id !== recipient.id">
+      <div class="recipient-content" *ngIf="!editingRecipient || editingRecipient.id !== recipient.id">
         <div class="recipient-info">
           <p class="recipient-name"><strong>{{ recipient.name }}</strong></p>
           <p class="recipient-account">{{ recipient.accountNumber }}</p>
@@ -31,28 +46,45 @@
         </div>
       </div>
 
-      <div class="edit-recipient-form" *ngIf="editingRecipient">
-        <div class="input-group">
-          <input-text [(ngModel)]="editingRecipient.name" placeholder="Recipient Name"></input-text>
-          <input-text [(ngModel)]="editingRecipient.accountNumber" placeholder="Account Number"></input-text>
-        </div>
-        <div class="btn-group">
-          <app-button (click)="saveEdit()">Save</app-button>
-          <app-button (click)="cancelEditing()" type="secondary">Cancel</app-button>
-        </div>
+      <!-- Edit Recipient Form -->
+      <div class="edit-recipient-form" *ngIf="editingRecipient && editingRecipient.id === recipient.id && editRecipientForm">
+        <form [formGroup]="editRecipientForm" (ngSubmit)="saveEdit()">
+          <div class="input-group">
+            <input-text
+              formControlName="name"
+              placeholder="Recipient Name"
+              [formControlComp]="editRecipientForm.controls['name']"
+            [errorMessages]="{ required: 'Recipient name is required.' }"
+            ></input-text>
+            <input-text
+              formControlName="accountNumber"
+              placeholder="Account Number"
+              [formControlComp]="editRecipientForm.controls['accountNumber']"
+            [errorMessages]="{
+            required: 'Account number is required.',
+            pattern: 'Only numbers allowed.',
+            minlength: 'Min 5 digits required.'
+            }"
+            ></input-text>
+          </div>
+          <div class="btn-group">
+            <app-button type="submit">Save</app-button>
+            <app-button (click)="cancelEditing()" type="secondary">Cancel</app-button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Delete Confirmation Modal -->
-<div class="modal-overlay" *ngIf="showDeleteModal">
-  <div class="confirmation-modal">
-    <h3>Confirm Delete</h3>
-    <p>Are you sure you want to delete this recipient?</p>
-    <div class="modal-actions">
-      <app-button (click)="cancelDelete()" type="secondary">Cancel</app-button>
-      <app-button (click)="confirmDelete()" type="danger">Delete</app-button>
+  <!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" *ngIf="showDeleteModal">
+    <div class="confirmation-modal">
+      <h3>Confirm Delete</h3>
+      <p>Are you sure you want to delete this recipient?</p>
+      <div class="modal-actions">
+        <app-button (click)="cancelDelete()" type="secondary">Cancel</app-button>
+        <app-button (click)="confirmDelete()" type="danger">Delete</app-button>
+      </div>
     </div>
   </div>
 </div>

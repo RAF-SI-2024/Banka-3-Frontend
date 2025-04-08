@@ -105,7 +105,7 @@ export class AuthService {
   }
 
   isActuary(): boolean {
-    return this.isAgent() || this.isSupervisor();
+    return this.isAgent() || this.isSupervisor() || this.isAdmin();
   }
 
   requestPasswordReset(email: string): Observable<void> {

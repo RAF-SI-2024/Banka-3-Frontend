@@ -18,7 +18,8 @@ import { SecuritiesTransaction } from '../../models/securities-transaction';
     DecimalPipe
   ],
   templateUrl: './tax-calculation.component.html',
-  styleUrls: ['./tax-calculation.component.css']
+  standalone: true,
+  styleUrl: './tax-calculation.component.css'
 })
 export class TaxCalculationComponent implements OnInit {
 

@@ -1,27 +1,69 @@
 <div class="card width-fit margin-auto flex-col gap-1">
   <h2>New Payment</h2>
-
-  <form #paymentForm="ngForm" class="flex-col gap-1" (ngSubmit)="onSubmit()">
-    <label>Sender Account Nmber</label>
-    <select id="senderAccountNumber" [(ngModel)]="payment.senderAccountNumber"
-                name="senderAccountNumber" required>
+  <form [formGroup]="paymentForm" class="flex-col gap-1" (ngSubmit)="onSubmit()">
+    <label>Sender Account Number</label>
+    <select id="senderAccountNumber" formControlName="senderAccountNumber" required>
       <option value="" disabled>Select Sender Account</option>
       <option *ngFor="let account of accounts" [value]="account.accountNumber">
         {{ account.accountNumber }} ({{ account.owner.firstName }} {{ account.owner.lastName }})
       </option>
     </select>
-    <input-text label="Receiver Account Number" placeholder="Receiver Account Number" id="receiverAccountNumber" type="text"
-                [(ngModel)]="payment.receiverAccountNumber" name="receiverAccountNumber" required/>
-    <input-text label="Amount" placeholder="Amount" id="amount" type="number" [(ngModel)]="payment.amount" name="amount" required
-                min="0.01"/>
-    <input-text label="Payment Code" placeholder="Payment Code" id="paymentCode" type="text" [(ngModel)]="payment.paymentCode" name="paymentCode"
-                required/>
-    <input-text label="Purpose of Payment" placeholder="Payment Code" id="purposeOfPayment" type="text" [(ngModel)]="payment.purposeOfPayment"
-                name="purposeOfPayment" required/>
-    <input-text label="Reference Number" placeholder="Reference Number" id="referenceNumber" type="text" [(ngModel)]="payment.referenceNumber"
-                name="referenceNumber"/>
+    <div class="error"
+         *ngIf="paymentForm.get('senderAccountNumber')?.touched && paymentForm.get('senderAccountNumber')?.hasError('required')">
+      Sender account is required.
+    </div>
+
+    <input-text label="Receiver Account Number"
+                placeholder="Receiver Account Number"
+                id="receiverAccountNumber"
+                type="text"
+                formControlName="receiverAccountNumber"
+                required
+                [formControlComp]="paymentForm.controls['receiverAccountNumber']"
+                [errorMessages]="{ required: 'Receiver account number is required.' }"
+    ></input-text>
+
+    <input-text label="Amount"
+                placeholder="Amount"
+                id="amount"
+                type="number"
+                formControlName="amount"
+                required
+                [formControlComp]="paymentForm.controls['amount']"
+                [errorMessages]="{ required: 'Amount is required.' }"
+    ></input-text>
+
+    <input-text label="Payment Code"
+                placeholder="Payment Code"
+                id="paymentCode"
+                type="text"
+                formControlName="paymentCode"
+                required
+                [formControlComp]="paymentForm.controls['paymentCode']"
+                [errorMessages]="{ required: 'Payment code is required.' }"
+    ></input-text>
+
+    <input-text label="Purpose of Payment"
+                placeholder="Purpose of Payment"
+                id="purposeOfPayment"
+                type="text"
+                formControlName="purposeOfPayment"
+                required
+                [formControlComp]="paymentForm.controls['purposeOfPayment']"
+                [errorMessages]="{ required: 'Purpose of payment is required.' }"
+    ></input-text>
+
+    <input-text label="Reference Number"
+                placeholder="Reference Number"
+                id="referenceNumber"
+                type="text"
+                formControlName="referenceNumber"
+                [formControlComp]="paymentForm.controls['referenceNumber']"
+                [errorMessages]="{}"
+    ></input-text>
+
     <div>
-    <app-button type="submit" [disabled]="!paymentForm.form.valid">Submit Payment</app-button>
+      <app-button type="submit" [disabled]="!paymentForm.valid">Submit Payment</app-button>
     </div>
   </form>
 </div>

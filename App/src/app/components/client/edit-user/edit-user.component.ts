@@ -103,7 +103,7 @@ export class EditUserComponent implements OnInit {
     this.userService.updateUser(this.userId, updatedUser).subscribe({
       next: () => {
         this.alertService.showAlert('success', 'User updated successfully!');
-        this.router.navigate(['/users']);
+        this.router.navigate(['/client-portal']);
       },
       error: () => {
         this.alertService.showAlert('error', 'Failed to update user. Please try again.');

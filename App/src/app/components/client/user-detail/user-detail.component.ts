@@ -37,6 +37,8 @@ export class UserDetailComponent implements OnInit {
           this.router.navigate(['/']);
           return;
         }
+        console.log(this.user)
+        console.log(fetchedUser)
         this.user = fetchedUser;
       },
       error: () => {

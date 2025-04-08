@@ -1,74 +1,62 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { NgForOf, NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { AlertService } from '../../../services/alert.service';
 import { PayeeService } from '../../../services/payee.service';
 import { Payee } from '../../../models/payee.model';
-import {AuthService} from '../../../services/auth.service';
-import { ChangeDetectorRef } from '@angular/core';
-import {ButtonComponent} from '../../shared/button/button.component';
-import {InputTextComponent} from '../../shared/input-text/input-text.component';
-
+import { AuthService } from '../../../services/auth.service';
+import { ButtonComponent } from '../../shared/button/button.component';
+import { InputTextComponent } from '../../shared/input-text/input-text.component';
 
 @Component({
   selector: 'app-recipients',
   standalone: true,
-  imports: [FormsModule, NgIf, NgForOf, ButtonComponent, InputTextComponent],
+  imports: [NgForOf, NgIf, ButtonComponent, InputTextComponent, ReactiveFormsModule],
   templateUrl: './recipients.component.html',
-  styleUrl: './recipients.component.css'
+  styleUrls: ['./recipients.component.css']
 })
 export class RecipientsComponent implements OnInit {
   private payeeService = inject(PayeeService);
   private router = inject(Router);
   private alertService = inject(AlertService);
   private authService = inject(AuthService);
+
   recipients: Payee[] = [];
-  newRecipient: Payee = { id: 0, name: '', accountNumber: '' };
+
+  addRecipientForm!: FormGroup;
+  editRecipientForm!: FormGroup | null;
+
   isAdding: boolean = false;
   editingRecipient: Payee | null = null;
 
   showDeleteModal: boolean = false;
   selectedRecipientId: number | null = null;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.loadRecipients();
+    this.initAddRecipientForm();
   }
-  // loadRecipients(): void {
-  //   this.payeeService.getPayeesByClientId().subscribe({
-  //     next: (response) => {
-  //       this.recipients = [...response]; // Proverava format odgovora
-  //       console.log(this.recipients);
-  //     },
-  //     error: () => {
-  //       this.alertService.showAlert('error', 'Failed to load recipients from list.');
-  //       this.recipients = [];
-  //     }
-  //   });
-  // }
-  // loadRecipients(): void {
-  //   this.payeeService.getPayeesByClientId().subscribe({
-  //     next: (response) => {
-  //       console.log('API Response:', response); // Proveri šta API vraća
-  //       if (!Array.isArray(response)) {
-  //         console.error('Unexpected response format:', response);
-  //         this.alertService.showAlert('error', 'Invalid response format.');
-  //         return;
-  //       }
-  //       this.recipients = [...response];
-  //     },
-  //     error: (err) => {
-  //       console.error('Error loading recipients:', err);
-  //       this.alertService.showAlert('error', 'Failed to load recipients from list.');
-  //       this.recipients = [];
-  //     }
-  //   });
-  // }
+
+  private initAddRecipientForm(): void {
+    this.addRecipientForm = this.fb.group({
+      name: ['', Validators.required],
+      accountNumber: ['', [Validators.required, Validators.pattern(/^\d+$/), Validators.minLength(5)]]
+    });
+  }
+
+  private initEditRecipientForm(recipient: Payee): void {
+    this.editRecipientForm = this.fb.group({
+      id: [recipient.id],
+      name: [recipient.name, Validators.required],
+      accountNumber: [recipient.accountNumber, [Validators.required, Validators.pattern(/^\d+$/), Validators.minLength(5)]]
+    });
+  }
 
   loadRecipients(): void {
-    const timestamp = new Date().getTime(); // unique vrednost
+    const timestamp = new Date().getTime();
     this.payeeService.getPayeesByClientId(timestamp).subscribe({
       next: (response) => {
         this.recipients = [...response];
@@ -80,71 +68,35 @@ export class RecipientsComponent implements OnInit {
     });
   }
 
-  // addRecipient(): void {
-  //   this.payeeService.createPayee(this.newRecipient).subscribe({
-  //     next: (newPayee) => {
-  //       this.alertService.showAlert('success', 'Recipient added successfully!');
-  //       this.recipients = [...this.recipients, newPayee];
-  //       this.newRecipient = { id: 0, name: '', accountNumber: '' };
-  //       this.isAdding = false;
-  //       this.cdr.detectChanges(); // Ručno osvežavanje prikaza
-  //     },
-  //     error: () => {
-  //       this.alertService.showAlert('error', 'Failed to add recipient.');
-  //     }
-  //   });
-  // }
-
-
   toggleAddRecipient(): void {
     this.isAdding = !this.isAdding;
+    if (this.isAdding) {
+      this.addRecipientForm.reset();
+    }
   }
+
   startEditing(recipient: Payee): void {
     this.editingRecipient = { ...recipient };
+    this.initEditRecipientForm(recipient);
   }
 
   cancelEditing(): void {
     this.editingRecipient = null;
+    this.editRecipientForm = null;
   }
 
-  // saveEdit(): void {
-  //   if (!this.editingRecipient) return;
-  //
-  //   this.payeeService.updatePayee(this.editingRecipient.id, this.editingRecipient).subscribe({
-  //     next: () => {
-  //       this.alertService.showAlert('success', 'Recipient updated successfully!');
-  //       this.recipients = this.recipients.map(r =>
-  //         r.id === this.editingRecipient!.id ? { ...this.editingRecipient! } : r
-  //       ); // Lokalno ažuriranje liste
-  //       this.editingRecipient = null;
-  //       this.cdr.detectChanges();
-  //     },
-  //     error: () => {
-  //       this.alertService.showAlert('error', 'Failed to update recipient.');
-  //     }
-  //   });
-  // }
-  // deleteRecipient(id: number): void {
-  //   if (confirm('Are you sure you want to delete this recipient?')) {
-  //     this.payeeService.deletePayee(id).subscribe({
-  //       next: () => {
-  //         this.alertService.showAlert('success', 'Recipient deleted successfully!');
-  //         this.loadRecipients();
-  //       },
-  //       error: () => {
-  //         this.alertService.showAlert('error', 'Failed to delete recipient.');
-  //       }
-  //     });
-  //   }
-  // }
-
   addRecipient(): void {
-    this.payeeService.createPayee(this.newRecipient).subscribe({
+    if (this.addRecipientForm.invalid) {
+      this.addRecipientForm.markAllAsTouched();
+      return;
+    }
+    const newRecipient: Payee = this.addRecipientForm.getRawValue();
+    newRecipient.id = 0;
+    this.payeeService.createPayee(newRecipient).subscribe({
       next: () => {
         this.alertService.showAlert('success', 'Recipient added successfully!');
-        this.loadRecipients(); // Refresh the list
-        this.newRecipient = { id: 0, name: '', accountNumber: '' };
-        this.isAdding = false;
+        this.loadRecipients();
+        this.toggleAddRecipient();
       },
       error: (err) => {
         console.error('Error adding recipient:', err);
@@ -154,36 +106,23 @@ export class RecipientsComponent implements OnInit {
   }
 
   saveEdit(): void {
-    if (!this.editingRecipient) return;
-
-    this.payeeService.updatePayee(this.editingRecipient.id, this.editingRecipient)
-      .subscribe({
-        next: () => {
-          this.alertService.showAlert('success', 'Recipient updated successfully!');
-          this.loadRecipients(); // rifres
-          this.editingRecipient = null;
-        },
-        error: (err) => {
-          console.error('Error updating recipient:', err);
-          this.alertService.showAlert('error', 'Failed to update recipient.');
-        }
-      });
+    if (!this.editRecipientForm || this.editRecipientForm.invalid) {
+      this.editRecipientForm?.markAllAsTouched();
+      return;
+    }
+    const updatedRecipient: Payee = this.editRecipientForm.getRawValue();
+    this.payeeService.updatePayee(updatedRecipient.id, updatedRecipient).subscribe({
+      next: () => {
+        this.alertService.showAlert('success', 'Recipient updated successfully!');
+        this.loadRecipients();
+        this.cancelEditing();
+      },
+      error: (err) => {
+        console.error('Error updating recipient:', err);
+        this.alertService.showAlert('error', 'Failed to update recipient.');
+      }
+    });
   }
-
-  // deleteRecipient(id: number): void {
-  //   if (confirm('Are you sure?')) {
-  //     this.payeeService.deletePayee(id).subscribe({
-  //       next: () => {
-  //         this.alertService.showAlert('success', 'Recipient deleted!');
-  //         this.loadRecipients();
-  //       },
-  //       error: (err) => {
-  //         console.error('Error deleting:', err);
-  //         this.alertService.showAlert('error', 'Delete failed.');
-  //       }
-  //     });
-  //   }
-  // }
 
   openDeleteModal(id: number): void {
     this.selectedRecipientId = id;
@@ -201,6 +140,7 @@ export class RecipientsComponent implements OnInit {
     }
     this.showDeleteModal = false;
   }
+
   deleteRecipient(id: number): void {
     this.payeeService.deletePayee(id).subscribe({
       next: () => {
@@ -212,5 +152,4 @@ export class RecipientsComponent implements OnInit {
       }
     });
   }
-
 }

@@ -29,7 +29,7 @@ export class OrderOverviewComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (!this.authService.isSupervisor()) {
+    if (!this.authService.isSupervisor() && !this.authService.isAdmin()) {
       this.errorMessage = "Access denied. Only supervisors can access this portal.";
       return;
     }

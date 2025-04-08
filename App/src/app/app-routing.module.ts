@@ -40,6 +40,7 @@ import { OrderOverviewComponent } from './components/stocks/order-overview/order
 import { TaxCalculationComponent } from './components/tax-calculation/tax-calculation.component';
 import { BankAccountsComponent} from './components/account/bank-accounts/bank-accounts.component';
 import { ActuaryManagementComponent } from './components/stocks/actuary-management/actuary-management.component';
+import {supervisorGuard} from './guards/supervisor-guard.guard';
 
 export const routes: Routes = [
   // login
@@ -99,13 +100,13 @@ export const routes: Routes = [
   // securities
   { path: 'my-portfolio', component: MyPortfolioComponent, canActivate: [authGuard, clientOrActuaryGuard] },
   { path: 'securities', component: SecuritiesComponent, canActivate: [authGuard, clientOrActuaryGuard] },
-  { path: 'tax-portal', component: TaxCalculationComponent, canActivate: [authGuard, employeeOrAdminGuard] }, // not sure if this is the right guard!
+  { path: 'tax-portal', component: TaxCalculationComponent, canActivate: [authGuard, supervisorGuard] }, // not sure if this is the right guard!
 
   //options
-  { path: 'options/:stockId', component: OptionsDisplayComponent, canActivate: [authGuard, clientOrActuaryGuard] },
-  { path: 'order-overview', component: OrderOverviewComponent, canActivate: [authGuard, clientOrActuaryGuard] }, // treba supervisor gard, ovako ce biti dok se ne doda u beku
+  { path: 'options/:stockId', component: OptionsDisplayComponent, canActivate: [authGuard, clientOrActuaryGuard] }, // samo aktuar tj. agent
+  { path: 'order-overview', component: OrderOverviewComponent, canActivate: [authGuard, supervisorGuard] }, // treba supervisor gard, ovako ce biti dok se ne doda u beku
 
   //Actuary
-  { path: 'actuaries', component: ActuaryManagementComponent, canActivate: [authGuard, clientOrActuaryGuard] } // treba supervisor gard, ovako ce biti dok se ne doda u beku
+  { path: 'actuaries', component: ActuaryManagementComponent, canActivate: [authGuard, supervisorGuard] } // treba supervisor gard, ovako ce biti dok se ne doda u beku
 
 ];
