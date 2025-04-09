@@ -67,18 +67,18 @@ presubmits:
               # for petlja koja se pokreće za svaki mikroservis.
               # Promeniti petlju tako sadrži sve mikroservise koje imate, npr:
               #   for serviceName in user-service bank-service email-service stock-service; do
-              serviceName = front-app
+              for serviceName in front-app; do
+                # Builduje Docker image sa "latest" tagom i nazivom takvim da možemo da pushujemo
+                # image na našu Harbor instancu.
+                docker build -t harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:latest -f "Dockerfile" "."
               
-              # Builduje Docker image sa "latest" tagom i nazivom takvim da možemo da pushujemo
-              # image na našu Harbor instancu.
-              docker build -t harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:latest -f "$serviceName/Dockerfile" "."
-            
-              # Pravi kopiju prethodno buildovanog image sa tagom zasnovanim na commit hash-u.
-              docker tag harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:latest harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:${commit_hash}
-            
-              # Pushuje oba image na našu Harbor instancu.
-              docker push harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:latest
-              docker push harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:${commit_hash}
+                # Pravi kopiju prethodno buildovanog image sa tagom zasnovanim na commit hash-u.
+                docker tag harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:latest harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:${commit_hash}
+              
+                # Pushuje oba image na našu Harbor instancu.
+                docker push harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:latest
+                docker push harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:${commit_hash}
+              done
           securityContext:
             privileged: true
           imagePullPolicy: Always
