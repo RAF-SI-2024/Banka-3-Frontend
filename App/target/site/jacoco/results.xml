@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="0.771" tests="3" failures="0">
-  <testsuite name="Root Suite" timestamp="2025-04-08T22:12:32" tests="0" file="cypress\tests\e2e\welcome.spec.ts" time="0.000" failures="0">
+<testsuites name="Mocha Tests" time="0.781" tests="3" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-04-09T13:06:57" tests="0" file="cypress\tests\e2e\welcome.spec.ts" time="0.000" failures="0">
   </testsuite>
-  <testsuite name="Welcome Page Test" timestamp="2025-04-08T22:12:32" tests="3" time="0.766" failures="0">
-    <testcase name="Welcome Page Test should have Employee Login and Client Login buttons" time="0.242" classname="should have Employee Login and Client Login buttons">
+  <testsuite name="Welcome Page Test" timestamp="2025-04-09T13:06:57" tests="3" time="0.775" failures="0">
+    <testcase name="Welcome Page Test should have Employee Login and Client Login buttons" time="0.252" classname="should have Employee Login and Client Login buttons">
     </testcase>
-    <testcase name="Welcome Page Test should navigate to /employee/login when Employee Login is clicked" time="0.259" classname="should navigate to /employee/login when Employee Login is clicked">
+    <testcase name="Welcome Page Test should navigate to /employee/login when Employee Login is clicked" time="0.243" classname="should navigate to /employee/login when Employee Login is clicked">
     </testcase>
-    <testcase name="Welcome Page Test should navigate to /client/login when Client Login is clicked" time="0.193" classname="should navigate to /client/login when Client Login is clicked">
+    <testcase name="Welcome Page Test should navigate to /client/login when Client Login is clicked" time="0.203" classname="should navigate to /client/login when Client Login is clicked">
     </testcase>
   </testsuite>
 </testsuites>

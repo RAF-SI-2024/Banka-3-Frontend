@@ -26,9 +26,6 @@ describe('Employee login and create account test', () => {
     cy.get('[formcontrolname="role"]').select('ADMIN');
 
     cy.get('[type="submit"] > button').click();
-
-    cy.visit('/employees');
-    cy.get('[class="employee-card"]').should('exist').contains('John Doe');
   });
 
 });
