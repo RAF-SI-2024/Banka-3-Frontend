@@ -68,6 +68,7 @@ postsubmits:
               # Promeniti petlju tako sadrži sve mikroservise koje imate, npr:
               #   for serviceName in user-service bank-service email-service stock-service; do
               serviceName = front-app
+              
               # Builduje Docker image sa "latest" tagom i nazivom takvim da možemo da pushujemo
               # image na našu Harbor instancu.
               docker build -t harbor.k8s.elab.rs/${TEAM_NAME}/${serviceName}:latest -f "$serviceName/Dockerfile" "."
