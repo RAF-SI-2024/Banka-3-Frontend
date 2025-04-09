@@ -3,7 +3,7 @@
 # "postsubmits" su CD jobovi, odnosno jobovi koji su pokreću za svaki
 # mergovan Pull Request, tj. za svaki push na bilo koju granu glavnog
 # repozitorijuma.
-presubmits:
+postsubmits:
   # Ovaj CD job će da builduje i pushuje image za sve mikroservise.
   # PROMENITI PRI KOPIRANJU
   # Name treba da bude u formatu "post-<naziv-repozitorijuma>--build", npr.
