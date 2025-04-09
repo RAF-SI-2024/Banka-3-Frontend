@@ -77,6 +77,7 @@ describe('Loan Request Component', () => {
     cy.get('.dropdown-trigger').click(); // Use better selectors if possible
     cy.get('.dropdown-list > div > a').contains('Logout').click();
 
+    cy.wait(500)
     cy.get('@selectedAccountNumber').then(selectedAccNum => {
       expect(selectedAccNum, 'Selected account number should exist').to.exist;
       const clientAccountNumber = selectedAccNum.toString();
@@ -84,22 +85,22 @@ describe('Loan Request Component', () => {
       cy.loginAsEmployee();
       cy.visit(`http://localhost:4200/account/${clientAccountNumber}`);
 
-      cy.wait(222)
+      cy.wait(500)
       cy.get('[style="justify-content: space-between; display: flex;"] > :nth-child(1) > :nth-child(6)').invoke('text').then((initialText) => {
         const currAmount = parseFloat(initialText.replace('Balance:', ' ').trim());
 
         cy.get('.sidebar-link').contains('Loans').click();
 
+        cy.wait(500)
         cy.get(':nth-child(1) > .flex-col > :nth-child(2)').invoke('text').then((loanText) => {
           const addAmount = parseFloat(loanText.replace('Amount:', ' ').trim());
           cy.get(':nth-child(1) app-button > button').contains('Approve').click();
-
+          cy.wait(500)
           cy.visit(`http://localhost:4200/account/${clientAccountNumber}`);
-          cy.wait(222)
-
+          cy.wait(500)
           cy.get('[style="justify-content: space-between; display: flex;"] > :nth-child(1) > :nth-child(6)').invoke('text').then((finalText) => {
             const newBalance = parseFloat(finalText.replace('Balance:', '').trim());
-
+            cy.wait(500)
             expect(newBalance).to.eq(currAmount + addAmount);
           });
         });

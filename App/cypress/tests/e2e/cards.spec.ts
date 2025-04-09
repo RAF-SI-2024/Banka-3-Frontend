@@ -15,9 +15,13 @@ describe('Cards Component', () => {
 
     cy.log(`Attempting card creation with number: ${number}`);
 
+    cy.wait(222)
     cy.get('input-text[name="name"] input').clear();
+    cy.wait(222)
     cy.get('input-text[name="name"] input').type(`Premium Credit Card ${number}`);
+    cy.wait(222)
     cy.get('input-text[name="cardLimit"] input').clear();
+    cy.wait(222)
     cy.get('input-text[name="cardLimit"] input').type('100');
 
     // Click the "Create" button.
