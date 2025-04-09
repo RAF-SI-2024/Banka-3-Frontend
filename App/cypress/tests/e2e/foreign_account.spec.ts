@@ -43,6 +43,7 @@ describe('foreign currency account test', () => {
           .get();
 
         const optionValuesToTry = validOptions.map(el =>
+          // @ts-ignore
           Cypress.$(el).val().toString()
         );
 
@@ -50,7 +51,7 @@ describe('foreign currency account test', () => {
           throw new Error('Client select has no valid, non-empty, enabled options to test.');
         }
 
-        const trySelectOption = (index) => {
+        const trySelectOption = (index: number) => {
           if (index >= optionValuesToTry.length) {
             throw new Error(
               `No option in #clientId avoided the '.error' element after selection.`
@@ -128,6 +129,7 @@ describe('foreign currency account test', () => {
         })
         .get();
 
+      // @ts-ignore
       const optionValuesToTry = validOptions.map(el => Cypress.$(el).val().toString());
 
       if (optionValuesToTry.length === 0) {
@@ -159,11 +161,11 @@ describe('foreign currency account test', () => {
     })
 
     // Ensure "Select Company" dropdown appears
-cy.wait(222)
+    cy.wait(222)
     cy.get('select[id="selectedCompany"]').should('exist');
 
     // Select "Create New Company"
-cy.wait(222)
+    cy.wait(222)
     cy.get('select[id="selectedCompany"]').select('-1');
 
     // Ensure fields for new company are enabled
@@ -195,13 +197,14 @@ cy.wait(222)
           return $el.val() !== '' && !$el.prop('disabled');
         }).get();
 
+        // @ts-ignore
         const optionValuesToTry = validOptions.map(el => Cypress.$(el).val().toString());
 
         if (optionValuesToTry.length === 0) {
           throw new Error('Client select has no valid, non-empty, enabled options to test.');
         }
 
-        const trySelectOption = (index) => {
+        const trySelectOption = (index: number) => {
           if (index >= optionValuesToTry.length) {
             throw new Error(
               `No option in #clientId avoided the '.error' element being visible after selection.`
@@ -228,37 +231,38 @@ cy.wait(222)
       });
 
       // 2) Wait for and select an existing Company
-cy.wait(222)
+      cy.wait(222)
       cy.get('select[id="selectedCompany"]').should('exist');
       cy.get('[class="loading-message"]').should('not.exist');
 
-cy.wait(222)
+      cy.wait(222)
       cy.get('select[id="selectedCompany"] option').then(function ($options) {
         const validOptions = $options.filter((index, element) => {
           const $el = Cypress.$(element);
           return $el.val() !== '' && !$el.prop('disabled');
         }).get();
 
+        // @ts-ignore
         const optionValuesToTry = validOptions.map(el => Cypress.$(el).val().toString());
 
         // If no valid options, skip this test
         if (optionValuesToTry.length === 0) {
           cy.log('SKIPPING TEST (via beforeEach): No valid company options found.');
-          this.skip();
+          this["skip"]();
         }
 
-        const trySelectCompany = (index) => {
+        const trySelectCompany = (index: number) => {
           if (index >= optionValuesToTry.length) {
             cy.log(
               `SKIPPING TEST (via beforeEach): All ${optionValuesToTry.length} valid options failed selection checks.`
             );
-            this.skip();
+            this["skip"]();
             return;
           }
 
           const currentValue = optionValuesToTry[index];
           cy.log(`(beforeEach) Attempting value: "${currentValue}" (Index ${index})`);
-cy.wait(222)
+          cy.wait(222)
           cy.get('select[id="selectedCompany"]').select(currentValue);
 
           cy.get('body').then(($body) => {
@@ -273,7 +277,7 @@ cy.wait(222)
               trySelectCompany(index + 1);
             } else {
               cy.log(`(beforeEach) Successfully selected "${currentValue}". Proceeding.`);
-cy.wait(222)
+              cy.wait(222)
               cy.get('select[id="selectedCompany"]').should('have.value', currentValue);
             }
           });
@@ -326,6 +330,7 @@ cy.wait(222)
           })
           .get();
 
+        // @ts-ignore
         const optionValuesToTry = validOptions.map(el => Cypress.$(el).val().toString());
 
         if (optionValuesToTry.length === 0) {
@@ -356,9 +361,7 @@ cy.wait(222)
         trySelectOption(0);
       })
       cy.log('--- beforeEach: Attempting to select a valid company ---');
-      // Use cy.wrap(null) to ensure the Cypress chain continues even if get fails early
-      // although cy.get failure would typically fail the test anyway.
-cy.wait(222)
+      cy.wait(222)
       cy.get('select[id="selectedCompany"] option').then($options => {
         // Filter options: Get only those that are potentially selectable
         const validOptions = $options
@@ -368,6 +371,7 @@ cy.wait(222)
           })
           .get(); // Convert jQuery object back to an array of DOM elements
 
+        // @ts-ignore
         const optionValuesToTry = validOptions.map(el => Cypress.$(el).val().toString());
 
         // --- Initial Check ---
@@ -380,7 +384,7 @@ cy.wait(222)
 
         // --- Recursive Function Definition ---
         // Defined inside .then() so it has access to optionValuesToTry and 'this' context
-        const trySelectOption = (index) => {
+        const trySelectOption = (index: number) => {
           // Base Case: If index is out of bounds, all options failed. Skip the test.
           if (index >= optionValuesToTry.length) {
             cy.log(`SKIPPING TEST (via beforeEach): All ${optionValuesToTry.length} valid options failed selection checks.`);
@@ -390,7 +394,7 @@ cy.wait(222)
 
           const currentValue = optionValuesToTry[index];
           cy.log(`(beforeEach) Attempting value: "${currentValue}" (Index ${index})`);
-cy.wait(222)
+          cy.wait(222)
           cy.get('select[id="selectedCompany"]').select(currentValue);
 
           // Check the result asynchronously
@@ -408,7 +412,7 @@ cy.wait(222)
               // Success Case: Option selected without error.
               cy.log(`(beforeEach) Successfully selected "${currentValue}". Allowing test to run.`);
               // Verify selection (optional but good practice in beforeEach)
-cy.wait(222)
+              cy.wait(222)
               cy.get('select[id="selectedCompany"]').should('have.value', currentValue);
               // Let the beforeEach hook complete successfully for this test
             }
