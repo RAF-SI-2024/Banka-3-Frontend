@@ -15,10 +15,10 @@ describe('Cards Component', () => {
 
     cy.log(`Attempting card creation with number: ${number}`);
 
-    cy.get('[name="name"] input').clear();
-    cy.get('[name="name"] input').type(`Premium Credit Card ${number}`);
-    cy.get('input-text[name="cardLimit"]').clear();
-    cy.get('input-text[name="cardLimit"]').type('100');
+    cy.get('input-text[name="name"] input').clear();
+    cy.get('input-text[name="name"] input').type(`Premium Credit Card ${number}`);
+    cy.get('input-text[name="cardLimit"] input').clear();
+    cy.get('input-text[name="cardLimit"] input').type('100');
 
     // Click the "Create" button.
     cy.get('app-button > button').contains('Create').click();
