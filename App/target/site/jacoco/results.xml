@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="Mocha Tests" time="13.917" tests="1" failures="0">
-  <testsuite name="Root Suite" timestamp="2025-04-09T15:05:35" tests="0" file="cypress\tests\e2e\loan_request.spec.ts" time="0.000" failures="0">
+<testsuites name="Mocha Tests" time="8.629" tests="4" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-04-09T15:43:40" tests="0" file="cypress\tests\e2e\cards.spec.ts" time="0.000" failures="0">
   </testsuite>
-  <testsuite name="Loan Request Component" timestamp="2025-04-09T15:05:35" tests="1" time="13.911" failures="0">
-    <testcase name="Loan Request Component submits a valid loan request using dynamic account selection, approves it, and verifies balance" time="13.845" classname="submits a valid loan request using dynamic account selection, approves it, and verifies balance">
+  <testsuite name="Cards Component" timestamp="2025-04-09T15:43:40" tests="4" time="8.623" failures="0">
+    <testcase name="Cards Component should create card" time="4.222" classname="should create card">
+    </testcase>
+    <testcase name="Cards Component should block a card when active cards exist" time="1.368" classname="should block a card when active cards exist">
+    </testcase>
+    <testcase name="Cards Component should block a card when blocked cards exist" time="1.402" classname="should block a card when blocked cards exist">
+    </testcase>
+    <testcase name="Cards Component should deactivate a card" time="1.466" classname="should deactivate a card">
     </testcase>
   </testsuite>
 </testsuites>
