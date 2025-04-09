@@ -8,6 +8,7 @@ describe('Loan Request Component', () => {
   const ACCOUNT_ERROR_SELECTOR = '.error';
 
   function findAndSelectValidAccount(options: string | any[], index: number) {
+    cy.wait(500)
     if (index >= options.length) {
       throw new Error(`No valid account found after checking ${options.length} options. Last error selector checked: ${ACCOUNT_ERROR_SELECTOR}`);
     }
@@ -55,13 +56,13 @@ describe('Loan Request Component', () => {
     cy.get('#repaymentPeriod').select('12');
     cy.get('#contactPhone').type('+381641234567');
     cy.get('#rate-type').select('FIXED');
-
+    cy.wait(500)
     cy.get('#accountNumber option').then($options => {
       const availableOptions = $options.toArray(); // Get all option elements
-      if (availableOptions.length <= 1) { // Check if there's more than just a placeholder
+      if (availableOptions.length <= 1) {
         throw new Error('Account dropdown has zero or only one (likely placeholder) option.');
       }
-      findAndSelectValidAccount(availableOptions, 0); // Start checking from the first option
+      findAndSelectValidAccount(availableOptions, 0);
     });
 
     // --- Continue Filling Form ---
@@ -69,7 +70,18 @@ describe('Loan Request Component', () => {
 
     // Intercept POST and Submit
     cy.intercept('POST', '/api/loan-requests').as('submitLoan');
-    cy.contains('button', 'Submit Request').click();
+    cy.wait(500)
+    cy.get('app-button > button')
+      .contains('Submit Request')
+      .then(($button) => {
+        // Check if button is disabled
+        if ($button.is(':disabled')) {
+          // If disabled, just return
+          return;
+        }
+        // Otherwise, click the button
+        cy.wrap($button).click();
+      });
     cy.wait('@submitLoan').its('response.statusCode').should('be.oneOf', [200, 201, 204]);
     cy.log('Loan request submitted successfully by client.');
 

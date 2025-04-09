@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="13.917" tests="1" failures="0">
+  <testsuite name="Root Suite" timestamp="2025-04-09T15:05:35" tests="0" file="cypress\tests\e2e\loan_request.spec.ts" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Loan Request Component" timestamp="2025-04-09T15:05:35" tests="1" time="13.911" failures="0">
+    <testcase name="Loan Request Component submits a valid loan request using dynamic account selection, approves it, and verifies balance" time="13.845" classname="submits a valid loan request using dynamic account selection, approves it, and verifies balance">
+    </testcase>
+  </testsuite>
+</testsuites>
