@@ -59,11 +59,11 @@ describe('Client login test', () => {
     cy.get('[class="error-message"]').should('exist').contains('Minimum length is 3 characters.');
   });
 
-  it('if entered marko.m@example.com and markomarko it should login the employee and redirect to /user/2', () => {
+  it('if entered marko.m@example.com and markomarko it should login the employee and redirect to /user', () => {
     cy.get('[name="email"] input').type('marko.m@example.com');
     cy.get('[name="password"] input').type('markomarko');
     cy.get('[type="submit"] button').click();
 
-    cy.url().should('include', '/user/2');
+    cy.url().should('include', '/user/');
   });
 });

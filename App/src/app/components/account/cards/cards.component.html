@@ -21,7 +21,7 @@
     <div class="flex-col gap-1">
 
       <div>
-        <app-button class="width-full" (onClick)="openModal()">Payment</app-button>
+        <app-button class="width-full" (onClick)="openModal()" *ngIf="isEmployee">Payment</app-button>
       </div>
       <div>
         <app-button class="width-full" (click)="newCardReq()" [routerLink]="['/account', accountNumber, 'create-card']">

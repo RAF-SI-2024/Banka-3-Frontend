@@ -67,7 +67,7 @@
 
             <div *ngIf="accountForm.get('clientId')?.value" class="flex-col gap-1">
               <label>Select Company:</label>
-              <select formControlName="selectedCompany" (change)="onCompanySelect()"> <!-- [disabled]="loadingCompanies" -->
+              <select formControlName="selectedCompany" id="selectedCompany" (change)="onCompanySelect()"> <!-- [disabled]="loadingCompanies" -->
                 <option [value]="null" disabled>Select a company</option>
                 <option [value]="-1">Create New Company</option>
                 <option *ngFor="let company of companies" [value]="company.id">
@@ -76,7 +76,7 @@
               </select>
               <div *ngIf="loadingCompanies" class="loading-message">Loading companies...</div>
               <label>Authorized Personnel (Optional):</label>
-              <select formControlName="selectedAuthorizedPersonnel" (change)="onPersonnelSelect()">
+              <select formControlName="selectedAuthorizedPersonnel" id="authorizedPersonnel" (change)="onPersonnelSelect()">
                 <option [value]="null">Select authorized personnel</option>
                 <option [value]="-1">Create new authorized personnel</option>
                 <option *ngFor="let personnel of availablePersonnel" [value]="personnel.id">

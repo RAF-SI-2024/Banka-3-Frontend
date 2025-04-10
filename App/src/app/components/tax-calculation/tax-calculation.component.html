@@ -11,7 +11,6 @@
     <input type="text" placeholder="Filter by Lastname" [(ngModel)]="filterLastname" (input)="filterTransactions()">
   </div>
 
-
   <div class="filter-container">
     <label for="periodFilter">Filter by period:</label>
     <select id="periodFilter" [(ngModel)]="selectedPeriod" (change)="filterByPeriod()">
@@ -20,46 +19,47 @@
     </select>
   </div>
 
+  <div style="overflow-x: auto">
 
-  <table class="securities-table" *ngIf="filteredTransactions.length > 0">
-    <thead>
-    <tr>
-      <th>Client Code</th>
-      <th>Role</th>
-      <th>Name</th>
-      <th>Lastname</th>
-      <th>Account Number</th>
-      <th>Transaction Code</th>
-      <th>Transaction Date</th>
-      <th>Security</th>
-      <th>Price paid</th>
-      <th>Price sold</th>
-      <th>Tax price</th>
-      <th>Is paid</th>
-      <th>Date of payment</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let transaction of unpaidTaxes">
-      <td>{{ transaction.clientId }}</td>
-      <td>{{ transaction.role }}</td>
-      <td>{{ transaction.name }}</td>
-      <td >{{ transaction.lastname }}</td>
-      <td>{{ transaction.accountNumber }}</td>
-      <td>{{ transaction.transaction }}</td>
-      <td>{{ transaction.transactionDate }}</td>
-      <td>{{ transaction.securitiesType }}</td>
-      <td>{{ transaction.paidPrice }}</td>
-      <td>{{ transaction.soldPrice}}</td>
-      <td>{{ transaction.tax   }}</td>
-      <td>{{ transaction.paidFlag }}</td>
-      <td>{{ transaction.date }}</td>
-    </tr>
-    </tbody>
-  </table>
-
+    <table class="securities-table" *ngIf="filteredTransactions.length > 0">
+      <thead>
+      <tr>
+        <th>Client Code</th>
+        <th>Role</th>
+        <th>Name</th>
+        <th>Lastname</th>
+        <th>Account Number</th>
+        <th>Transaction Code</th>
+        <th>Transaction Date</th>
+        <th>Security</th>
+        <th>Price paid</th>
+        <th>Price sold</th>
+        <th>Tax price</th>
+        <th>Is paid</th>
+        <th>Date of payment</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let transaction of unpaidTaxes">
+        <td>{{ transaction.clientId }}</td>
+        <td>{{ transaction.role }}</td>
+        <td>{{ transaction.name }}</td>
+        <td>{{ transaction.lastname }}</td>
+        <td>{{ transaction.accountNumber }}</td>
+        <td>{{ transaction.transaction }}</td>
+        <td>{{ transaction.transactionDate }}</td>
+        <td>{{ transaction.securitiesType }}</td>
+        <td>{{ transaction.paidPrice }}</td>
+        <td>{{ transaction.soldPrice }}</td>
+        <td>{{ transaction.tax }}</td>
+        <td>{{ transaction.paidFlag }}</td>
+        <td>{{ transaction.date }}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
   <div class="total-tax-container">
-    <h3>Total Tax Value: {{  taxValue | number:'1.2-2' }}</h3>
+    <h3>Total Tax Value: {{ taxValue | number:'1.2-2' }}</h3>
   </div>
   <div class="total-tax-container">
     <button class="calculate-tax-btn" (click)="calculateTax()">Send calculated tax</button>

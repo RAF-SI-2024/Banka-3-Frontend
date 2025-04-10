@@ -9,6 +9,7 @@ import { AccountResponse } from '../../../models/account-response.model';
 import { AlertService } from '../../../services/alert.service';
 import { OrderService } from '../../../services/order.service';
 import { CreateOrderDto } from '../../../models/create-order.dto';
+import {InputTextComponent} from '../input-text/input-text.component';
 
 export enum OrderType {
   MARKET = 'Market',
@@ -29,7 +30,8 @@ enum ModalView {
     CommonModule,
     FormsModule,
     ModalComponent,
-    ButtonComponent
+    ButtonComponent,
+    InputTextComponent
   ],
   templateUrl: './order-creation-modal.component.html',
   styleUrl: './order-creation-modal.component.css'
@@ -39,7 +41,7 @@ export class OrderCreationModalComponent implements OnInit, OnChanges {
   @Input() direction: 'BUY' | 'SELL' = 'BUY';
   @Input() securityTicker: string = '';
   @Input() securityPrice: number = 0;
-  @Input() contractSize: number = 1; 
+  @Input() contractSize: number = 1;
   @Input() listingId: number | null = null;
   @Output() closeModalEvent = new EventEmitter<void>();
   @Output() createOrderEvent = new EventEmitter<any>();
@@ -81,7 +83,7 @@ export class OrderCreationModalComponent implements OnInit, OnChanges {
 
     if (changes['isOpen']) {
       if (this.isOpen) {
-        this.initializeModal(); 
+        this.initializeModal();
         needsUpdate = true;
       } else {
         this.resetForm();
@@ -90,7 +92,7 @@ export class OrderCreationModalComponent implements OnInit, OnChanges {
     if (changes['direction'] && this.isOpen) {
        this.currentView = ModalView.FORM;
        needsUpdate = true;
-       directionChanged = true; 
+       directionChanged = true;
     }
 
     if ((changes['securityPrice'] || changes['contractSize'] || changes['listingId']) && this.isOpen) {
@@ -99,7 +101,7 @@ export class OrderCreationModalComponent implements OnInit, OnChanges {
 
 
     if (this.isOpen && (directionChanged || changes['isOpen']?.currentValue === true)) {
-        this.loadUserAccounts(); 
+        this.loadUserAccounts();
     }
 
     if (needsUpdate) {
@@ -115,8 +117,8 @@ export class OrderCreationModalComponent implements OnInit, OnChanges {
   loadUserAccounts(): void {
     this.isLoadingAccounts = true;
     this.accounts = [];
-    this.fetchedAccountsList = []; 
-    this.selectedAccountId = null; 
+    this.fetchedAccountsList = [];
+    this.selectedAccountId = null;
 
     this.accountService.getMyAccountsRegular().subscribe({
       next: (response: any) => {
@@ -251,7 +253,7 @@ export class OrderCreationModalComponent implements OnInit, OnChanges {
       stopValue: this.stopPrice,
       allOrNone: this.allOrNone,
       margin: this.margin,
-      orderDirection: this.direction, 
+      orderDirection: this.direction,
       contractSize: this.contractSize,
       accountNumber: accountNumberToSend,
     };

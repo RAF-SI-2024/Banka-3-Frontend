@@ -1,0 +1,57 @@
+# Obratiti pažnju na komentare \"PROMENITI PRI KOPIRANJU\" i promeniti
+# to što se traži.
+# \"presubmits\" su CI jobovi, odnosno jobovi koji su pokreću za svaki
+# Pull Request i za svaki novi commit u okviru Pull Request-a.
+presubmits:
+  # PROMENITI PRI KOPIRANJU
+  # Name treba da bude u formatu \"pull-<naziv-repozitorijuma>-<naziv-servisa>-test\", npr.
+  # pull-banka-1-backend-user-service-test ili pull-banka-2-backend-berza-service-test
+  - name: pull-banka-3-frontend-cypress-test
+#    run_if_changed: \"(./|docker-compose.yml|package.json|package-lock.json|.prow/)\"
+    always_run: true
+    decorate: true
+    spec:
+      containers:
+        - image: harbor.k8s.elab.rs/base-images/base:java-17-node-18-docker
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -euo pipefail
+
+              collectJUnitCoverage() {
+                set +e
+
+                junit_source_directory="./target/site/jacoco"
+                junit_dest_directory="/logs/artifacts/"
+
+                cp -r "$junit_source_directory" "$junit_dest_directory"
+              
+                echo "${GCSWEB_URL}/prow-logs/pr-logs/pull/${REPO_OWNER}_${REPO_NAME}/${PULL_NUMBER}/${JOB_NAME}/${BUILD_NUMBER}/artifacts/jacoco/index.html" > /logs/artifacts/coverage.link.txt
+              }
+
+              start-docker.sh
+
+              docker compose -f docker-compose.yml up -d user-service bank-service email-service stock-service rabbitmq main_db bank_db stock_db 
+              docker compose -f docker-compose.yml up -d front-app
+              
+              sleep 120
+
+              echo "Listing contents of current directory (repository root?):"
+              ls -la
+
+              echo "Navigating to frontend app directory..."
+              # Check the output of 'ls -la' above to confirm the directory name/path
+              cd "App"
+
+              echo "Installing frontend dependencies (including Cypress)..."
+              npm install
+
+              echo "Running Cypress tests..."
+              npm run cy:run
+
+              echo "Cypress tests finished."
+
+          securityContext:
+            privileged: true
+          imagePullPolicy: Always

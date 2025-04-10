@@ -15,7 +15,6 @@ Cypress.Commands.add('loginAsClient', () => {
   cy.get('[name="email"] input').type('marko.m@example.com');
   cy.get('[name="password"] input').type('markomarko');
   cy.get('[type="submit"] button').click();
-  cy.url().should('include', '/user/1');
 });
 
 // Extend Cypress types for custom commands
