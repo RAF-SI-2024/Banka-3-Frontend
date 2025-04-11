@@ -1,0 +1,50 @@
+<div class="card width-fit margin-auto flex-col gap-1">
+    <h2>Active Offers</h2>
+  
+    <div *ngIf="loading" class="loading-container">
+      <span>Loading active offers...</span>
+    </div>
+  
+    <div *ngIf="!loading && activeOffers.length === 0">
+      <p>No active offers found.</p>
+    </div>
+  
+    <div *ngIf="!loading && activeOffers.length > 0">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Stock</th>
+            <th>Amount</th>
+            <th>Price per Unit</th>
+            <th>Settlement Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let offer of activeOffers">
+            <td>{{ offer.id }}</td>
+            <td>{{ offer.stockName }}</td>
+            <td>{{ offer.amount }}</td>
+            <td>{{ offer.pricePerUnit | currency:'USD':'symbol':'1.0-2' }}</td>
+            <td>{{ offer.settlementDate }}</td>
+            <td>{{ offer.status }}</td>
+            <td>
+              <button 
+                (click)="onAccept(offer)" 
+                [disabled]="processingOfferId === offer.id">
+                Accept
+              </button>
+              <button 
+                (click)="onDecline(offer)" 
+                [disabled]="processingOfferId === offer.id">
+                Decline
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

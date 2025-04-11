@@ -44,6 +44,7 @@ import { ActuaryManagementComponent } from './components/stocks/actuary-manageme
 import { SettledContractsComponent } from './components/stocks/settled-contracts/settled-contracts.component';
 import { OtcOffersListComponent } from './components/stocks/otc-offers-list/otc-offers-list.component';
 import { BankProfitComponent } from './components/stocks/bank-profit/bank-profit.component';
+import { ActiveOffersComponent } from './components/stocks/active-offers/active-offers.component';
 
 export const routes: Routes = [
   // login
@@ -112,6 +113,7 @@ export const routes: Routes = [
   { path: 'options/:stockId', component: OptionsDisplayComponent, canActivate: [authGuard, clientOrActuaryGuard] }, // samo aktuar tj. agent
   { path: 'order-overview', component: OrderOverviewComponent, canActivate: [authGuard, supervisorGuard] }, // treba supervisor gard, ovako ce biti dok se ne doda u beku
   { path: 'settled-contracts', component: SettledContractsComponent, canActivate: [authGuard] },
+  { path: 'active-offers', component: ActiveOffersComponent, canActivate: [authGuard, supervisorGuard] },
 
   // otc
   { path: 'otc-offers', component: OtcOffersListComponent, canActivate: [authGuard, clientOrActuaryGuard] },
