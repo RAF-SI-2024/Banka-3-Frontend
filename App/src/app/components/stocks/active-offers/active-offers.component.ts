@@ -12,7 +12,6 @@ import { AlertService } from '../../../services/alert.service';
 export class ActiveOffersComponent implements OnInit {
   activeOffers: ActiveOfferDto[] = [];
   loading = false;
-  // Koristimo ovu varijablu da pratimo trenutno obrađivanu ponudu (sprečava višestruke klikove)
   processingOfferId: number | null = null;
 
   constructor(
