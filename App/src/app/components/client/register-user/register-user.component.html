@@ -26,11 +26,12 @@
     <div class="flex-1">
 
       <label class="mb-05">Gender:</label>
-      <select class="flex-1" id="gender" formControlName="gender">
+      <app-select class="flex-1" id="gender" formControlName="gender">
         <option value="" disabled>Gender...</option>
         <option value="M">Male</option>
         <option value="F">Female</option>
-      </select>
+      </app-select>
+
       <div class="error"
            *ngIf="(registerUserForm.get('gender')?.touched || registerUserForm.get('gender')?.dirty) && hasError('gender', 'required')">
         Required.

@@ -6,11 +6,11 @@
   <div class="form-row">
     <div class="input-group mb-1">
       <label for="from-account" class="mb-05">From Account</label>
-      <select id="from-account" [(ngModel)]="selectedFromAccountNumber" class="dropdown">
+      <app-select id="from-account" [(ngModel)]="selectedFromAccountNumber" class="dropdown">
         <option *ngFor="let account of accounts" [value]="account.accountNumber">
           {{ account.clientId }} - {{ account.accountNumber }}
         </option>
-      </select>
+      </app-select>
       <p class="balance" *ngIf="selectedFromAccount">Available: {{ selectedFromAccount.availableBalance }} {{selectedFromAccount.currencyCode}}</p>
     </div>
 

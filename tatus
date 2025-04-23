@@ -1,0 +1,158 @@
+[33m868dbcd[m[33m ([m[1;36mHEAD -> [m[1;32mzamena-komponenti[m[33m, [m[1;31mupstream/main[m[33m, [m[1;31mupstream/HEAD[m[33m, [m[1;31morigin/zamena-komponenti[m[33m, [m[1;32mmain[m[33m)[m Merge pull request #175 from RAF-SI-2024/ChartAndActuaryFix
+[33m8d392b5[m[33m ([m[1;31mupstream/ChartAndActuaryFix[m[33m)[m Fix All
+[33mb5acab6[m Merge pull request #170 from kristinakatic/main
+[33mada24eb[m Add lib
+[33mc1883bf[m Add lib
+[33m0529f29[m Fix
+[33m077f775[m Merge pull request #174 from Dusan121Nikolic/F_X_FixeS_V3
+[33m8161381[m Merge pull request #171 from kosanovicMilan/F_148_Order_List_Screen
+[33ma66d045[m small fix
+[33md1b6858[m Fixing fixing.
+[33m65341fc[m Error fixing.
+[33m8b22885[m Finish logic and buf-fix for component my-orders
+[33m5a52b26[m Merge pull request #173 from Dusan121Nikolic/F_X_FixeS_V2
+[33m7426a22[m Minimal change
+[33mad2f7ed[m Merge pull request #172 from djordjeveljkovic/F_CYPRESS
+[33me8bfe53[m css cleanup
+[33mfa183d8[m accounts test
+[33m80e4a8b[m cards test
+[33ma4cc3ea[m cleanup
+[33me9a63be[m Implement new screen for my orders, simple testing is done, make new OrderRealDto to match the one from the backend, final testig still left to do..
+[33mc38000d[m Small change to contracts for the future
+[33m5357775[m Merge branch 'RAF-SI-2024:main' into main
+[33m05f84f0[m Dodat grafik
+[33mb9f531e[m Merge pull request #165 from Dusan121Nikolic/F_X_FixeS_V1
+[33m8d3cd04[m Test change
+[33mc97f4bf[m Merge remote-tracking branch 'origin/F_X_FixeS_V1' into F_X_FixeS_V1
+[33m6029351[m Test fail check
+[33m10443b1[m Start stock-date-details fix.
+[33mf067a34[m Merge branch 'main' into F_X_FixeS_V1
+[33ma31afb0[m Merge pull request #169 from RAF-SI-2024/fix-client-card-endpoint
+[33m6aeb013[m[33m ([m[1;31mupstream/fix-client-card-endpoint[m[33m)[m Fix client's account cards endpoint route
+[33m08f2d05[m Merge pull request #168 from RAF-SI-2024/Offer_Fix
+[33mb3c475e[m Fix All
+[33m00b767e[m Merge pull request #167 from pjovanovic12820rn/F_fix_tax
+[33m9a22b87[m Tax portal fixed
+[33mdd70af7[m Pagination added
+[33m76630d1[m Bank profil fetch fix
+[33mf074016[m Merge branch 'upstream_main'
+[33m52e0997[m Merge pull request #163 from mgajtanovic8521rn/main
+[33mf33c39a[m Card fixes and small account creation fix
+[33m7cee5b8[m Card fixes.
+[33m1c06bc8[m Uradjen active offers
+[33m990ac06[m Merge pull request #162 from RAF-SI-2024/Front_Lead_Fix
+[33md0f4198[m[33m ([m[1;31mupstream/Front_Lead_Fix[m[33m)[m Add Use Option in Portfolio
+[33m3a13074[m Merge pull request #161 from RAF-SI-2024/Front_Lead_Fix
+[33m3ef5f25[m Test comment
+[33mfc6cbcc[m Big fix
+[33m81f6ec9[m Start smaller fixes, fancy dropdown input field.
+[33ma2a5d2f[m Merge pull request #158 from djordjeveljkovic/F_FIX
+[33m3360d9c[m tests
+[33m21ecd7d[m revert
+[33me9821d4[m build
+[33m81af48b[m fix
+[33m72f66e6[m Merge pull request #157 from djordjeveljkovic/F_CICD
+[33m25d5af4[m test
+[33m57f9372[m Merge pull request #155 from pjovanovic12820rn/F_147_reimplemetation_ban_profil
+[33mdf9aecf[m Merge branch 'main' into F_147_reimplemetation_ban_profil
+[33m7d9ce85[m Merge pull request #156 from djordjeveljkovic/F_ENV_CICD
+[33m469991f[m test
+[33mc08c61f[m test
+[33m7eccb9e[m test
+[33mb42e29a[m cleanup package.json
+[33mf43e0c0[m test
+[33m8f3e620[m update build
+[33m25c0081[m env file for routes
+[33mf6756e8[m Merge pull request #125 from djordjeveljkovic/F_117_Cypress_CICD
+[33m61139d6[m fix
+[33mb1bc02d[m build postsubmit
+[33md81ec72[m build test
+[33m36885bc[m build test
+[33m5197fb7[m build
+[33mde2451a[m test
+[33mfe531a9[m test
+[33m5671f9b[m test
+[33m0014dd8[m test
+[33m4d82333[m test
+[33mf9237f0[m test
+[33m792153d[m should work
+[33mb0eaa32[m works i hope
+[33m0a75d5d[m all tests passed
+[33mf30f84e[m test
+[33m5ec9914[m sad sve treba da radi
+[33mbde8e0a[m should work now
+[33m7fd36ca[m test
+[33m237c5cc[m resolve
+[33m5d136c2[m resolve
+[33m8b80d0b[m test
+[33m63e3051[m test
+[33m9f02f1b[m test
+[33m836cf4d[m test
+[33m88fe89f[m test
+[33m598f3c2[m fix: fix ci
+[33m66bf7c1[m fix: fix ci
+[33m8509635[m resolve: fix ci
+[33m325dd19[m feat: add ci
+[33m5dfafa0[m feat: update docker compose to contain back
+[33ma054804[m rebase
+[33mb69d175[m rebase
+[33m6dcfbe5[m Client name added
+[33m58b896c[m Order flow fixed
+[33m4f0433b[m Bank profile reimplemented
+[33m9b964d9[m Merge branch 'upstream_main'
+[33m1f4453d[m Merge pull request #153 from RAF-SI-2024/StockFix
+[33mf2c691e[m Merge pull request #154 from davidilic/F_146_FixSecuritiesFlow
+[33m964f1e7[m Implement and fix securities details and options flow
+[33m4e9499c[m[33m ([m[1;31mupstream/StockFix[m[33m)[m Remove random component
+[33mf1c4e81[m Merge pull request #152 from pjovanovic12820rn/F_124_fix_tax
+[33mc4e6f51[m Fix: tax flow fix
+[33mca9429c[m Merge branch 'upstream_main'
+[33mc386885[m Merge pull request #145 from RAF-SI-2024/StockFix
+[33mce2a954[m Fix
+[33m989fe53[m Merge branch 'upstream_main'
+[33me44de2c[m Merge pull request #144 from RAF-SI-2024/Fix
+[33mb0404d2[m[33m ([m[1;31mupstream/Fix[m[33m)[m Merge branch 'main' into Fix
+[33m8be9c4e[m Big Fix
+[33m2358ec9[m Merge pull request #139 from pjovanovic12820rn/F_124_fix_flow_actuary_tax
+[33m65b4980[m Merge pull request #141 from kosanovicMilan/F_123_Fix_MyPortfolio
+[33m5be3617[m Implement whole logic for portfolio component, everything is tested and works correct
+[33m2c09f47[m Make portfolio component work 100% as intended, only thing left is wait for backend to include listingID for selling security
+[33m2ff0580[m Add modal for Selling security,what left is to check backend call for that one and listingID for portfolio DTO
+[33mb52a23e[m Fix portfolio, connect it with backend and implement all it's functionalities, only left is sell button modal
+[33m6af92bd[m Merge pull request #138 from mgajtovic12020rn/main
+[33m4c35ca1[m Merge pull request #143 from kristinakatic/main
+[33m96c3efe[m uradjen profit banke i aktuari
+[33m21301c0[m Merge pull request #140 from davidilic/F_131_otc-offers-page
+[33mef123b0[m umrezen task sa backendom
+[33m248286f[m Merge branch 'RAF-SI-2024:main' into main
+[33mfeb55b7[m Implement OTC offers page (#131)
+[33m6fc4c4f[m Merge pull request #137 from RAF-SI-2024/Fix
+[33m374bd14[m Fix: Actuary limit and Approved button
+[33m972c5dd[m Napravljena komponenta za uradjene ugovore, cekam endpoint/rutu
+[33m0593447[m Merge branch 'Fix' into F_124_fix_flow_actuary_tax
+[33mdf99543[m Fix
+[33m4b68504[m Merge branch 'main' into F_124_fix_flow_actuary_tax
+[33me669588[m Merge branch 'upstream_main'
+[33mb798e36[m Merge pull request #136 from RAF-SI-2024/Small_Fix
+[33mfab9005[m Merge pull request #135 from Dusan121Nikolic/F_X_SmallFix_V2
+[33mb3a69bb[m Merge pull request #132 from Dusan121Nikolic/F_X_SmallFix_V1
+[33m103d3b8[m[33m ([m[1;31mupstream/Small_Fix[m[33m)[m Merge branch 'main' into Small_Fix
+[33me39592f[m Fix
+[33m17b0a4a[m Merge branch 'upstream_main'
+[33md59e1e2[m Fix field validation and switch to reactive forms for edit-user, new-payment and recipients components.
+[33m5a1bd8b[m Implement new account form proper field validation
+[33mf7f0e13[m Change new account creation forms to reactive forms.
+[33mc2449cc[m Fix what is required for new account creation and add disabled button css.
+[33m3502046[m Merge pull request #126 from kristinakatic/main
+[33mf6749bc[m Doradjen tax servis
+[33m02c5ae5[m Merge pull request #122 from RAF-SI-2024/Small_Fix
+[33m61ae9fb[m File system cleanup
+[33mc38e09b[m Fix
+[33mc1dbc7c[m Merge pull request #121 from davidilic/F_116_PravljenjeOrdera
+[33m2c5a0f6[m Merge pull request #115 from mgajtanovic8521rn/main
+[33m3a63d6f[m Implement order creation functionality
+[33m489f922[m Doradjen Actuary
+[33m187bdad[m Merge pull request #114 from RAF-SI-2024/Bank_Accounts
+[33m8a396a1[m Merge branch 'main' into Bank_Accounts
+[33md729a8a[m Merge pull request #113 from Dusan121Nikolic/F_X_NewErrorFix
+[33m82cbbf9[m Merge branch 'main' into F_X_NewErrorFi

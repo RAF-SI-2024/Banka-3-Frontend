@@ -34,11 +34,11 @@
     <div class="flex" style="width: 100%;text-align: left;gap: 1rem;">
       <div class="flex-1">
       <label class="mb-05">Gender</label>
-      <select class="flex-1" formControlName="gender">
-        <option value="" disabled selected>Select gender</option>
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-      </select>
+        <app-select class="flex-1" formControlName="gender">
+          <option value="" disabled selected>Select gender</option>
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </app-select>
       </div>
       <input-text class="flex-1" formControlName="birthDate" type="date" placeholder="Date of Birth"
                   label="Date of Birth"
@@ -46,20 +46,22 @@
       <div class="flex-1">
 
       <label class="mb-05">Active Status</label>
-      <select class="flex-1" formControlName="active">
+        <app-select class="flex-1" formControlName="active">
         <option [value]="true">Active</option>
         <option [value]="false">Inactive</option>
-      </select>
+      </app-select>
+
       </div>
     </div>
 
     <!-- New Role Dropdown -->
     <div>
       <label class="mb-05">Role</label>
-      <select formControlName="role">
+      <app-select formControlName="role">
         <option value="" disabled selected>Select Role</option>
         <option *ngFor="let role of roles" [value]="role">{{ role }}</option>
-      </select>
+      </app-select>
+
     </div>
 <div class="flex gap-1 width-fit">
     <app-button type="submit">Register Employee</app-button>

@@ -2,12 +2,13 @@
   <h2>New Payment</h2>
   <form [formGroup]="paymentForm" class="flex-col gap-1" (ngSubmit)="onSubmit()">
     <label>Sender Account Number</label>
-    <select id="senderAccountNumber" formControlName="senderAccountNumber" required>
+    <app-select id="senderAccountNumber" formControlName="senderAccountNumber" required>
       <option value="" disabled>Select Sender Account</option>
       <option *ngFor="let account of accounts" [value]="account.accountNumber">
         {{ account.accountNumber }} ({{ account.owner.firstName }} {{ account.owner.lastName }})
       </option>
-    </select>
+    </app-select>
+
     <div class="error"
          *ngIf="paymentForm.get('senderAccountNumber')?.touched && paymentForm.get('senderAccountNumber')?.hasError('required')">
       Sender account is required.

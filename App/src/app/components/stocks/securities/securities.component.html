@@ -1,40 +1,66 @@
 <div class="securities-container">
   <div class="header">
     <div class="search-bar">
-      <input type="text" placeholder="Search Ticker..." [(ngModel)]="searchTerm" (input)="onSearch()">
+      <input-text
+        type="text"
+        placeholder="Search Ticker..."
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()">
+      </input-text>
     </div>
-    <button class="sort-button" (click)="onSort()">
+    <app-button class="sort-button" (click)="onSort()">
       SORT BY:
-      @if (sortBy === 'price') { <span>Price</span> }
-      @if (sortBy === 'volume') { <span>Volume</span> }
-      @if (sortBy === 'maintenanceMargin') { <span>Margin</span> }
-      @if (!sortBy) { <span>None</span> }
-      @if (sortOrder === 'asc') { <span>▲</span> }
-      @if (sortOrder === 'desc') { <span>▼</span> }
-    </button>
+      @if (sortBy === 'price') {
+        <span>Price</span>
+      }
+      @if (sortBy === 'volume') {
+        <span>Volume</span>
+      }
+      @if (sortBy === 'maintenanceMargin') {
+        <span>Margin</span>
+      }
+      @if (!sortBy) {
+        <span>None</span>
+      }
+      @if (sortOrder === 'asc') {
+        <span>▲</span>
+      }
+      @if (sortOrder === 'desc') {
+        <span>▼</span>
+      }
+    </app-button>
+
   </div>
 
   <div class="security-types">
-    <button class="security-type-button"
-            [class.active]="selectedSecurityType === 'All'"
-            (click)="onSelectSecurityType('All')">
+    <app-button
+      class="security-type-button"
+      [class.active]="selectedSecurityType === 'All'"
+      (click)="onSelectSecurityType('All')">
       All
-    </button>
-    <button class="security-type-button"
-            [class.active]="selectedSecurityType === 'Stock'"
-            (click)="onSelectSecurityType('Stock')">
+    </app-button>
+
+    <app-button
+      class="security-type-button"
+      [class.active]="selectedSecurityType === 'Stock'"
+      (click)="onSelectSecurityType('Stock')">
       Stocks
-    </button>
-    <button class="security-type-button"
-            [class.active]="selectedSecurityType === 'Future'"
-            (click)="onSelectSecurityType('Future')">
+    </app-button>
+
+    <app-button
+      class="security-type-button"
+      [class.active]="selectedSecurityType === 'Future'"
+      (click)="onSelectSecurityType('Future')">
       Futures
-    </button>
-    <button class="security-type-button"
-            [class.active]="selectedSecurityType === 'Forex'"
-            (click)="onSelectSecurityType('Forex')">
+    </app-button>
+
+    <app-button
+      class="security-type-button"
+      [class.active]="selectedSecurityType === 'Forex'"
+      (click)="onSelectSecurityType('Forex')">
       Forex pairs
-    </button>
+    </app-button>
+
   </div>
 
   <div class="content">
@@ -44,31 +70,37 @@
       <div class="filter-group">
         <label>Exchange:</label>
         <div>
-          <input type="text" placeholder="Prefix" [(ngModel)]="exchangePrefix" (input)="onFilterChange()">
+          <input-text
+            type="text"
+            placeholder="Prefix"
+            [(ngModel)]="exchangePrefix"
+            (input)="onFilterChange()">
+          </input-text>
         </div>
       </div>
 
       <div class="filter-group">
         <label>Price:</label>
         <div class="range-inputs">
-          <input type="number" placeholder="Min" [(ngModel)]="priceRange.min" (input)="onRangeFilterChange()">
-          <input type="number" placeholder="Max" [(ngModel)]="priceRange.max" (input)="onRangeFilterChange()">
+          <input-text type="number" placeholder="Min" [(ngModel)]="priceRange.min" (input)="onRangeFilterChange()"></input-text>
+          <input-text type="number" placeholder="Max" [(ngModel)]="priceRange.max" (input)="onRangeFilterChange()"></input-text>
+
         </div>
       </div>
 
       <div class="filter-group">
         <label>Volume:</label>
         <div class="range-inputs">
-          <input type="number" placeholder="Min" [(ngModel)]="volumeRange.min" (input)="onRangeFilterChange()">
-          <input type="number" placeholder="Max" [(ngModel)]="volumeRange.max" (input)="onRangeFilterChange()">
+          <input-text type="number" placeholder="Min" [(ngModel)]="volumeRange.min" (input)="onRangeFilterChange()"></input-text>
+          <input-text type="number" placeholder="Max" [(ngModel)]="volumeRange.max" (input)="onRangeFilterChange()"></input-text>
         </div>
       </div>
 
       <div class="filter-group">
         <label>Maintenance Margin:</label>
         <div class="range-inputs">
-          <input type="number" placeholder="Min" [(ngModel)]="marginRange.min" (input)="onRangeFilterChange()">
-          <input type="number" placeholder="Max" [(ngModel)]="marginRange.max" (input)="onRangeFilterChange()">
+          <input-text type="number" placeholder="Min" [(ngModel)]="marginRange.min" (input)="onRangeFilterChange()"></input-text>
+          <input-text type="number" placeholder="Max" [(ngModel)]="marginRange.max" (input)="onRangeFilterChange()"></input-text>
         </div>
       </div>
 
@@ -76,7 +108,7 @@
         <div class="filter-group">
           <label>Settlement Date:</label>
           <div>
-            <input type="text" placeholder="YYYY-MM-DD" [(ngModel)]="settlementDateFilter" (input)="onFilterChange()">
+            <input-text type="text" placeholder="YYYY-MM-DD" [(ngModel)]="settlementDateFilter" (input)="onFilterChange()"></input-text>
           </div>
         </div>
       }
@@ -90,9 +122,9 @@
        } @else if (!isLoading && securities.length === 0) {
          <p>No securities match the current filters.</p>
        } @else {
-        <button class="action-button refresh-all-button" (click)="refreshAllSecurities()" [disabled]="isLoading">
-          {{ isLoading ? 'Refreshing...' : 'Refresh All' }}
-        </button>
+         <app-button class="action-button refresh-all-button" (click)="refreshAllSecurities()" [disabled]="isLoading">
+           {{ isLoading ? 'Refreshing...' : 'Refresh All' }}
+         </app-button>
 
          <div class="securities-table-container">
            <table class="securities-table">
@@ -129,7 +161,7 @@
                    }
                    <td class="actions-column">
 <!--                     @if (security.type === 'Stock' || security.type === 'Future') {-->
-                       <button class="action-button buy-button" (click)="openBuyOrderModal(security)">Buy</button>
+                     <app-button class="action-button buy-button" (click)="openBuyOrderModal(security)">Buy</app-button>
 <!--                     }-->
                    </td>
                  </tr>

@@ -3,33 +3,37 @@
 
   <div class="row mb-3">
     <div class="col filter-section">
-      <input
+      <input-text
         type="text"
         [(ngModel)]="searchEmail"
         placeholder="Email"
-        class="form-control form-control-sm mb-2"
-      />
-      <input
+        class="form-control form-control-sm mb-2">
+      </input-text>
+
+      <input-text
         type="text"
         [(ngModel)]="searchFirstName"
         placeholder="First Name"
         class="form-control form-control-sm mb-2"
       />
-      <input
+      <input-text
         type="text"
         [(ngModel)]="searchLastName"
         placeholder="Last Name"
         class="form-control form-control-sm mb-2"
       />
-      <input
+      <input-text
         type="text"
         [(ngModel)]="searchPosition"
         placeholder="Position"
         class="form-control form-control-sm mb-2"
       />
-      <button (click)="applyFilter()" class="btn btn-primary btn-sm">
+      <app-button
+        (click)="applyFilter()"
+        class="btn btn-primary btn-sm">
         Search
-      </button>
+      </app-button>
+
     </div>
   </div>
 
@@ -54,31 +58,31 @@
           <td>{{ agent.usedLimit }}</td>
           <td>
             <div class="action-buttons">
-              <input
+              <input-text
                 #limitBox
                 type="number"
                 class="form-control form-control-sm limit-input"
                 placeholder="Limit"
               />
-              <button
-                class="btn btn-success btn-sm"
-                (click)="changeLimit(agent.id, limitBox.value)"
-              >
-                Update Limit
-              </button>
-              <button
+              <app-button
+              class="btn btn-success btn-sm"
+              (click)="changeLimit(agent.id, limitBox.value)">
+              Update Limit
+            </app-button>
+
+              <app-button
                 class="btn btn-warning btn-sm"
-                (click)="resetUsedLimit(agent.id)"
-              >
+                (click)="resetUsedLimit(agent.id)">
                 Reset Limit
-              </button>
-              <button
+              </app-button>
+
+              <app-button
                 [ngClass]="agentApproval[agent.id] ? 'btn-approved' : 'btn-not-approved'"
                 class="btn btn-sm"
-                (click)="toggleApproval(agent.id)"
-              >
+                (click)="toggleApproval(agent.id)">
                 {{ agentApproval[agent.id] ? "Needs Approval" : "No Approval needed" }}
-              </button>
+              </app-button>
+
             </div>
           </td>
         </tr>
@@ -98,9 +102,12 @@
       <nav>
         <ul class="pagination pagination-sm">
           <li class="page-item" [class.disabled]="currentPage === 0">
-            <button class="page-link" (click)="goToPage(currentPage - 1)">
+            <app-button
+              class="page-link"
+              (click)="goToPage(currentPage - 1)">
               Prev
-            </button>
+            </app-button>
+
           </li>
           <li class="page-item disabled">
             <span class="page-link"> Page {{ currentPage + 1 }} </span>
@@ -109,9 +116,11 @@
             class="page-item"
             [class.disabled]="(currentPage + 1) * pageSize >= totalElements"
           >
-            <button class="page-link" (click)="goToPage(currentPage + 1)">
+            <app-button
+              class="page-link"
+              (click)="goToPage(currentPage + 1)">
               Next
-            </button>
+            </app-button>
           </li>
         </ul>
       </nav>
@@ -125,8 +134,10 @@
   </div>
   <div class="panel-body">
     <pre>{{ agentLimitDetails | json }}</pre>
-    <button (click)="closeDetails()" class="btn btn-sm btn-outline-secondary">
+    <app-button
+      (click)="closeDetails()"
+      class="btn btn-sm btn-outline-secondary">
       Close
-    </button>
+    </app-button>
   </div>
 </div>

@@ -51,10 +51,11 @@
 
         <div class="flex-col gap-1 width-50">
           <label>Account Owner Type:</label>
-          <select id="accountOwnerType" formControlName="accountOwnerType" (change)="onAccountOwnerTypeChange()">
+          <app-select id="accountOwnerType" formControlName="accountOwnerType" (change)="onAccountOwnerTypeChange()">
             <option value="PERSONAL">PERSONAL</option>
             <option value="COMPANY">COMPANY</option>
-          </select>
+          </app-select>
+
 
           <!-- Company Dropdown (Conditional) -->
           <div class="flex-col info-card" *ngIf="isCompanyAccount">
@@ -67,22 +68,23 @@
 
             <div *ngIf="accountForm.get('clientId')?.value" class="flex-col gap-1">
               <label>Select Company:</label>
-              <select formControlName="selectedCompany" id="selectedCompany" (change)="onCompanySelect()"> <!-- [disabled]="loadingCompanies" -->
+              <app-select formControlName="selectedCompany" id="selectedCompany" (change)="onCompanySelect()">
                 <option [value]="null" disabled>Select a company</option>
                 <option [value]="-1">Create New Company</option>
                 <option *ngFor="let company of companies" [value]="company.id">
                   {{ company.name }} ({{ company.registrationNumber }})
                 </option>
-              </select>
+              </app-select>
+
               <div *ngIf="loadingCompanies" class="loading-message">Loading companies...</div>
               <label>Authorized Personnel (Optional):</label>
-              <select formControlName="selectedAuthorizedPersonnel" id="authorizedPersonnel" (change)="onPersonnelSelect()">
+              <app-select formControlName="selectedAuthorizedPersonnel" id="authorizedPersonnel" (change)="onPersonnelSelect()">
                 <option [value]="null">Select authorized personnel</option>
                 <option [value]="-1">Create new authorized personnel</option>
                 <option *ngFor="let personnel of availablePersonnel" [value]="personnel.id">
                   {{ personnel.firstName }} {{ personnel.lastName }}
                 </option>
-              </select>
+              </app-select>
             </div>
 
             <div *ngIf="isNewPersonnel" class="flex-col gap-1 mt-1" [formGroup]="newPersonnelForm">
@@ -106,11 +108,11 @@
               >
               </input-text>
               <label>Gender:</label>
-              <select id="gender" formControlName="gender" required>
+              <app-select id="gender" formControlName="gender" required>
                 <option value="" disabled>Gender...</option>
                 <option value="M">Male</option>
                 <option value="F">Female</option>
-              </select>
+              </app-select>
               <input-text label="Email" placeholder="Email" id="email" type="email"
                           formControlName="email" required
                           [formControlComp]="newPersonnelForm.controls['email']"
@@ -176,9 +178,9 @@
           </div>
 
           <label>Currency</label>
-          <select id="currency" formControlName="currency"> <!--[disabled] = true -->
+          <app-select id="currency" formControlName="currency">
             <option value="RSD">RSD</option>
-          </select>
+          </app-select>
 
           <input-text id="name" formControlName="name" placeholder="Account Name:" label="Account Name:" required>
           </input-text>
@@ -227,20 +229,22 @@
     <form [formGroup]="cardForm" (ngSubmit)="submitCardForm()" class="flex-col gap-1">
       <div>
         <label class="mb-05">Card Type</label>
-        <select formControlName="type" required>
+        <app-select formControlName="type" required>
           <option value="DEBIT">DEBIT</option>
           <option value="CREDIT">CREDIT</option>
-        </select>
+        </app-select>
+
       </div>
 
       <div>
         <label class="mb-05">Issuer</label>
-        <select formControlName="issuer" required>
+        <app-select formControlName="issuer" required>
           <option value="VISA">VISA</option>
           <option value="MASTERCARD">MASTERCARD</option>
           <option value="DINA">DINA</option>
           <option value="AMERICAN_EXPRESS">AMERICAN_EXPRESS</option>
-        </select>
+        </app-select>
+
       </div>
 
       <input-text label="Card Name"

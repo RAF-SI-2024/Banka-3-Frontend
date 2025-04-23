@@ -6,24 +6,10 @@
   </div>
 
   <div class="filters">
-    <input
-      type="text"
-      placeholder="Filter by Role"
-      [(ngModel)]="role"
-      (input)="filterTransactions()"
-    />
-    <input
-      type="text"
-      placeholder="Filter by Name"
-      [(ngModel)]="filterName"
-      (input)="filterTransactions()"
-    />
-    <input
-      type="text"
-      placeholder="Filter by Lastname"
-      [(ngModel)]="filterLastname"
-      (input)="filterTransactions()"
-    />
+    <input-text type="text" placeholder="Filter by Role" [(ngModel)]="role" (input)="filterTransactions()"></input-text>
+    <input-text type="text" placeholder="Filter by Name" [(ngModel)]="filterName" (input)="filterTransactions()"></input-text>
+    <input-text type="text" placeholder="Filter by Lastname" [(ngModel)]="filterLastname" (input)="filterTransactions()"></input-text>
+
   </div>
 
   <div *ngIf="loading">Loading...</div>
@@ -58,8 +44,9 @@
     <h3>Total Paid Tax: {{ paidTax }}</h3>
   </div>
   <div class="total-tax-container">
-    <button class="calculate-tax-btn" (click)="calculateTax()">
+    <app-button class="calculate-tax-btn" (click)="calculateTax()">
       Send calculated tax
-    </button>
+    </app-button>
+
   </div>
 </div>

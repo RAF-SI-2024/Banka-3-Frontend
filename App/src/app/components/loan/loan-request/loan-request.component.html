@@ -5,10 +5,10 @@
 <div class="form-grid">
     <div class="input-group">
       <label class="mb-05">Loan Type</label>
-      <select formControlName="type" id="type" (blur)="resetInvalidField('type')">
+      <app-select formControlName="type" id="type" (blur)="resetInvalidField('type')">
         <option value="" disabled>Loan Type...</option>
         <option *ngFor="let type of loanTypes" [value]="type">{{ type }}</option>
-      </select>
+      </app-select>
       <small class="error" *ngIf="isInvalid('type')">You must select a loan type.</small>
     </div>
 
@@ -21,13 +21,13 @@
 
     <div class="input-group">
       <label class="mb-05">Currency</label>
-      <select formControlName="currencyCode" id="currencyCode"
-                  (blur)="resetInvalidField('currencyCode')">
+      <app-select formControlName="currencyCode" id="currencyCode" (blur)="resetInvalidField('currencyCode')">
         <option value="" disabled>Currency...</option>
         <option *ngFor="let currency of availableCurrencies" [value]="currency.code">
           {{ currency.name }} ({{ currency.code }})
         </option>
-      </select>
+      </app-select>
+
       <small class="error" *ngIf="isInvalid('currencyCode')">You must select a currency.</small>
     </div>
 
@@ -40,11 +40,11 @@
 
     <div class="input-group">
       <label class="mb-05">Employment Status</label>
-      <select formControlName="employmentStatus" id="employmentStatus"
-                  (blur)="resetInvalidField('employmentStatus')">
+      <app-select formControlName="employmentStatus" id="employmentStatus" (blur)="resetInvalidField('employmentStatus')">
         <option value="" disabled>Employment Status...</option>
         <option *ngFor="let status of employmentStatuses" [value]="status">{{ status }}</option>
-      </select>
+      </app-select>
+
       <small class="error" *ngIf="isInvalid('employmentStatus')">You must select employment status.</small>
     </div>
 
@@ -58,13 +58,13 @@
 
     <div class="input-group">
       <label class="mb-05">Repayment Period</label>
-      <select formControlName="repaymentPeriod" id="repaymentPeriod"
-                  (blur)="resetInvalidField('repaymentPeriod')">
+      <app-select formControlName="repaymentPeriod" id="repaymentPeriod" (blur)="resetInvalidField('repaymentPeriod')">
         <option value="" disabled>Repayment Period...</option>
         <option *ngFor="let period of (repaymentOptions[selectedLoanType!] || [])" [value]="period">
           {{ period }} months
         </option>
-      </select>
+      </app-select>
+
       <small class="error" *ngIf="isInvalid('repaymentPeriod')">Repayment period is required.</small>
     </div>
 
@@ -77,23 +77,23 @@
 
     <div class="input-group">
       <label class="mb-05">Interest Rate Type</label>
-      <select formControlName="interestRateType" id="rate-type"
-                  (blur)="resetInvalidField('interestRateType')">
+      <app-select formControlName="interestRateType" id="rate-type" (blur)="resetInvalidField('interestRateType')">
         <option value="" disabled>Interest Rate Type...</option>
         <option *ngFor="let type of interestRateTypes" [value]="type">{{ type }}</option>
-      </select>
+      </app-select>
+
       <small class="error" *ngIf="isInvalid('interestRateType')">You must select a interest rate type.</small>
     </div>
 
     <div class="input-group">
       <label class="mb-05">Bank Account Number</label>
-      <select formControlName="accountNumber" id="accountNumber"
-                  (blur)="resetInvalidField('accountNumber')">
+      <app-select formControlName="accountNumber" id="accountNumber" (blur)="resetInvalidField('accountNumber')">
         <option value="" disabled>Bank Account Number...</option>
         <option *ngFor="let account of userAccounts" [value]="account.accountNumber">
           {{ account.accountNumber }} ({{ account.currencyCode }})
         </option>
-      </select>
+      </app-select>
+
       <small class="error" *ngIf="loanForm.get('accountNumber')?.errors?.['invalidCurrency']">
         The selected account currency must match the loan currency.
       </small>

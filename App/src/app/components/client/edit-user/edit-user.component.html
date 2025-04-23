@@ -21,10 +21,10 @@
       <div class="flex-1">
 
       <label class="mb-05">Gender</label>
-      <select class="flex-1" formControlName="gender">
-        <option value="M">Male</option>
-        <option value="F">Female</option>
-      </select>
+        <app-select class="flex-1" formControlName="gender">
+          <option value="M">Male</option>
+          <option value="F">Female</option>
+        </app-select>
       </div>
     </div>
     <input-text formControlName="email" [disabledInput]="true" type="email" label="Email"/>

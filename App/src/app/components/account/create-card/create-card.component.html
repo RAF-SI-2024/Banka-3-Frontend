@@ -3,10 +3,10 @@
   <form [formGroup]="cardForm" class="flex-col gap-1" (ngSubmit)="onSubmit()">
     <!-- Card Type -->
     <label>Card Type</label>
-    <select formControlName="type">
+    <app-select formControlName="type">
       <option value="DEBIT">DEBIT</option>
       <option value="CREDIT">CREDIT</option>
-    </select>
+    </app-select>
     <div *ngIf="cardForm.get('type')?.invalid && (cardForm.get('type')?.dirty || cardForm.get('type')?.touched)"
          class="error-message">
       Card type is required
@@ -14,12 +14,13 @@
 
     <!-- Issuer -->
     <label>Issuer</label>
-    <select formControlName="issuer">
+    <app-select formControlName="issuer">
       <option value="VISA">VISA</option>
       <option value="MASTERCARD">MASTERCARD</option>
       <option value="DINA">DINA</option>
       <option value="AMERICAN_EXPRESS">AMERICAN_EXPRESS</option>
-    </select>
+    </app-select>
+
     <div *ngIf="cardForm.get('issuer')?.invalid && (cardForm.get('issuer')?.dirty || cardForm.get('issuer')?.touched)"
          class="error-message">
       Issuer is required

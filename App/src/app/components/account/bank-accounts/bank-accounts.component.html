@@ -35,8 +35,8 @@
   <div *ngIf="!loading && accounts.length === 0" class="no-data">No accounts found.</div>
 
   <div class="pagination" *ngIf="totalItems > pageSize">
-    <button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">Previous</button>
+    <app-button (click)="onPageChange(currentPage - 1)" [disabled]="currentPage === 0">Previous</app-button>
     <span>Page {{ currentPage + 1 }}</span>
-    <button (click)="onPageChange(currentPage + 1)" [disabled]="(currentPage + 1) * pageSize >= totalItems">Next</button>
+    <app-button (click)="onPageChange(currentPage + 1)" [disabled]="(currentPage + 1) * pageSize >= totalItems">Next</app-button>
   </div>
 </div>

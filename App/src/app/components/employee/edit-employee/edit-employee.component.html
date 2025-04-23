@@ -42,11 +42,11 @@
       <div class="flex-1">
 
         <label class="mb-05">Gender</label>
-        <select class="flex-1" formControlName="gender">
+        <app-select class="flex-1" formControlName="gender">
           <option value="" disabled selected>Select gender</option>
           <option value="M">Male</option>
           <option value="F">Female</option>
-        </select>
+        </app-select>
       </div>
       <input-text class="flex-1" formControlName="birthDate" type="date" placeholder="Date of Birth"
                   label="Date of Birth" [disabledInput]="true"
@@ -57,10 +57,10 @@
     <!-- New Role Dropdown -->
     <div class="form-row text-left" *ngIf="isAdmin">
       <label class="mb-05">Role</label>
-      <select class="flex-1" formControlName="role">
+      <app-select class="flex-1" formControlName="role">
         <option value="" disabled selected>Select Role</option>
         <option *ngFor="let role of roles" [value]="role" [selected]="employee.role.includes(role)">{{ role }}</option>
-      </select>
+      </app-select>
     </div>
 
     <div class="flex gap-1 width-fit">

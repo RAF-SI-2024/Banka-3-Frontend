@@ -35,18 +35,19 @@
 <div class="modal" *ngIf="isNameModalOpen">
   <div class="modal-content">
     <h3>Change Account Name</h3>
-    <input type="text" [(ngModel)]="newAccountName" placeholder="Enter new account name" />
-    <button (click)="changeAccountName()">Save</button>
-    <button (click)="closeNameModal()">Cancel</button>
+    <input-text type="text" [(ngModel)]="newAccountName" placeholder="Enter new account name"></input-text>
+    <app-button (click)="changeAccountName()">Save</app-button>
+    <app-button (click)="closeNameModal()">Cancel</app-button>
   </div>
 </div>
 
 <div class="modal" *ngIf="isLimitModalOpen">
   <div class="modal-content">
     <h3>Request Account Limit Change</h3>
-    <input type="number" [(ngModel)]="newAccountLimit" placeholder="Enter new account limit" />
-    <button (click)="changeAccountLimit()">Request</button>
-    <button (click)="closeLimitModal()">Cancel</button>
+    <input-text type="number" [(ngModel)]="newAccountLimit" placeholder="Enter new account limit"></input-text>
+    <app-button (click)="changeAccountLimit()">Request</app-button>
+    <app-button (click)="closeLimitModal()">Cancel</app-button>
+
   </div>
 </div>
 

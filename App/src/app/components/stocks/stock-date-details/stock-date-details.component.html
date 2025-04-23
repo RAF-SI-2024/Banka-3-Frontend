@@ -45,12 +45,13 @@
                     @if (item.call) {
                       <div class="last-cell">
                         <span>{{ item.call.premium | number:'1.2-2' }}</span>
-                        <button
+                        <app-button
                           class="action-button x-button"
                           (click)="openBuyOptionModal(item.call)"
                           title="Buy Call">
                           X
-                        </button>
+                        </app-button>
+
                       </div>
                     } @else {
                       -
@@ -81,12 +82,12 @@
                     @if (item.put) {
                       <div class="last-cell">
                         <span>{{ item.put.premium | number:'1.2-2' }}</span>
-                        <button
+                        <app-button
                           class="action-button x-button"
                           (click)="openBuyOptionModal(item.put)"
                           title="Buy Put">
                           X
-                        </button>
+                        </app-button>
                       </div>
                     } @else {
                       -

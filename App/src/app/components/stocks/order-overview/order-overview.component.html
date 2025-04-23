@@ -7,18 +7,18 @@
 
   <div class="filter-section">
     <label for="statusFilter">Filter by Status:</label>
-    <select
+    <app-select
       id="statusFilter"
       [(ngModel)]="filterStatus"
       (change)="onFilterChange()"
-      [disabled]="loading"
-    >
+      [disabled]="loading">
       <option value="ALL">All</option>
       <option value="PENDING">Pending</option>
       <option value="APPROVED">Approved</option>
       <option value="DECLINED">Declined</option>
       <option value="DONE">Done</option>
-    </select>
+    </app-select>
+
   </div>
 
   <div *ngIf="loading" class="loading-indicator">Loading orders...</div>
@@ -52,12 +52,18 @@
         <td>
           <ng-container *ngIf="order.status === 'PENDING'">
             <!--            *ngIf="!isOrderExpired(order)" bilo u buttonu -->
-            <button (click)="approveOrder(order)" [disabled]="loading">
+            <app-button
+              (click)="approveOrder(order)"
+              [disabled]="loading">
               Approve
-            </button>
-            <button (click)="declineOrder(order)" [disabled]="loading">
+            </app-button>
+
+            <app-button
+              (click)="declineOrder(order)"
+              [disabled]="loading">
               Decline
-            </button>
+            </app-button>
+
           </ng-container>
         </td>
       </tr>
