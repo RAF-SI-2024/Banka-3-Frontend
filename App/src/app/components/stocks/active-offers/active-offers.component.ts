@@ -6,15 +6,14 @@ import { ActiveOffersService } from '../../../services/active-offers.service';
 import { ButtonComponent } from '../../shared/button/button.component';
 import { OtcOfferModalComponent } from '../../shared/otc-offer-modal/otc-offer-modal.component';
 import { AlertService } from '../../../services/alert.service';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 
 @Component({
   standalone: true,
   selector: 'app-active-offers',
   templateUrl: './active-offers.component.html',
-  styleUrls: ['./active-offers.component.css'],
-  imports: [CommonModule, FormsModule, ButtonComponent, OtcOfferModalComponent, PaginationComponent],
+  styleUrls: ['./active-offer.component.css'],
+  imports: [CommonModule, FormsModule, ButtonComponent, OtcOfferModalComponent],
 })
 export class ActiveOffersComponent implements OnInit {
   private activeOffersService = inject(ActiveOffersService);
@@ -31,20 +30,6 @@ export class ActiveOffersComponent implements OnInit {
   isCounterModalOpen = false;
   isSubmittingCounter = false;
 
-  currentPage = 1;
-  pageSize = 10;
-  pagedActiveOffers: ActiveOfferDto[] = [];
-
-  updatePagedPubilcStocks(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedActiveOffers = this.activeOffers.slice(startIndex, endIndex);
-  }
-
-  onPageChanged(page: number): void {
-    this.currentPage = page;
-    this.updatePagedPubilcStocks();
-  }
 
   ngOnInit(): void {
     this.fetchActiveOffers();

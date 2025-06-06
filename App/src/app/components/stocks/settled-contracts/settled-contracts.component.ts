@@ -7,7 +7,6 @@ import { AlertService } from '../../../services/alert.service';
 import { ContractsService } from '../../../services/contracts.service';
 import { SettledContractDto } from '../../../models/settled-contract-dto';
 import { switchMap, throwError } from 'rxjs';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-settled-contracts',
@@ -20,7 +19,6 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
     ButtonComponent,
     NgIf,
     CurrencyPipe,
-    PaginationComponent,
   ],
 })
 export class SettledContractsComponent implements OnInit {
@@ -33,20 +31,6 @@ export class SettledContractsComponent implements OnInit {
     private router: Router
   ) {}
 
-  currentPage = 1;
-  pageSize = 10;
-  pagedSettledContracts: SettledContractDto[] = [];
-
-  updatePagedSettledContracts(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedSettledContracts = this.contracts.slice(startIndex, endIndex);
-  }
-
-  onPageChanged(page: number): void {
-    this.currentPage = page;
-    this.updatePagedSettledContracts();
-  }
 
   ngOnInit(): void {
     this.loadContracts();
@@ -58,7 +42,6 @@ export class SettledContractsComponent implements OnInit {
       next: (data) => {
         this.contracts = data;
         this.loading = false;
-        this.updatePagedSettledContracts();
       },
       error: (err) => {
         this.loading = false;

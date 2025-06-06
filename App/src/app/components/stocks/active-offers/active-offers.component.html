@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let offer of pagedActiveOffers" [ngClass]="getColorClass(offer)">
+      <tr *ngFor="let offer of activeOffers" [ngClass]="getColorClass(offer)">
         <td>{{ offer.name }}</td>
         <td>
           {{ offer.stock.name }} {{ offer.stock.ticker }}
@@ -57,12 +57,6 @@
   >
 </app-otc-offer-modal>
 </div>
-
-<app-pagination
-  [totalItems]="acceptOffer.length"
-  [pageSize]="pageSize"
-  (pageChanged)="onPageChanged($event)"
->
 
 <ng-template #loadingSpinner>
   <div class="loading">Loading active offers...</div>
