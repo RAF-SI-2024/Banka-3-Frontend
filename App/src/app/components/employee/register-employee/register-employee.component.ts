@@ -68,8 +68,8 @@ export class RegisterEmployeeComponent implements OnInit {
           this.alertService.showAlert('success', 'Employee registered successfully!');
           this.router.navigate(['/employees']);
         },
-        error: () => {
-          this.alertService.showAlert('error', 'Failed to register employee. Please try again.');
+        error: (err) => {
+          this.alertService.showAlert('error', `Failed to register employee: ${err.error ?? 'Unknown error'}`);
         }
       });
     } else {
