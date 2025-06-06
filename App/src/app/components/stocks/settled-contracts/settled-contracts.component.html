@@ -1,47 +1,58 @@
 <div class="card width-fit margin-auto flex-col gap-1">
-    <h2>Contracts</h2>
+  <h2>Contracts</h2>
 
-    <div *ngIf="loading">Loading settled contracts...</div>
+  <div *ngIf="loading">Loading settled contracts...</div>
 
-    <div *ngIf="!loading && contracts.length === 0">
-      <p>No settled contracts found.</p>
-    </div>
-
-    <div *ngIf="!loading && contracts.length > 0">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Stock</th>
-            <th>Quantity</th>
-            <th>Strike Price</th>
-            <th>Premium</th>
-            <th>Settlement Date</th>
-            <th>Seller Info</th>
-            <th>Profit</th>
-            <th>Status</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let contract of contracts">
-            <td>{{ contract.stockSymbol }}</td>
-            <td>{{ contract.amount }}</td>
-            <td>{{ contract.strikePrice | currency:'USD':'symbol':'1.0-2' }}</td>
-            <td>{{ contract.premium | currency:'USD':'symbol':'1.0-2' }}</td>
-            <td>{{ contract.settlementDate }}</td>
-            <td>{{ contract.sellerInfo }}</td>
-            <td>{{ contract.profit | currency:'USD':'symbol':'1.0-2' }}</td>
-            <td>{{ contract.status }}</td>
-            <td>
-              <app-button
-                *ngIf="!contract.used && contract.status === 'VALID'"
-                (click)="onExercise(contract)"
-              >
-                Use/Exercise
-              </app-button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div *ngIf="!loading && contracts.length === 0">
+    <p>No settled contracts found.</p>
   </div>
+
+  <div *ngIf="!loading && contracts.length > 0">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Stock</th>
+          <th>Quantity</th>
+          <th>Strike Price</th>
+          <th>Premium</th>
+          <th>Settlement Date</th>
+          <th>Seller Info</th>
+          <th>Profit</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contract of contracts">
+          <td>{{ contract.stockSymbol }}</td>
+          <td>{{ contract.amount }}</td>
+          <td>
+            {{ contract.strikePrice | currency : "USD" : "symbol" : "1.0-2" }}
+          </td>
+          <td>
+            {{ contract.premium | currency : "USD" : "symbol" : "1.0-2" }}
+          </td>
+          <td>{{ contract.settlementDate }}</td>
+          <td>{{ contract.sellerInfo }}</td>
+          <td>{{ contract.profit | currency : "USD" : "symbol" : "1.0-2" }}</td>
+          <td>{{ contract.status }}</td>
+          <td>
+            <app-button
+              *ngIf="!contract.used && contract.status === 'VALID'"
+              (click)="onExercise(contract)"
+            >
+              Use/Exercise
+            </app-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <app-pagination
+      [totalItems]="contracts.length"
+      [pageSize]="pageSize"
+      (pageChanged)="onPageChanged($event)"
+    >
+    </app-pagination>
+  </div>
+</div>
