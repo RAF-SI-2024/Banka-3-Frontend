@@ -32,17 +32,11 @@ export class PaymentDetailsComponent implements OnInit {
 
   currentPage = 1;
   pageSize = 10;
-  pagedPayments: PaymentOverviewDto[] = [];
-
-  updatePagedPayments(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedPayments = this.payments.slice(startIndex, endIndex);
-  }
+  totalElements = 0;
 
   onPageChanged(page: number): void {
     this.currentPage = page;
-    this.updatePagedPayments();
+    this.loadPayments();
   }
 
   // Filter
@@ -78,7 +72,8 @@ export class PaymentDetailsComponent implements OnInit {
           // this.payments = response.content.filter(payment => !!payment.senderName); //Ovako je bilo bez prikazivanja trans
           this.payments = response.content;
           this.filteredPayments = [...this.payments];
-          this.updatePagedPayments();
+          this.totalElements = response.totalElements;
+          // this.updatePagedPayments();
         },
         error: () => {
           this.alertService.showAlert(

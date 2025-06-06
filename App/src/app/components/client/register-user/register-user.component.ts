@@ -93,7 +93,8 @@ export class RegisterUserComponent implements OnInit {
         }
       },
       error: (err) => {
-        this.alertService.showAlert('error', err?.error?.message || 'Failed to register user. Please try again.');
+        this.alertService.showAlert('error', err?.error || 'Failed to register user.');
+        this.loading = false;
       },
       complete: () => {
         this.loading = false;
