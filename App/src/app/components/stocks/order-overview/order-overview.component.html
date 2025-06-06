@@ -62,7 +62,7 @@
     </tbody>
   </table>
   <app-pagination
-    [totalItems]="orders.length"
+    [totalItems]="totalElements"
     [pageSize]="pageSize"
     (pageChanged)="onPageChanged($event)"
   >

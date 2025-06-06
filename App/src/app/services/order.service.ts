@@ -29,8 +29,8 @@ export class OrderService {
     });
   }
 
-  getOrders(status: string): Observable<PageResponse<Order>> {
-    return this.http.get<PageResponse<Order>>(this.baseUrl, {
+  getOrders(status: string, currentPage: number = 0, pageSize: number = 10): Observable<PageResponse<Order>> {
+    return this.http.get<PageResponse<Order>>(`${this.baseUrl}?page=${currentPage}&size=${pageSize}`, {
       headers: this.getAuthHeaders()
     }).pipe(
       take(1),

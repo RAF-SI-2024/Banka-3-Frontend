@@ -25,7 +25,7 @@ export class OrderOverviewComponent implements OnInit, OnDestroy {
 
   currentPage = 1;
   pageSize = 10;
-  pagedOrders: Order[] = [];
+  totalElements = 0;
 
   constructor(
     private orderService: OrderService,
@@ -41,15 +41,9 @@ export class OrderOverviewComponent implements OnInit, OnDestroy {
     this.loadOrders();
   }
 
-  updatePagedOrders(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedOrders = this.orders.slice(startIndex, endIndex);
-  }
-
   onPageChanged(page: number): void {
     this.currentPage = page;
-    this.updatePagedOrders();
+    this.loadOrders();
   }
 
   loadOrders(): void {
@@ -57,7 +51,7 @@ export class OrderOverviewComponent implements OnInit, OnDestroy {
     this.errorMessage = '';
 
     this.orderService
-      .getOrders(this.filterStatus)
+      .getOrders(this.filterStatus, this.currentPage - 1, this.pageSize)
       .pipe(
         takeUntil(this.destroy$),
         map((pageDto: PageResponse<OrderDto>): PageResponse<Order> => {
@@ -90,10 +84,9 @@ export class OrderOverviewComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (page: PageResponse<Order>) => {
-          console.log('orders', page);
           this.orders = page.content;
           this.loading = false;
-          this.updatePagedOrders();
+          this.totalElements = page.totalElements;
         },
         error: (err) => {
           console.error('Error fetching orders', err);
