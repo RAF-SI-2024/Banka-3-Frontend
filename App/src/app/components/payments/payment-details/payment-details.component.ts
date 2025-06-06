@@ -61,7 +61,7 @@ export class PaymentDetailsComponent implements OnInit {
         this.payments = response.content;
         this.filteredPayments = [...this.payments];
         this.totalItems = response.totalElements;
-        this.updatePagedPayments();
+        // this.updatePagedPayments();
       },
       error: () => {
         this.alertService.showAlert('error', 'Failed to load payments. Please try again later.');
@@ -70,10 +70,10 @@ export class PaymentDetailsComponent implements OnInit {
     });
   }
 
-  updatePagedPayments(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    this.pagedPayments = this.filteredPayments.slice(startIndex, startIndex + this.pageSize);
-  }
+  // updatePagedPayments(): void {
+  //   const startIndex = (this.currentPage - 1) * this.pageSize;
+  //   this.pagedPayments = this.filteredPayments.slice(startIndex, startIndex + this.pageSize);
+  // }
 
   onPageChanged(page: number): void {
     this.currentPage = page;
