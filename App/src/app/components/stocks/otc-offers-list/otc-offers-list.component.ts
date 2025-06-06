@@ -9,7 +9,6 @@ import { OtcService } from '../../../services/otc.service';
 import { PublicStockDto } from '../../../models/public-stock.dto';
 import { AlertService } from '../../../services/alert.service';
 import { CreateOtcOfferDto } from '../../../models/create-otc-offer.dto';
-import { PaginationComponent } from '../../shared/pagination/pagination.component';
 
 @Component({
   selector: 'app-otc-offers-list',
@@ -18,7 +17,6 @@ import { PaginationComponent } from '../../shared/pagination/pagination.componen
     CommonModule,
     ButtonComponent,
     OtcOfferModalComponent,
-    PaginationComponent,
   ],
   templateUrl: './otc-offers-list.component.html',
   styleUrl: './otc-offers-list.component.css',
@@ -35,20 +33,6 @@ export class OtcOffersListComponent implements OnInit {
   selectedStock: PublicStockDto | null = null;
   isSubmittingOffer: boolean = false;
 
-  currentPage = 1;
-  pageSize = 10;
-  pagedPubilStocks: PublicStockDto[] = [];
-
-  updatePagedPubilcStocks(): void {
-    const startIndex = (this.currentPage - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.pagedPubilStocks = this.publicStocks.slice(startIndex, endIndex);
-  }
-
-  onPageChanged(page: number): void {
-    this.currentPage = page;
-    this.updatePagedPubilcStocks();
-  }
 
   ngOnInit(): void {
     this.loadPublicStocks();
@@ -65,7 +49,6 @@ export class OtcOffersListComponent implements OnInit {
         this.isLoading = false;
         if (data.length === 0) {
         }
-        this.updatePagedPubilcStocks();
       },
       error: (err) => {
         this.errorMessage =

@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      @for (stock of pagedPubilStocks; track stock.portfolioEntryId) {
+      @for (stock of publicStocks; track stock.portfolioEntryId) {
       <tr>
         <td>{{ stock.security }}</td>
         <td>{{ stock.ticker }}</td>
@@ -43,12 +43,6 @@
       }
     </tbody>
   </table>
-  <app-pagination
-    [totalItems]="publicStocks.length"
-    [pageSize]="pageSize"
-    (pageChanged)="onPageChanged($event)"
-  >
-  </app-pagination>
   }
 </div>
 
