@@ -27,7 +27,7 @@
 
   <!-- Payment List -->
   <div id="payments-list" class="payment-list">
-    <div *ngFor="let payment of pagedPayments;" class="payment-card">
+    <div *ngFor="let payment of payments;" class="payment-card">
       <span>
         <strong>{{ payment.senderName}}</strong>
         <span *ngIf="payment.cardNumber"> ({{ payment.cardNumber }})</span>
@@ -38,7 +38,7 @@
     </div>
   </div>
   <app-pagination
-   [totalItems]="payments.length"
+   [totalItems]="totalElements"
    [pageSize]="pageSize"
    (pageChanged)="onPageChanged($event)"
  >
